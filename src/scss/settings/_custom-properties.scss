@@ -1,0 +1,53 @@
+/* ==========================================================================
+   CSS CUSTOM PROPERTIES
+   Design tokens as CSS variables — theme.json is the source of truth for
+   colours registered in the WP block editor (--wp--preset--color--*).
+   Everything else lives here.
+   ========================================================================== */
+
+:root {
+  // ++ COLOURS — grays & accents (not in theme.json) ++++++++++++++++++++++
+  --color-red:        #A82313;
+  --color-gray-light: #EAEAEA;
+  --color-gray-med:   #ACACAC;
+  --color-gray-dark:  #323232;
+
+  // ++ SEMANTIC COLOUR ALIASES +++++++++++++++++++++++++++++++++++++++++++++
+  // Primary & secondary map to WP preset vars auto-generated from theme.json
+  --focus-color:   var(--wp--preset--color--secondary);
+  --alert-color:   var(--color-red);
+  --text-color:    #000;
+  --link-color:    var(--wp--preset--color--secondary);
+  --link-hover:    var(--color-gray-dark);
+  --border-color:  var(--color-gray-med);
+  --heading-color: var(--color-gray-dark);
+
+  // ++ LAYOUT +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  // Fluid gutter — ~16px at 320px viewport, ~25px at 500px, max 48px
+  --grid-gutter: clamp(1rem, 5vw, 3rem);
+  // Fixed safe-edge padding for FSE constrained content areas.
+  // alignfull blocks use negative margins to break out of this.
+  --content-padding-inline: 25px;
+
+  // Alias WP-generated layout tokens (fallbacks for editor context)
+  --wrapper-width-base:   var(--wp--style--global--content-size, 1180px);
+  --wrapper-width-wide:   var(--wp--style--global--wide-size, 1400px);
+  --wrapper-width-narrow: 760px;
+
+  --page-header-height:   100px;
+  --logo-size:            300px;
+
+  // ++ TYPOGRAPHY ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  // Font families reference WP preset vars auto-generated from theme.json fontFamilies.
+  --font-primary:   var(--wp--preset--font-family--primary);
+  --font-secondary: var(--wp--preset--font-family--secondary);
+
+  --line-height-normal: 1.50;
+  --line-height-tight:  1.10;
+  --line-height-loose:  1.70;
+  --letter-spacing:     0.125em;
+
+  // ++ TRANSITIONS +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  --transition-ease:      all 250ms ease;
+  --transition-ease-slow: all 400ms ease;
+}

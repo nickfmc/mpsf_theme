@@ -1,0 +1,1 @@
+(()=>{"use strict";const e=window.wp.blocks,s=JSON.parse('{"UU":"launchpad/search-trigger"}');(0,e.registerBlockType)(s.UU,{edit:()=>null,save:()=>null})})();
