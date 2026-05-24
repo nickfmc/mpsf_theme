@@ -9,6 +9,7 @@ import { initModalNav }           from './modules/modal-nav.js';
 import { initMobileMenu }         from './modules/mobile-menu.js';
 import { initSearchPopup }        from './modules/search-popup.js';
 import { initDropdownMenu }       from './modules/dropdown-menu.js';
+import { initImpactSliders }      from './modules/impact-slider.js';
 
 document.addEventListener( 'DOMContentLoaded', () => {
 	// Accessibility widget (floating panel)
@@ -26,4 +27,5 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	initMobileMenu();
 	initSearchPopup();
 	initDropdownMenu();
+	initImpactSliders();
 } );

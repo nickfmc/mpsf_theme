@@ -1,50 +1,85 @@
-<!-- wp:group {"backgroundColor":"dark-grey","textColor":"white","className":"c-page-footer-upper","style":{"spacing":{"padding":{"top":"var:preset|spacing|16","bottom":"var:preset|spacing|16"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group c-page-footer-upper has-white-color has-dark-grey-background-color has-text-color has-background is-layout-constrained wp-block-group-is-layout-constrained" style="padding-top:var(--wp--preset--spacing--16);padding-bottom:var(--wp--preset--spacing--16)">
+<!-- wp:group {"backgroundColor":"cream","className":"c-page-footer-upper","style":{"spacing":{"padding":{"top":"var:preset|spacing|16","bottom":"var:preset|spacing|16"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group c-page-footer-upper has-cream-background-color has-background is-layout-constrained wp-block-group-is-layout-constrained" style="padding-top:var(--wp--preset--spacing--16);padding-bottom:var(--wp--preset--spacing--16)">
 
-    <!-- wp:columns {"className":"c-footer-widgets"} -->
-    <div class="wp-block-columns c-footer-widgets is-layout-flex wp-block-columns-is-layout-flex">
+    <!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|12","left":"var:preset|spacing|16"}}}} -->
+    <div class="wp-block-columns is-layout-flex wp-block-columns-is-layout-flex">
 
-        <!-- wp:column -->
-        <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
-            <!-- wp:heading {"level":4,"textColor":"white"} -->
-            <h4 class="wp-block-heading has-white-color has-text-color">Column 1</h4>
-            <!-- /wp:heading -->
-            <!-- wp:paragraph -->
-            <p>Add your footer content here.</p>
+        <!-- Brand column: logo + description + CTAs -->
+        <!-- wp:column {"width":"35%","className":"c-footer-brand"} -->
+        <div class="wp-block-column c-footer-brand is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:35%">
+
+            <!-- wp:site-logo {"width":160} /-->
+
+            <!-- wp:paragraph {"textColor":"dark","className":"c-footer-brand-desc","style":{"spacing":{"margin":{"top":"var:preset|spacing|6"}}}} -->
+            <p class="c-footer-brand-desc has-dark-color has-text-color" style="margin-top:var(--wp--preset--spacing--6)">Your gift is the key to Catholic education, unlocking academic excellence, faith formation, and community for thousands of children across the Diocese of Richmond.</p>
             <!-- /wp:paragraph -->
+
+            <!-- wp:buttons {"className":"c-footer-ctas","style":{"spacing":{"margin":{"top":"var:preset|spacing|8"},"blockGap":"var:preset|spacing|3"}}} -->
+            <div class="wp-block-buttons c-footer-ctas" style="margin-top:var(--wp--preset--spacing--8)">
+
+                <!-- wp:button {"backgroundColor":"coral","textColor":"white","style":{"border":{"radius":"4px"},"typography":{"fontSize":"var:preset|font-size|xs","fontWeight":"500"}}} -->
+                <div class="wp-block-button"><a class="wp-block-button__link has-coral-background-color has-white-color has-text-color has-background wp-element-button" style="border-radius:4px;font-size:var(--wp--preset--font-size--xs);font-weight:500">Contact Us</a></div>
+                <!-- /wp:button -->
+
+                <!-- wp:button {"className":"is-style-outline","textColor":"dark","style":{"border":{"radius":"4px","color":"var:preset|color|dark","width":"1px"},"typography":{"fontSize":"var:preset|font-size|xs","fontWeight":"500"}}} -->
+                <div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-dark-color has-text-color wp-element-button" style="border-radius:4px;border-color:var(--wp--preset--color--dark);border-width:1px;font-size:var(--wp--preset--font-size--xs);font-weight:500">Donate Today</a></div>
+                <!-- /wp:button -->
+
+            </div>
+            <!-- /wp:buttons -->
+
         </div>
         <!-- /wp:column -->
 
-        <!-- wp:column -->
-        <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
-            <!-- wp:heading {"level":4,"textColor":"white"} -->
-            <h4 class="wp-block-heading has-white-color has-text-color">Column 2</h4>
-            <!-- /wp:heading -->
-            <!-- wp:paragraph -->
-            <p>Add your footer content here.</p>
-            <!-- /wp:paragraph -->
-        </div>
-        <!-- /wp:column -->
+        <!-- Nav columns -->
+        <!-- wp:column {"width":"65%"} -->
+        <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:65%">
 
-        <!-- wp:column -->
-        <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
-            <!-- wp:heading {"level":4,"textColor":"white"} -->
-            <h4 class="wp-block-heading has-white-color has-text-color">Column 3</h4>
-            <!-- /wp:heading -->
-            <!-- wp:paragraph -->
-            <p>Add your footer content here.</p>
-            <!-- /wp:paragraph -->
-        </div>
-        <!-- /wp:column -->
+            <!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|8","left":"var:preset|spacing|8"}}}} -->
+            <div class="wp-block-columns is-layout-flex wp-block-columns-is-layout-flex">
 
-        <!-- wp:column -->
-        <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
-            <!-- wp:heading {"level":4,"textColor":"white"} -->
-            <h4 class="wp-block-heading has-white-color has-text-color">Column 4</h4>
-            <!-- /wp:heading -->
-            <!-- wp:paragraph -->
-            <p>Add your footer content here.</p>
-            <!-- /wp:paragraph -->
+                <!-- About Us column -->
+                <!-- wp:column -->
+                <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+
+                    <!-- wp:heading {"level":4,"textColor":"dark","className":"c-footer-nav-heading","style":{"typography":{"fontFamily":"var:preset|font-family|secondary","fontWeight":"400","fontSize":"var:preset|font-size|base"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|4"}}}} -->
+                    <h4 class="wp-block-heading c-footer-nav-heading has-dark-color has-text-color" style="font-family:var(--wp--preset--font-family--secondary);font-size:var(--wp--preset--font-size--base);font-weight:400;margin-top:0;margin-bottom:var(--wp--preset--spacing--4)">About Us</h4>
+                    <!-- /wp:heading -->
+
+                    <!-- wp:navigation {"textColor":"dark","overlayMenu":"never","className":"c-footer-nav-list","layout":{"type":"flex","orientation":"vertical"},"style":{"typography":{"fontSize":"var:preset|font-size|xs","fontWeight":"400"},"spacing":{"blockGap":"var:preset|spacing|2"}}} /-->
+
+                </div>
+                <!-- /wp:column -->
+
+                <!-- Our Cause column -->
+                <!-- wp:column -->
+                <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+
+                    <!-- wp:heading {"level":4,"textColor":"dark","className":"c-footer-nav-heading","style":{"typography":{"fontFamily":"var:preset|font-family|secondary","fontWeight":"400","fontSize":"var:preset|font-size|base"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|4"}}}} -->
+                    <h4 class="wp-block-heading c-footer-nav-heading has-dark-color has-text-color" style="font-family:var(--wp--preset--font-family--secondary);font-size:var(--wp--preset--font-size--base);font-weight:400;margin-top:0;margin-bottom:var(--wp--preset--spacing--4)">Our Cause</h4>
+                    <!-- /wp:heading -->
+
+                    <!-- wp:navigation {"textColor":"dark","overlayMenu":"never","className":"c-footer-nav-list","layout":{"type":"flex","orientation":"vertical"},"style":{"typography":{"fontSize":"var:preset|font-size|xs","fontWeight":"400"},"spacing":{"blockGap":"var:preset|spacing|2"}}} /-->
+
+                </div>
+                <!-- /wp:column -->
+
+                <!-- For Families column -->
+                <!-- wp:column -->
+                <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+
+                    <!-- wp:heading {"level":4,"textColor":"dark","className":"c-footer-nav-heading","style":{"typography":{"fontFamily":"var:preset|font-family|secondary","fontWeight":"400","fontSize":"var:preset|font-size|base"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|4"}}}} -->
+                    <h4 class="wp-block-heading c-footer-nav-heading has-dark-color has-text-color" style="font-family:var(--wp--preset--font-family--secondary);font-size:var(--wp--preset--font-size--base);font-weight:400;margin-top:0;margin-bottom:var(--wp--preset--spacing--4)">For Families</h4>
+                    <!-- /wp:heading -->
+
+                    <!-- wp:navigation {"textColor":"dark","overlayMenu":"never","className":"c-footer-nav-list","layout":{"type":"flex","orientation":"vertical"},"style":{"typography":{"fontSize":"var:preset|font-size|xs","fontWeight":"400"},"spacing":{"blockGap":"var:preset|spacing|2"}}} /-->
+
+                </div>
+                <!-- /wp:column -->
+
+            </div>
+            <!-- /wp:columns -->
+
         </div>
         <!-- /wp:column -->
 
@@ -54,23 +89,46 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:group {"backgroundColor":"black","textColor":"white","className":"c-page-footer-lower","style":{"spacing":{"padding":{"top":"var:preset|spacing|5","bottom":"var:preset|spacing|5"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group c-page-footer-lower has-white-color has-black-background-color has-text-color has-background is-layout-constrained wp-block-group-is-layout-constrained" style="padding-top:var(--wp--preset--spacing--5);padding-bottom:var(--wp--preset--spacing--5)">
+
+<!-- wp:group {"backgroundColor":"cream","className":"c-page-footer-lower","style":{"spacing":{"padding":{"top":"var:preset|spacing|6","bottom":"var:preset|spacing|6"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group c-page-footer-lower has-cream-background-color has-background is-layout-constrained wp-block-group-is-layout-constrained" style="padding-top:var(--wp--preset--spacing--6);padding-bottom:var(--wp--preset--spacing--6)">
+
+    <!-- wp:separator {"backgroundColor":"border","className":"is-style-wide","style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|6"}}}} -->
+    <hr class="wp-block-separator has-border-color-color has-border-color-background-color has-background is-style-wide" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--6)" />
+    <!-- /wp:separator -->
 
     <!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
     <div class="wp-block-group is-layout-flex wp-block-group-is-layout-flex">
 
-        <!-- wp:paragraph {"textColor":"white","className":"c-copyright","style":{"typography":{"fontSize":"var:preset|font-size|xs"}}} -->
-        <p class="c-copyright has-white-color has-text-color" style="font-size:var(--wp--preset--font-size--xs)">&copy; 2025 Site Name.</p>
+        <!-- Address -->
+        <!-- wp:paragraph {"textColor":"dark","style":{"typography":{"fontSize":"var:preset|font-size|xs"}}} -->
+        <p class="has-dark-color has-text-color" style="font-size:var(--wp--preset--font-size--xs)">7800 Carousel Lane Richmond, VA 23294</p>
         <!-- /wp:paragraph -->
 
-        <!-- wp:social-links {"iconColor":"white","iconColorValue":"#ffffff","className":"c-footer-social","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|4","left":"var:preset|spacing|4"}}}} -->
-        <ul class="wp-block-social-links c-footer-social has-icon-color is-layout-flex wp-block-social-links-is-layout-flex">
+        <!-- Social icons: blush circles with white icons -->
+        <!-- wp:social-links {"iconColor":"white","iconColorValue":"#ffffff","iconBackgroundColor":"blush","iconBackgroundColorValue":"#f3d5d8","className":"c-footer-social","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|3","left":"var:preset|spacing|3"}}}} -->
+        <ul class="wp-block-social-links c-footer-social has-icon-color has-icon-background-color is-layout-flex wp-block-social-links-is-layout-flex">
             <!-- wp:social-link {"url":"https://x.com","service":"x"} /-->
             <!-- wp:social-link {"url":"https://linkedin.com","service":"linkedin"} /-->
             <!-- wp:social-link {"url":"https://facebook.com","service":"facebook"} /-->
+            <!-- wp:social-link {"url":"https://instagram.com","service":"instagram"} /-->
         </ul>
         <!-- /wp:social-links -->
+
+        <!-- Copyright + privacy -->
+        <!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"center","style":{"spacing":{"blockGap":"var:preset|spacing|4"}}}} -->
+        <div class="wp-block-group is-layout-flex wp-block-group-is-layout-flex">
+
+            <!-- wp:paragraph {"textColor":"dark","style":{"typography":{"fontSize":"var:preset|font-size|xs"}}} -->
+            <p class="has-dark-color has-text-color" style="font-size:var(--wp--preset--font-size--xs)">Copyright &copy; 2026. McMahon Parater Scholarship Foundation, Inc. All rights reserved.</p>
+            <!-- /wp:paragraph -->
+
+            <!-- wp:paragraph {"textColor":"dark","style":{"typography":{"fontSize":"var:preset|font-size|xs"}}} -->
+            <p class="has-dark-color has-text-color" style="font-size:var(--wp--preset--font-size--xs)"><a href="#">Privacy Policy</a> | <a href="#">Information Security</a></p>
+            <!-- /wp:paragraph -->
+
+        </div>
+        <!-- /wp:group -->
 
     </div>
     <!-- /wp:group -->

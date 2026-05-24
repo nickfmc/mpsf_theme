@@ -18,5 +18,8 @@ module.exports = {
 		// Theme blocks
 		'search-trigger':  path.resolve( __dirname, 'blocks/search-trigger/index.js' ),
 		'eyebrow-heading': path.resolve( __dirname, 'blocks/eyebrow-heading/index.js' ),
+		'impact-slider':   path.resolve( __dirname, 'blocks/impact-slider/index.js' ),
+		'impact-slide':    path.resolve( __dirname, 'blocks/impact-slide/index.js' ),
+		'stat':            path.resolve( __dirname, 'blocks/stat/index.js' ),
 	},
 };

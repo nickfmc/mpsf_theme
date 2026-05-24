@@ -1,0 +1,35 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "mpsf/impact-slider",
+    "title": "Impact Slider",
+    "category": "myblocks",
+    "description": "Your Giving In Action — a full-width section with a heading, description, CTA link, and a horizontal Swiper carousel of impact/resource slides.",
+    "keywords": ["slider", "carousel", "impact", "resources", "giving"],
+    "supports": {
+        "html": false,
+        "align": ["full"],
+        "spacing": { "margin": true, "padding": false }
+    },
+    "attributes": {
+        "sectionHeading": {
+            "type": "string",
+            "default": "Your Giving In Action"
+        },
+        "sectionDescription": {
+            "type": "string",
+            "default": ""
+        },
+        "ctaLabel": {
+            "type": "string",
+            "default": "Learn More"
+        },
+        "ctaUrl": {
+            "type": "string",
+            "default": "#"
+        }
+    },
+    "textdomain": "mpsf",
+    "editorScript": "file:../../build/impact-slider.js",
+    "render": "file:./render.php"
+}

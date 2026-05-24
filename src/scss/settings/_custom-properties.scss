@@ -1,51 +1,59 @@
 /* ==========================================================================
-   CSS CUSTOM PROPERTIES
-   Design tokens as CSS variables — theme.json is the source of truth for
+   CSS CUSTOM PROPERTIES — MPSF Brand Tokens
+   Design tokens as CSS variables. theme.json is the source of truth for
    colours registered in the WP block editor (--wp--preset--color--*).
    Everything else lives here.
    ========================================================================== */
 
 :root {
-  // ++ COLOURS — grays & accents (not in theme.json) ++++++++++++++++++++++
-  --color-red:        #A82313;
-  --color-gray-light: #EAEAEA;
-  --color-gray-med:   #ACACAC;
-  --color-gray-dark:  #323232;
+  // ++ BRAND COLOURS (not in theme.json) ++++++++++++++++++++++++++++++++++++
+  // Full tonal range for use in SCSS outside the block editor
+  --color-darkest:    #50131b;  // very dark maroon
+  --color-dark:       #58262c;  // dark burgundy (primary text)
+  --color-primary:    #8c3641;  // medium burgundy (CTA bg, section bg)
+  --color-rose:       #a05b63;  // rose mauve (muted secondary)
+  --color-coral:      #d56e68;  // coral (accent buttons)
+  --color-blush:      #f3d5d8;  // light pink (social icon bg)
+  --color-peach:      #f8d2be;  // light peach
+  --color-cream:      #fffef6;  // main site background
+  --color-cream-alt:  #f6f5ea;  // card / section background
+  --color-light:      #f9f6f2;  // lightest warm gray
+  --color-border:     #dddcda;  // dividers and borders
+  --color-alert:      #ec1c24;  // error / alert red
 
   // ++ SEMANTIC COLOUR ALIASES +++++++++++++++++++++++++++++++++++++++++++++
   // Primary & secondary map to WP preset vars auto-generated from theme.json
-  --focus-color:   var(--wp--preset--color--secondary);
-  --alert-color:   var(--color-red);
-  --text-color:    #000;
-  --link-color:    var(--wp--preset--color--secondary);
-  --link-hover:    var(--color-gray-dark);
-  --border-color:  var(--color-gray-med);
-  --heading-color: var(--color-gray-dark);
+  --focus-color:   var(--wp--preset--color--coral);
+  --alert-color:   var(--color-alert);
+  --text-color:    var(--wp--preset--color--dark);
+  --link-color:    var(--wp--preset--color--primary);
+  --link-hover:    var(--wp--preset--color--dark);
+  --border-color:  var(--color-border);
+  --heading-color: var(--wp--preset--color--dark);
 
   // ++ LAYOUT +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  // Fluid gutter — ~16px at 320px viewport, ~25px at 500px, max 48px
+  // Fluid gutter — ~16px at 320px viewport, max 48px
   --grid-gutter: clamp(1rem, 5vw, 3rem);
-  // Fixed safe-edge padding for FSE constrained content areas.
-  // alignfull blocks use negative margins to break out of this.
+  // Safe-edge padding for constrained content areas
   --content-padding-inline: 25px;
 
-  // Alias WP-generated layout tokens (fallbacks for editor context)
-  --wrapper-width-base:   var(--wp--style--global--content-size, 1180px);
-  --wrapper-width-wide:   var(--wp--style--global--wide-size, 1400px);
+  // Alias WP-generated layout tokens
+  --wrapper-width-base:   var(--wp--style--global--content-size, 1240px);
+  --wrapper-width-wide:   var(--wp--style--global--wide-size, 1440px);
   --wrapper-width-narrow: 760px;
 
-  --page-header-height:   100px;
-  --logo-size:            300px;
+  --page-header-height: 80px;
+  --logo-size:          200px;
 
-  // ++ TYPOGRAPHY ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  // Font families reference WP preset vars auto-generated from theme.json fontFamilies.
-  --font-primary:   var(--wp--preset--font-family--primary);
-  --font-secondary: var(--wp--preset--font-family--secondary);
+  // ++ TYPOGRAPHY +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  // Font families reference WP preset vars from theme.json fontFamilies.
+  --font-primary:   var(--wp--preset--font-family--primary);   // DM Sans — body
+  --font-secondary: var(--wp--preset--font-family--secondary); // Playfair Display — headings
 
   --line-height-normal: 1.50;
   --line-height-tight:  1.10;
   --line-height-loose:  1.70;
-  --letter-spacing:     0.125em;
+  --letter-spacing:     0.01em;  // ~0.16px at 16px body size
 
   // ++ TRANSITIONS +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   --transition-ease:      all 250ms ease;

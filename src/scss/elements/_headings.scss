@@ -11,8 +11,8 @@ h5,
 h6,
 .h6-style {
   color: var(--heading-color);
-  font-family: var(--font-secondary);
-  font-weight: 700;
+  font-family: var(--font-secondary); // Playfair Display
+  font-weight: 400;                   // Figma uses 400 throughout
   line-height: var(--line-height-tight);
   margin: 0 0 1.5rem 0;
 }
@@ -32,69 +32,28 @@ h6 a,
   text-decoration: none;
 }
 
-// Base heading styles
-h1 {
-  font-size: clamped(45px, 56px);
-}
-
-h2 {
-  font-size: clamped(45px, 56px);
-}
-
-h3 {
-  font-size: clamped(38px, 48px);
-}
-
-h4 {
-  font-size: clamped(32px, 40px);
-}
-
-h5 {
-  font-size: clamped(24px, 28px);
-  margin-bottom: 1.2rem;
-}
-
-h6 {
-  font-size: clamped(20px, 22px);
-}
+// Base heading sizes — Playfair Display, 400 weight
+// Figma scale: h1 72px · h2 60px · h3 48px · h4 32px · h5 18px · h6 16px
+h1 { font-size: clamped(40px, 72px); line-height: 1.1; }
+h2 { font-size: clamped(32px, 60px); line-height: 1.3; }
+h3 { font-size: clamped(24px, 48px); line-height: 1.3; }
+h4 { font-size: clamped(18px, 32px); line-height: 1.3; }
+h5 { font-size: clamped(16px, 18px); line-height: 1.3; margin-bottom: 1.2rem; }
+h6 { font-size: clamped(14px, 16px); line-height: 1.3; }
 
 // Add extra spacing when headings follow paragraphs
-p:not(.is-style-eyebrow)+h1,
-p:not(.is-style-eyebrow)+.h1-style,
-ol+h1,
-ol+.h1-style,
-ul+h1,
-ul+.h1-style,
-p:not(.is-style-eyebrow)+h2,
-p:not(.is-style-eyebrow)+.h2-style,
-ol+h2,
-ol+.h2-style,
-ul+h2,
-ul+.h2-style,
-p:not(.is-style-eyebrow)+h3,
-p:not(.is-style-eyebrow)+.h3-style,
-ol+h3,
-ol+.h3-style,
-ul+h3,
-ul+.h3-style,
-p:not(.is-style-eyebrow)+h4,
-p:not(.is-style-eyebrow)+.h4-style,
-ol+h4,
-ol+.h4-style,
-ul+h4,
-ul+.h4-style,
-p:not(.is-style-eyebrow)+h5,
-p:not(.is-style-eyebrow)+.h5-style,
-ol+h5,
-ol+.h5-style,
-ul+h5,
-ul+.h5-style,
-p:not(.is-style-eyebrow)+h6,
-p:not(.is-style-eyebrow)+.h6-style,
-ol+h6,
-ol+.h6-style,
-ul+h6,
-ul+.h6-style {
+p:not(.is-style-eyebrow)+h1, p:not(.is-style-eyebrow)+.h1-style,
+ol+h1, ol+.h1-style, ul+h1, ul+.h1-style,
+p:not(.is-style-eyebrow)+h2, p:not(.is-style-eyebrow)+.h2-style,
+ol+h2, ol+.h2-style, ul+h2, ul+.h2-style,
+p:not(.is-style-eyebrow)+h3, p:not(.is-style-eyebrow)+.h3-style,
+ol+h3, ol+.h3-style, ul+h3, ul+.h3-style,
+p:not(.is-style-eyebrow)+h4, p:not(.is-style-eyebrow)+.h4-style,
+ol+h4, ol+.h4-style, ul+h4, ul+.h4-style,
+p:not(.is-style-eyebrow)+h5, p:not(.is-style-eyebrow)+.h5-style,
+ol+h5, ol+.h5-style, ul+h5, ul+.h5-style,
+p:not(.is-style-eyebrow)+h6, p:not(.is-style-eyebrow)+.h6-style,
+ol+h6, ol+.h6-style, ul+h6, ul+.h6-style {
   margin-top: 2.8rem;
 }
 
@@ -102,94 +61,82 @@ ul+.h6-style {
 .editor-content .h1-style,
 .h1-style,
 .is-style-h1-style {
-  line-height: var(--line-height-tight);
-  font-size: clamped(35px, 56px);
-  font-weight: 700;
-  letter-spacing: -0.48px;
+  font-family: var(--font-secondary);
+  font-weight: 400;
+  line-height: 1.1;
+  font-size: clamped(36px, 72px);
 
-  @media(width >=$bp-medium) {
-    font-size: clamped(45px, 56px);
+  @media (width >= $bp-medium) {
+    font-size: clamped(40px, 72px);
   }
 }
 
 .editor-content .h2-style,
 .h2-style,
 .is-style-h2-style {
-  line-height: var(--line-height-tight);
-  font-size: clamped(35px, 56px);
-  font-weight: 700;
+  font-family: var(--font-secondary);
+  font-weight: 400;
+  line-height: 1.3;
+  font-size: clamped(28px, 60px);
 
-  letter-spacing: -0.48px;
-
-  @media(width >=$bp-medium) {
-    font-size: clamped(45px, 56px);
+  @media (width >= $bp-medium) {
+    font-size: clamped(32px, 60px);
   }
-
 }
 
 .editor-content .h3-style,
 .h3-style,
 .is-style-h3-style {
-  line-height: var(--line-height-tight);
-  font-size: clamped(38px, 48px);
-  letter-spacing: -0.48px;
-  font-weight: 700;
-
-
+  font-family: var(--font-secondary);
+  font-weight: 400;
+  line-height: 1.3;
+  font-size: clamped(24px, 48px);
 }
 
 .editor-content .h4-style,
 .h4-style,
 .is-style-h4-style {
-  line-height: var(--line-height-tight);
-  font-size: clamped(32px, 40px);
-  letter-spacing: -0.48px;
-  font-weight: 700;
-
-
+  font-family: var(--font-secondary);
+  font-weight: 400;
+  line-height: 1.3;
+  font-size: clamped(18px, 32px);
 }
 
 .editor-content .h5-style,
 .h5-style,
 .is-style-h5-style {
-  line-height: var(--line-height-tight);
-  font-size: clamped(24px, 27px);
-  letter-spacing: -0.48px;
+  font-family: var(--font-secondary);
+  font-weight: 400;
+  line-height: 1.3;
+  font-size: clamped(16px, 18px);
   margin-bottom: 1.2rem;
-  font-weight: 700;
-
 }
 
 .editor-content .h6-style,
 .h6-style,
 .is-style-h6-style {
-  line-height: var(--line-height-tight);
-  font-size: clamped(20px, 22px);
-  letter-spacing: -0.48px;
-  font-weight: 700;
-
+  font-family: var(--font-secondary);
+  font-weight: 400;
+  line-height: 1.3;
+  font-size: clamped(14px, 16px);
 }
 
+// Eyebrow — DM Sans, uppercase, small caps treatment
 .is-eyebrow,
-h1.is-eyebrow,
-.h1-style.is-eyebrow,
-h2.is-eyebrow,
-.h2-style.is-eyebrow,
-h3.is-eyebrow,
-.h3-style.is-eyebrow,
-h4.is-eyebrow,
-.h4-style.is-eyebrow,
-h5.is-eyebrow,
-.h5-style.is-eyebrow,
-h6.is-eyebrow,
-.h6-style.is-eyebrow,
+h1.is-eyebrow, .h1-style.is-eyebrow,
+h2.is-eyebrow, .h2-style.is-eyebrow,
+h3.is-eyebrow, .h3-style.is-eyebrow,
+h4.is-eyebrow, .h4-style.is-eyebrow,
+h5.is-eyebrow, .h5-style.is-eyebrow,
+h6.is-eyebrow, .h6-style.is-eyebrow,
 .is-style-eyebrow,
 span.is-eyebrow {
+  font-family: var(--font-primary); // DM Sans for eyebrows
   text-transform: uppercase;
-  font-size: 19px !important;
+  font-size: 0.75rem !important;
   line-height: 1.2;
-  letter-spacing: 1.19px;
-  font-weight: 800;
+  letter-spacing: 0.1em;
+  font-weight: 500;
   margin-bottom: 5px;
 }
 
@@ -197,7 +144,6 @@ span.is-eyebrow {
   display: inline-flex;
   flex-direction: column;
 }
-
 
 p.is-eyebrow {
   margin-bottom: 0;

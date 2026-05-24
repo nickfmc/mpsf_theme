@@ -1,0 +1,262 @@
+/* ==========================================================================
+   IMPACT SLIDER — mpsf/impact-slider + mpsf/impact-slide blocks
+   Design: cream section bg, Playfair heading, 2-col slide cards (cream-alt),
+   custom Swiper nav with prev/next arrows + coral progress bar.
+   ========================================================================== */
+
+// --------------------------------------------------------------------------
+// Section wrapper
+// --------------------------------------------------------------------------
+.c-impact-slider {
+  background-color: var(--color-cream);
+  padding-block: clamp(3rem, 6vw, 5rem);
+  overflow: hidden; // prevent Swiper translate overflow
+
+  &__inner {
+    max-width: var(--wrapper-width-base);
+    margin-inline: auto;
+    padding-inline: var(--content-padding-inline);
+  }
+
+  // --------------------------------------------------------------------------
+  // Header: heading + optional description + CTA link
+  // --------------------------------------------------------------------------
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.75rem 2rem;
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  &__heading {
+    font-family: var(--font-secondary);
+    font-size: clamp(2rem, 4vw, 3.75rem); // ~32px → 60px
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--color-dark);
+    margin: 0;
+    flex: 1 1 auto;
+  }
+
+  &__desc {
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    color: var(--color-dark);
+    margin: 0;
+    max-width: 50ch;
+  }
+
+  &__cta {
+    font-family: var(--font-primary);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: color 200ms ease;
+
+    &-arrow {
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      color: var(--color-coral);
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // Swiper carousel
+  // --------------------------------------------------------------------------
+  &__swiper {
+    // Override Swiper defaults to avoid unwanted spacing
+    overflow: visible; // slides peek at edges
+  }
+
+  // --------------------------------------------------------------------------
+  // Editor preview — slides stack in a column for legibility
+  // --------------------------------------------------------------------------
+  &__slides-editor {
+    .block-editor-inner-blocks {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // Navigation: prev / next + progress bar
+  // --------------------------------------------------------------------------
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--color-dark);
+    cursor: pointer;
+    transition: var(--transition-ease);
+    flex-shrink: 0;
+
+    &:hover {
+      background-color: var(--color-dark);
+      border-color: var(--color-dark);
+      color: var(--color-cream);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-coral);
+      outline-offset: 2px;
+    }
+
+    &.swiper-button-disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+  }
+
+  // Progress bar — blush track, coral fill
+  &__progress {
+    flex: 1;
+    height: 2px;
+    background-color: var(--color-blush);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  &__progress-fill {
+    height: 100%;
+    background-color: var(--color-coral);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 350ms ease;
+  }
+}
+
+
+// --------------------------------------------------------------------------
+// IMPACT SLIDE card
+// --------------------------------------------------------------------------
+.c-impact-slide {
+  background-color: var(--color-cream-alt);
+  border-radius: 6px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 280px;
+
+  @media (max-width: 680px) {
+    grid-template-columns: 1fr;
+  }
+
+  // ---- Content column (left) ----
+  &__content {
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  &__title {
+    font-family: var(--font-secondary);
+    font-size: clamp(1.25rem, 2.5vw, 2rem); // ~20px → 32px
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--color-dark);
+    margin: 0;
+  }
+
+  &__body {
+    font-family: var(--font-primary);
+    font-size: 0.875rem; // 14px
+    line-height: 1.6;
+    color: var(--color-dark);
+    margin: 0;
+  }
+
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--color-coral);
+    color: #fff;
+    font-family: var(--font-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.6rem 1.25rem;
+    border-radius: 4px;
+    text-decoration: none;
+    align-self: flex-start;
+    transition: background-color 200ms ease;
+
+    &:hover {
+      background-color: var(--color-primary);
+      color: #fff;
+    }
+
+    // Editor-only preview span (not a link)
+    &-preview {
+      font-family: var(--font-primary);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-coral);
+      letter-spacing: 0.01em;
+    }
+  }
+
+  // ---- Media column (right) ----
+  &__media {
+    position: relative;
+    overflow: hidden;
+    min-height: 220px;
+
+    @media (max-width: 680px) {
+      min-height: 200px;
+    }
+  }
+
+  &__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  // Editor placeholder for image picker
+  &__media-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-blush);
+    border: 2px dashed var(--color-border);
+    color: var(--color-dark);
+    font-family: var(--font-primary);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background-color 200ms ease;
+    width: 100%;
+
+    &:hover {
+      background-color: var(--color-blush);
+    }
+  }
+}

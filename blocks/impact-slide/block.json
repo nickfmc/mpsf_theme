@@ -1,0 +1,47 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "mpsf/impact-slide",
+    "title": "Impact Slide",
+    "category": "myblocks",
+    "description": "A single slide within the Impact Slider — content (title, body, CTA button) on the left, image on the right.",
+    "keywords": ["slide", "card", "impact", "report", "resource"],
+    "parent": ["mpsf/impact-slider"],
+    "supports": {
+        "html": false,
+        "inserter": true
+    },
+    "attributes": {
+        "title": {
+            "type": "string",
+            "default": ""
+        },
+        "body": {
+            "type": "string",
+            "default": ""
+        },
+        "ctaLabel": {
+            "type": "string",
+            "default": "Read Report"
+        },
+        "ctaUrl": {
+            "type": "string",
+            "default": "#"
+        },
+        "imageId": {
+            "type": "number",
+            "default": 0
+        },
+        "imageUrl": {
+            "type": "string",
+            "default": ""
+        },
+        "imageAlt": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "textdomain": "mpsf",
+    "editorScript": "file:../../build/impact-slide.js",
+    "render": "file:./render.php"
+}

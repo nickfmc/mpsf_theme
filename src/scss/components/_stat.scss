@@ -1,0 +1,43 @@
+/* ==========================================================================
+   STAT COUNTER — mpsf/stat block
+   Design: large DM Sans number, short coral rule, small label text.
+   Used in the Quote & Impact section alongside a pull-quote.
+   ========================================================================== */
+
+.c-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  // Large bold number
+  &__number {
+    font-family: var(--font-primary);
+    font-size: clamp(2.5rem, 5vw, 3.375rem); // ~40px → 54px
+    font-weight: 400;
+    line-height: 1;
+    color: var(--color-dark);
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  // Short decorative horizontal rule (coral, ~40px wide, 2px tall)
+  &__line {
+    width: 2.5rem; // 40px
+    height: 2px;
+    background-color: var(--color-coral);
+    border: none;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  // Short label below the rule
+  &__label {
+    font-family: var(--font-primary);
+    font-size: 1rem; // 16px
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--color-dark);
+    margin: 0;
+  }
+}

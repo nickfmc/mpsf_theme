@@ -1,51 +1,168 @@
 /* ==========================================================================
-   FOOTER
+   FOOTER — MPSF
+   Upper: cream bg · logo + description + CTAs left · 3-col nav right
+   Lower: divider · address · social icons · copyright bar
    ========================================================================== */
 
-.c-page-footer {
-  // padding-top: 100px;
+.c-page-footer {}
 
-}
+// ++ UPPER FOOTER +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .c-page-footer-upper {
-  background-color: #fff;
-  padding-left: 25px;
-  padding-right: 25px;
-  padding-bottom: 70px;
-  padding-top: 70px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  background-color: var(--wp--preset--color--cream);
+  padding-left: var(--content-padding-inline);
+  padding-right: var(--content-padding-inline);
+
+  // Logo column sizing
+  .c-footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .c-footer-brand-desc {
+    font-size: var(--wp--preset--font-size--xs);
+    color: var(--wp--preset--color--dark);
+    line-height: var(--line-height-loose);
+    max-width: 320px;
+  }
+
+  .c-footer-ctas {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
 }
 
-.c-page-footer-lower {
-  color: #fff;
-  font-size: 15px;
+// ++ FOOTER NAV COLUMNS ++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.c-footer-nav-heading {
+  font-family: var(--font-secondary); // Playfair Display
+  font-size: var(--wp--preset--font-size--base); // 18px
+  font-weight: 400;
+  color: var(--wp--preset--color--dark);
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+.c-footer-nav-list,
+.c-footer-nav-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
-padding: 30px 25px;
-flex-direction: column;
-align-items: center;
-gap: var(--spacing-7xl, 64px);
-align-self: stretch; 
-background: var(--Colors-Background-bg-secondary_alt, #FAFAFA);
-color: var(--colors-text-text-quaternary-500, #717680);
-  > div {
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-  .o-wrapper-wide {
-    > div {
-      display: flex;
-justify-content: space-between;
-align-items: center;
-align-content: center;
-row-gap: var(--spacing-3xl, 24px);
-align-self: stretch;
-flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.625rem; // ~10px between links
+
+  li, a {
+    font-family: var(--font-primary); // DM Sans
+    font-size: var(--wp--preset--font-size--xs); // 14px
+    font-weight: 400;
+    color: var(--wp--preset--color--dark);
+    text-decoration: none;
+    line-height: var(--line-height-loose);
+    transition: var(--transition-ease);
+
+    &:hover {
+      color: var(--wp--preset--color--coral);
     }
   }
 }
 
+// wp:navigation inside footer columns
+.c-page-footer-upper {
+  .wp-block-navigation__container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+
+  .wp-block-navigation-item__content {
+    font-family: var(--font-primary);
+    font-size: var(--wp--preset--font-size--xs);
+    font-weight: 400;
+    color: var(--wp--preset--color--dark);
+    text-decoration: none;
+    padding: 0;
+
+    &:hover {
+      color: var(--wp--preset--color--coral);
+    }
+  }
+}
+
+// ++ LOWER FOOTER ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.c-page-footer-lower {
+  background: var(--wp--preset--color--cream);
+  color: var(--wp--preset--color--dark);
+  font-size: var(--wp--preset--font-size--xs);
+  padding-left: var(--content-padding-inline);
+  padding-right: var(--content-padding-inline);
+
+  // Divider line
+  hr.wp-block-separator {
+    border-color: var(--border-color);
+    opacity: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  // Bottom bar — address · social · copyright row
+  > .wp-block-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: var(--wp--preset--font-size--xs);
+    color: var(--wp--preset--color--dark);
+  }
+
+  a {
+    color: var(--wp--preset--color--dark);
+    text-decoration: none;
+    transition: var(--transition-ease);
+
+    &:hover {
+      color: var(--wp--preset--color--coral);
+    }
+  }
+}
+
+// ++ SOCIAL LINKS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 .c-footer-social {
   display: flex;
-align-items: center;
-gap: 24px;
+  align-items: center;
+  gap: 12px;
+
+  .wp-block-social-link {
+    background-color: var(--wp--preset--color--blush) !important;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-ease);
+
+    &:hover {
+      background-color: var(--wp--preset--color--coral) !important;
+    }
+
+    a {
+      padding: 6px;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--wp--preset--color--white);
+      color: var(--wp--preset--color--white);
+    }
+  }
 }

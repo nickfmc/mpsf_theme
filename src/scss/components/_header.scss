@@ -3,49 +3,52 @@
    ========================================================================== */
 
 .c-page-header {
-  background: #fff;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  height: 100px;  
-  padding-left: 25px;
-  padding-right: 25px;
-  // enable styles below for usage with headroom.js
+  background: var(--wp--preset--color--white);
+  border-bottom: 1px solid var(--border-color);
+  height: var(--page-header-height); // 80px — matches nav 45px + 17.5px padding each side
+  padding-left: var(--content-padding-inline);
+  padding-right: var(--content-padding-inline);
+  // Uncomment for headroom.js fixed-header behaviour:
   // position: fixed;
   // top: 0;
   // width: 100%;
   // z-index: z(overlay);
 }
 
-#search-button{
+// ++ SEARCH BUTTON ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#search-button {
   width: 40px;
   position: relative;
   border-radius: 5px;
 
-svg {
-  position: relative;
-  left: 10px;
-  top: 0;
-  width: 20px; 
-  height: 20px; 
-  color: var(--wp--preset--color--primary);
-}
+  svg {
+    position: relative;
+    left: 10px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--wp--preset--color--primary);
+  }
 
-&:hover {
-  &::after {
-    opacity: 1;
+  &:hover {
+    &::after {
+      opacity: 1;
+    }
   }
 }
-}
- 
+
+// ++ SEARCH POPUP ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 #search-popup {
   opacity: 0;
   position: absolute;
-  top: -100%; /* Start off-screen */
+  top: -100%;
   right: 0;
-  background: #fff; 
-  border: 1px solid #D5D7DA;
+  background: var(--wp--preset--color--white);
+  border: 1px solid var(--border-color);
   border-radius: 0 0 8px 8px;
-  transition: all 0.5s ease;
+  transition: var(--transition-ease);
   max-width: 100%;
   overflow: hidden;
   height: 100%;
@@ -53,52 +56,51 @@ svg {
   z-index: 100;
   flex-direction: column;
   text-align: center;
-  box-shadow: 0px 1px 9px 2px rgba(10, 13, 18, 0.08);
+  box-shadow: 0px 1px 9px 2px rgba(80, 19, 27, 0.06);
   padding: 10px;
   justify-content: center;
 
   .c-search-form {
     display: flex;
     justify-content: center;
+
     > div {
       height: 50px;
       max-width: calc(100% - var(--logo-size)) !important;
       align-items: center !important;
       padding: 7px 50px 7px 10px;
-          input {
-        max-width: 100%;
-        border-radius: var(--radius-md, 8px);
-        background: #FAFAFA;
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12), inset 0 -1px 2px rgba(0, 0, 0, 0.24);
-        border: 0;
-        input {
-          &:focus, &:active, &:focus-within {
 
-            outline: 2px solid var(--link-color);
-            outline-offset: 2px;
-            border-radius: 2px;
-          
-          // Add high contrast mode support
+      input {
+        max-width: 100%;
+        border-radius: 8px;
+        background: var(--wp--preset--color--cream);
+        box-shadow: inset 0 1px 3px rgba(88, 38, 44, 0.1), inset 0 -1px 2px rgba(88, 38, 44, 0.06);
+        border: 0;
+
+        &:focus,
+        &:active,
+        &:focus-within {
+          outline: 2px solid var(--focus-color);
+          outline-offset: 2px;
+          border-radius: 2px;
+
           @media (forced-colors: active) {
-            &:focus {
-              outline: 2px solid SelectedItem;
-            }
+            outline: 2px solid SelectedItem;
           }
         }
-        
+
         &::placeholder {
-          color: var(--wp--preset--color--primary);
+          color: var(--wp--preset--color--rose);
         }
       }
     }
   }
-}
 
   .c-search-close-button {
     position: absolute;
     width: 33px;
     height: 33px;
-    color: #abadaf;
+    color: var(--wp--preset--color--rose);
     top: 5px;
     right: 5px;
     cursor: pointer;
@@ -109,17 +111,22 @@ svg {
     transition: var(--transition-ease);
     border-radius: 8px;
     display: inline-flex;
-    padding: 10px var(--spacing-xl, 16px);
+    padding: 10px 16px;
     justify-content: center;
     align-items: center;
-    gap: var(--spacing-lg, 12px);
-    /* Shadows/shadow-xs-skeuomorphic */
-   box-shadow: 0px 0px 0px 1px var(--Colors-Effects-Shadows-shadow-skeumorphic-inner-border, rgba(10, 13, 18, 0.18)) inset, 0px -2px 0px 0px var(--Colors-Effects-Shadows-shadow-skeumorphic-inner, rgba(10, 13, 18, 0.05)) inset, 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(10, 13, 18, 0.05));    
+    gap: 12px;
+    background: var(--wp--preset--color--coral);
+    color: var(--wp--preset--color--white);
+
+    box-shadow:
+      0px 0px 0px 1px rgba(80, 19, 27, 0.18) inset,
+      0px -2px 0px 0px rgba(80, 19, 27, 0.05) inset,
+      0px 1px 2px 0px rgba(80, 19, 27, 0.05);
+
     &:hover {
-      background-color: #fff;
-      color: var(--wp--preset--color--primary);
+      background: var(--wp--preset--color--primary);
+      color: var(--wp--preset--color--white);
     }
-   
   }
 
   a:focus,
@@ -127,14 +134,12 @@ svg {
   input:focus,
   textarea:focus,
   select:focus {
- 
     outline-offset: 0px;
   }
 }
 
-
 #search-popup[aria-hidden="false"] {
-  display: flex; /* Show when aria-hidden is false */
-  top: 0; /* Drop down */
+  display: flex;
+  top: 0;
   opacity: 1;
 }
