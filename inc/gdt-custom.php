@@ -75,3 +75,10 @@ function mpsf_lang_selector_shortcode(): string {
 	return $html;
 }
 add_shortcode( 'mpsf_lang_selector', 'mpsf_lang_selector_shortcode' );
+
+
+/**
+ * Disable Gravity Forms' own opinionated CSS so our theme styles take over
+ * cleanly without specificity battles.
+ */
+add_filter( 'gform_disable_print_form_css', '__return_true' );

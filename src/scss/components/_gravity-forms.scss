@@ -1,0 +1,388 @@
+/* ==========================================================================
+   GRAVITY FORMS — mpsf theme
+   Design: blush-pink borders, burgundy labels, blush placeholders,
+   coral submit button. Matches Figma node 455:3572.
+   Requires: add_filter( 'gform_disable_print_form_css', '__return_true' )
+   so GForms' own stylesheet doesn't conflict.
+   ========================================================================== */
+
+// Inline SVG chevron used for <select> — small burgundy downward caret
+$gf-select-chevron: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%2358262c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E";
+
+// --------------------------------------------------------------------------
+// Shared input token — applied to every text-like field and textarea
+// --------------------------------------------------------------------------
+%gf-input-base {
+  display: block;
+  width: 100%;
+  padding: 0.625rem 0.8rem;
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-dark);
+  background-color: var(--color-cream); // #fffef6 — warm cream, not pure white
+  border: 1.5px solid var(--color-blush);
+  border-radius: 4px;
+  box-shadow: none;
+  appearance: none;
+  transition: border-color 150ms ease, outline-color 150ms ease;
+
+  &::placeholder {
+    color: var(--color-blush);
+    opacity: 1; // Firefox reduces opacity by default
+  }
+
+  &:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-color: var(--color-primary);
+  }
+
+  // Error state — applied when parent .gfield gets .gfield_error
+  .gfield_error & {
+    border-color: var(--color-alert);
+
+    &:focus {
+      outline-color: var(--color-alert);
+    }
+  }
+}
+
+// --------------------------------------------------------------------------
+// Wrapper
+// --------------------------------------------------------------------------
+.gform_wrapper {
+
+  // --------------------------------------------------------------------------
+  // Optional form title / description
+  // --------------------------------------------------------------------------
+  .gform_heading {
+    margin-bottom: 1.5rem;
+  }
+
+  .gform_title {
+    font-family: var(--font-secondary);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 400;
+    color: var(--color-dark);
+    margin: 0 0 0.5rem;
+  }
+
+  .gform_description {
+    font-family: var(--font-primary);
+    font-size: 0.9375rem;
+    color: var(--color-rose);
+    margin: 0;
+  }
+
+  // --------------------------------------------------------------------------
+  // Fields list — reset <ul> defaults and stack vertically
+  // --------------------------------------------------------------------------
+  .gform_fields {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  // --------------------------------------------------------------------------
+  // Individual field row
+  // --------------------------------------------------------------------------
+  .gfield {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    // Hidden fields must not create blank gaps
+    &--type-hidden,
+    &--type-honeypot {
+      display: none !important;
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // Label
+  // --------------------------------------------------------------------------
+  .gfield_label {
+    display: block;
+    font-family: var(--font-primary);
+    font-size: 0.75rem;       // 12px
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-dark);
+    margin: 0;
+  }
+
+  // Required asterisk — coral to distinguish from label text
+  .gfield_required {
+    color: var(--color-coral);
+    margin-left: 2px;
+  }
+
+  // --------------------------------------------------------------------------
+  // Input container
+  // --------------------------------------------------------------------------
+  .ginput_container {
+    width: 100%;
+  }
+
+  // ---- Text-like inputs ----
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="number"],
+  input[type="date"],
+  input[type="time"],
+  input[type="password"],
+  input[type="search"] {
+    @extend %gf-input-base;
+  }
+
+  // ---- Select ----
+  select {
+    @extend %gf-input-base;
+    padding-right: 2.5rem; // room for chevron
+    background-image: url("#{$gf-select-chevron}");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+    cursor: pointer;
+
+    // Hide browser default arrow
+    &::-ms-expand {
+      display: none;
+    }
+  }
+
+  // ---- Textarea ----
+  textarea {
+    @extend %gf-input-base;
+    min-height: 9rem; // ~144px — matches Figma message field
+    resize: vertical;
+  }
+
+  // ---- File upload ----
+  input[type="file"] {
+    font-family: var(--font-primary);
+    font-size: 0.875rem;
+    color: var(--color-dark);
+    cursor: pointer;
+
+    &:focus {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+  }
+
+  // ---- Checkbox & Radio ----
+  .gfield--type-checkbox,
+  .gfield--type-radio {
+    .gfield_checkbox,
+    .gfield_radio {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    label {
+      font-family: var(--font-primary);
+      font-size: 0.9375rem;
+      font-weight: 400;
+      color: var(--color-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      width: 1rem;
+      height: 1rem;
+      flex-shrink: 0;
+      accent-color: var(--color-primary);
+      cursor: pointer;
+
+      &:focus {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // Sub-labels (e.g. Name field first/last)
+  // --------------------------------------------------------------------------
+  .gfield_label_before_complex {
+    font-family: var(--font-primary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-dark);
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+
+  .ginput_complex {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    > span {
+      flex: 1 1 160px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .ginput_full {
+      flex: 1 1 100%;
+    }
+
+    label {
+      font-family: var(--font-primary);
+      font-size: 0.6875rem; // 11px sub-labels
+      color: var(--color-rose);
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // Helper / description text
+  // --------------------------------------------------------------------------
+  .gfield_description {
+    font-family: var(--font-primary);
+    font-size: 0.8125rem; // 13px
+    color: var(--color-rose);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  // --------------------------------------------------------------------------
+  // Validation — field-level error message
+  // --------------------------------------------------------------------------
+  .validation_message {
+    font-family: var(--font-primary);
+    font-size: 0.8125rem;
+    color: var(--color-alert);
+    margin: 0.25rem 0 0;
+    display: block;
+  }
+
+  // --------------------------------------------------------------------------
+  // Form-level validation summary (above the form on submit failure)
+  // --------------------------------------------------------------------------
+  .gform_validation_errors,
+  .validation_error {
+    background-color: color-mix(in srgb, var(--color-alert) 8%, #fff);
+    border: 1.5px solid var(--color-alert);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+
+    h2,
+    .gform_submission_error {
+      font-family: var(--font-primary);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--color-alert);
+      margin: 0;
+    }
+
+    .gform_validation_error_link {
+      color: var(--color-alert);
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // Confirmation message (shown after successful submit)
+  // --------------------------------------------------------------------------
+  .gform_confirmation_message {
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    color: var(--color-dark);
+    line-height: 1.6;
+    padding: 1.25rem;
+    background-color: var(--color-cream-alt);
+    border-left: 3px solid var(--color-coral);
+    border-radius: 4px;
+  }
+
+  // --------------------------------------------------------------------------
+  // Footer — submit button row
+  // --------------------------------------------------------------------------
+  .gform_footer,
+  .gform_page_footer {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  // Submit button — matches Figma "3-S-Coral-Button".
+  // Covers: GF < 2.7 (.gform_button), GF 2.7+ (.gform-button), and bare
+  // input/button[type="submit"] fallbacks. !important on colour props so
+  // any lingering GForms inline styles can't win.
+  .gform_button,
+  .gform-button,
+  .gform_button--white,
+  input[type="submit"],
+  button[type="submit"] {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.65rem 1.25rem !important;
+    font-family: var(--font-primary) !important;
+    font-size: 0.875rem !important;     // 14px
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    color: #fff !important;
+    background-color: var(--color-coral) !important;
+    border: none !important;
+    border-radius: 5px !important;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 200ms ease;
+    appearance: none;
+    box-shadow: none !important;
+
+    &:hover {
+      background-color: var(--color-primary) !important;
+      color: #fff !important;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-coral);
+      outline-offset: 3px;
+    }
+  }
+
+  // Ajax spinner shown while submitting
+  .gform_ajax_spinner {
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+  }
+
+  // --------------------------------------------------------------------------
+  // High-contrast mode
+  // --------------------------------------------------------------------------
+  @media (forced-colors: active) {
+    input,
+    select,
+    textarea {
+      border: 1.5px solid ButtonText;
+    }
+
+    .gform_button {
+      forced-color-adjust: none;
+    }
+  }
+}
