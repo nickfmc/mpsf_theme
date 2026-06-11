@@ -2,7 +2,7 @@
  * Block editor customizations.
  * Registers custom block styles and removes unused blocks.
  */
-import { registerBlockStyle, unregisterBlockType, getBlockType } from '@wordpress/blocks';
+import { registerBlockStyle, unregisterBlockStyle, unregisterBlockType, getBlockType } from '@wordpress/blocks';
 import domReady from '@wordpress/dom-ready';
 
 registerBlockStyle( 'core/button', {
@@ -33,9 +33,9 @@ registerBlockStyle( 'core/columns', {
 
 domReady( () => {
 	// Remove default button styles — theme registers 'standard' above.
-	unregisterBlockType( 'core/button', 'fill' );
-	unregisterBlockType( 'core/button', 'outline' );
-	unregisterBlockType( 'core/button', 'squared' );
+	unregisterBlockStyle( 'core/button', 'fill' );
+	unregisterBlockStyle( 'core/button', 'outline' );
+	unregisterBlockStyle( 'core/button', 'squared' );
 
 	// Unregister blocks not used in this theme.
 	// NOTE: Do NOT unregister FSE-required blocks:

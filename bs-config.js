@@ -5,10 +5,10 @@
  * Run:  npm run bs
  */
 module.exports = {
-	proxy: 'https://launchai.local',
+	proxy: 'https://mpsf.local',
 	https: {
-		key: `${process.env.APPDATA}\\Local\\run\\router\\nginx\\certs\\launchai.local.key`,
-		cert: `${process.env.APPDATA}\\Local\\run\\router\\nginx\\certs\\launchai.local.crt`,
+		key: `${process.env.APPDATA}\\Local\\run\\router\\nginx\\certs\\mpsf.local.key`,
+		cert: `${process.env.APPDATA}\\Local\\run\\router\\nginx\\certs\\mpsf.local.crt`,
 	},
 	files: [
 		'build/**/*.css',

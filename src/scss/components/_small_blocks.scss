@@ -1,0 +1,33 @@
+.c-crosses-right {
+    position: relative;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("../img/crosses_right.svg"); 
+        background-repeat: no-repeat;
+        background-position: center right;
+        background-size: auto;
+        pointer-events: none;
+    }
+}
+
+.c-crosses-left {
+    position: relative;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("../img/crosses_left.svg"); 
+        background-repeat: no-repeat;
+        background-position: center left;
+        background-size: auto;
+        pointer-events: none;
+    }
+}

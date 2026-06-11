@@ -87,11 +87,8 @@ registerBlockType( metadata.name, {
 	},
 
 	save() {
-		const blockProps = useBlockProps.save( { className: 'c-impact-slider' } );
-		return (
-			<section { ...blockProps }>
-				<InnerBlocks.Content />
-			</section>
-		);
+		// render.php owns the full front-end shell (section, swiper wrapper, nav).
+		// We only need to persist the inner blocks so render.php receives them as $content.
+		return <InnerBlocks.Content />;
 	},
 } );

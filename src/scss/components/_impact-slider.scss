@@ -1,7 +1,7 @@
 /* ==========================================================================
    IMPACT SLIDER — mpsf/impact-slider + mpsf/impact-slide blocks
-   Design: cream section bg, Playfair heading, 2-col slide cards (cream-alt),
-   custom Swiper nav with prev/next arrows + coral progress bar.
+   Design: cream section bg, Playfair heading, full-viewport-width Swiper
+   carousel, custom flat coral arrow nav + coral progress bar.
    ========================================================================== */
 
 // --------------------------------------------------------------------------
@@ -9,13 +9,28 @@
 // --------------------------------------------------------------------------
 .c-impact-slider {
   background-color: var(--color-cream);
-  padding-block: clamp(3rem, 6vw, 5rem);
-  overflow: hidden; // prevent Swiper translate overflow
+  overflow: hidden; // clips Swiper translate overflow at viewport edges
 
+  // Break out of any parent max-width container to span the full viewport.
+  // 50% is 50% of the parent container; 50vw is half the viewport.
+  // The difference shifts the left edge to x=0, and width:100vw fills the rest.
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+
+  // Flex column so header / full-width swiper / nav stack cleanly
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2rem);
+  padding-block: clamp(3rem, 6vw, 5rem);
+
+  // --------------------------------------------------------------------------
+  // Inner wrapper — constrains header and nav to content width
+  // --------------------------------------------------------------------------
   &__inner {
     max-width: var(--wrapper-width-base);
     margin-inline: auto;
     padding-inline: var(--content-padding-inline);
+    width: 100%;
   }
 
   // --------------------------------------------------------------------------
@@ -24,9 +39,9 @@
   &__header {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: flex-start;
+
     gap: 0.75rem 2rem;
-    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
   }
 
   &__heading {
@@ -70,11 +85,25 @@
   }
 
   // --------------------------------------------------------------------------
-  // Swiper carousel
+  // Swiper — sits outside __inner so it spans the full viewport width.
+  // width: 100% anchors it to the section (100vw) so Swiper measures correctly.
+  // overflow: visible lets Swiper translate slides; the parent overflow: hidden
+  // clips the carousel at the viewport edges for the peek effect.
   // --------------------------------------------------------------------------
   &__swiper {
-    // Override Swiper defaults to avoid unwanted spacing
-    overflow: visible; // slides peek at edges
+    width: 100%; // must be explicit — prevents Swiper from measuring 2^25 px
+    overflow: visible;
+    flex-shrink: 0;
+
+    // Each slide is constrained to the inner container width.
+    // slidesPerView: 'auto' in JS reads this CSS width so each card fills the
+    // 1240 px wrapper; the next slide peeks from the right viewport edge.
+    .swiper-slide {
+      width: var(--wrapper-width-base); // 1240px
+      // Fallback for viewports narrower than the wrapper (mobile): fill the
+      // viewport minus horizontal padding so there's breathing room.
+      max-width: calc(100vw - 2 * var(--content-padding-inline));
+    }
   }
 
   // --------------------------------------------------------------------------
@@ -89,38 +118,41 @@
   }
 
   // --------------------------------------------------------------------------
-  // Navigation: prev / next + progress bar
+  // Navigation: grouped arrows on the left + progress bar filling the right
   // --------------------------------------------------------------------------
   &__nav {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-top: clamp(1rem, 2vw, 1.5rem);
+    gap: 1.5rem;
+  }
+
+  // Both prev/next buttons sit side-by-side on the left
+  &__nav-btns {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-shrink: 0;
   }
 
   &__btn {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    border: 1px solid var(--color-border);
-    border-radius: 50%;
-    background: transparent;
-    color: var(--color-dark);
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--color-coral);
     cursor: pointer;
-    transition: var(--transition-ease);
-    flex-shrink: 0;
+    transition: color 200ms ease;
+    line-height: 1;
 
     &:hover {
-      background-color: var(--color-dark);
-      border-color: var(--color-dark);
-      color: var(--color-cream);
+      color: var(--color-primary);
     }
 
     &:focus-visible {
       outline: 2px solid var(--color-coral);
-      outline-offset: 2px;
+      outline-offset: 3px;
+      border-radius: 2px;
     }
 
     &.swiper-button-disabled {

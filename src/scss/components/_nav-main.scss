@@ -2,23 +2,39 @@
    MAIN NAVIGATION AND MENU STYLES
    ========================================================================== */
 
-// ++ hide main-navigation wrapper (responsive first) +++++++++++++++++++++++++++++++++
+// ++ NAVIGATION WRAPPER +++++++++++++++++++++++++++++++++++++++++++++++++++++
+// FSE: .c-main-navigation is a *flex item* inside .o-page-grid (not absolute).
+// It grows to fill the middle space between logo and header-actions.
+// The navigation block's own core CSS handles hamburger ↔ inline toggle.
+
 .c-main-navigation {
-  display: none;
+  // Let the nav block's own styles control mobile visibility (hamburger).
+  // We no longer hide with display:none — the block handles that internally.
+  flex: 1;               // fill space between logo and actions
+  min-width: 0;          // allow shrinking inside flex parent
 }
 
-// ++ show main navigation wrapper when the time is right ++++++++++++++++++++++++++++++++++++
 @media (width >= $bp-large) {
   .c-main-navigation {
-    /* DISPLAY FULL SIZE MENU */
-    padding-left: calc(var(--logo-size) + 1rem);
-    width: 100%;
-    position: absolute;
-    right: 0;
-    top: 0;
-    min-width: 60%;
+    height: var(--page-header-height);
     display: flex;
+    align-items: center;
     justify-content: flex-end;
+
+    // Make the WP navigation responsive container fill this wrapper on desktop
+    .wp-block-navigation__responsive-container {
+      display: flex !important;
+      align-items: center;
+      justify-content: flex-end;
+      width: 100%;
+    }
+
+    .wp-block-navigation__container {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: nowrap;
+    }
   }
 }
 
@@ -26,7 +42,8 @@
 
 // ++ menu styles (top level) +++++++++++++++++++++++++++++++++
 @media (width >= $bp-large) {
-  .c-main-menu {
+  .c-main-menu,
+  .c-page-header .wp-block-navigation__container {
     display: inline-flex;
     align-items: flex-start;
     position: relative;
@@ -63,18 +80,20 @@
         border: 0;
     }
   }
-  .c-main-menu > li {
+  .c-main-menu > li,
+  .c-page-header .wp-block-navigation__container > .wp-block-navigation-item {
     margin: 0;
     line-height: 1;
     position: relative;
     white-space: nowrap;
   }
-  .c-main-menu > li > a {
+  .c-main-menu > li > a,
+  .c-page-header .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content {
     color: var(--wp--preset--color--secondary);
     display: block;
-    font-size: 1rem;
+    font-size: 14px;
     margin: 0;
-    padding: 41px 20px 41px 1rem;
+    padding: 30px 12px 30px 12px;
     position: relative;
     &:first-of-type > a {
       padding-left: 0;
@@ -103,14 +122,16 @@
     }
     
   }
-  .c-main-menu > li > a:hover {
+  .c-main-menu > li > a:hover,
+  .c-page-header .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content:hover {
     color: #000;
     // &::after {
     //   background-color: var(--wp--preset--color--primary);
     //   transition: var(--transition-ease);
     // }
   }
-  .c-main-menu > li:hover a{
+  .c-main-menu > li:hover a,
+  .c-page-header .wp-block-navigation__container > .wp-block-navigation-item:hover .wp-block-navigation-item__content {
    
     &::after {
       background-color: var(--wp--preset--color--primary);
@@ -121,17 +142,24 @@
   .c-main-menu > .current-page-ancestor > a,
   .c-main-menu > .current_page_item > a,
   .c-main-menu > .current_page_parent > a,
-  .c-main-menu > .current_page_ancestor > a {
+  .c-main-menu > .current_page_ancestor > a,
+  .c-page-header .wp-block-navigation__container > .current-menu-item > .wp-block-navigation-item__content,
+  .c-page-header .wp-block-navigation__container > .current-page-ancestor > .wp-block-navigation-item__content,
+  .c-page-header .wp-block-navigation__container > .current_page_item > .wp-block-navigation-item__content,
+  .c-page-header .wp-block-navigation__container > .current_page_parent > .wp-block-navigation-item__content,
+  .c-page-header .wp-block-navigation__container > .current_page_ancestor > .wp-block-navigation-item__content {
     color: #222222
   }
 
 // HAS CHILDREN DROPDOWN
-  .c-main-menu > .menu-item-has-children > a {
+  .c-main-menu > .menu-item-has-children > a,
+  .c-page-header .wp-block-navigation__container > .wp-block-navigation-item.has-child > .wp-block-navigation-item__content {
     position: relative; 
    
 }
 
-.c-main-menu > .menu-item-has-children:hover > a::before {
+.c-main-menu > .menu-item-has-children:hover > a::before,
+.c-page-header .wp-block-navigation__container > .wp-block-navigation-item.has-child:hover > .wp-block-navigation-item__content::before {
   transform: rotate(180deg);
 }
 
@@ -144,12 +172,16 @@
 @media (width >= $bp-large) {
   .c-main-menu li:hover ul, 
   .c-main-menu li:focus ul,
-  .c-main-menu .sub-menu.is-active {
+  .c-main-menu .sub-menu.is-active,
+  .c-page-header .wp-block-navigation__container .wp-block-navigation-item:hover .wp-block-navigation__submenu-container,
+  .c-page-header .wp-block-navigation__container .wp-block-navigation-item:focus-within .wp-block-navigation__submenu-container,
+  .c-page-header .wp-block-navigation__container .wp-block-navigation__submenu-container.is-active {
     top: 100%;
     opacity: 1;
     visibility: visible;
   }
-  .c-main-menu ul {
+  .c-main-menu ul,
+  .c-page-header .wp-block-navigation__submenu-container {
     background-color: #fff;
     box-shadow: 0px 12px 16px -4px rgba(0, 0, 0, 0.25);
     border: 1px solid var(--Colors-Border-border-secondary, #E9EAEB);
@@ -169,7 +201,8 @@
     flex-direction: column;
     padding: 8px;
   }
-  .c-main-menu ul li {
+  .c-main-menu ul li,
+  .c-page-header .wp-block-navigation__submenu-container .wp-block-navigation-item {
     position: relative;
     max-height: 0;
     transition: max-height 300ms linear;
@@ -184,10 +217,14 @@
   }
   .c-main-menu li:hover ul li,
   .c-main-menu li:focus ul li,
-  .c-main-menu .sub-menu.is-active li {
+  .c-main-menu .sub-menu.is-active li,
+  .c-page-header .wp-block-navigation__container .wp-block-navigation-item:hover .wp-block-navigation__submenu-container .wp-block-navigation-item,
+  .c-page-header .wp-block-navigation__container .wp-block-navigation-item:focus-within .wp-block-navigation__submenu-container .wp-block-navigation-item,
+  .c-page-header .wp-block-navigation__container .wp-block-navigation__submenu-container.is-active .wp-block-navigation-item {
     max-height: 140px;
   }
-  .c-main-menu ul li a {
+  .c-main-menu ul li a,
+  .c-page-header .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
     color: var(--wp--preset--color--primary);
     font-size: 0.938rem;
     padding: 15px 15px;
@@ -195,7 +232,8 @@
     display: block;
     transition: var(--transition-ease);
   }
-  .c-main-menu ul li a:focus {
+  .c-main-menu ul li a:focus,
+  .c-page-header .wp-block-navigation__submenu-container .wp-block-navigation-item__content:focus {
     color: #000;
     border-radius: var(--radius-md, 8px);
     background-color: #FAFAFA;
@@ -208,7 +246,13 @@
   .c-main-menu ul .current-menu-parent > a,
   .c-main-menu ul .current_page_item > a,
   .c-main-menu ul .current_page_parent > a,
-  .c-main-menu ul .current_page_ancestor > a {
+  .c-main-menu ul .current_page_ancestor > a,
+  .c-page-header .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover,
+  .c-page-header .wp-block-navigation__submenu-container .current-menu-item > .wp-block-navigation-item__content,
+  .c-page-header .wp-block-navigation__submenu-container .current-menu-parent > .wp-block-navigation-item__content,
+  .c-page-header .wp-block-navigation__submenu-container .current_page_item > .wp-block-navigation-item__content,
+  .c-page-header .wp-block-navigation__submenu-container .current_page_parent > .wp-block-navigation-item__content,
+  .c-page-header .wp-block-navigation__submenu-container .current_page_ancestor > .wp-block-navigation-item__content {
     color: #000;
     border-radius: var(--radius-md, 8px);
     background-color: #FAFAFA;

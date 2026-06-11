@@ -2,8 +2,9 @@
  * Impact Slider — Swiper v11 initialisation.
  *
  * Each `.c-impact-slider__swiper` on the page gets its own Swiper instance.
- * After each slide change the custom progress bar fill width is updated to
- * reflect position in the deck (0% → 100%).
+ * Slides are sized to the inner container width (--wrapper-width-base) via CSS;
+ * a dynamic `slidesOffsetBefore` aligns the first slide's left edge with the
+ * inner container, so the next slide peeks from the right viewport edge.
  */
 
 import Swiper from 'swiper';
@@ -35,6 +36,22 @@ function updateProgress( wrapper, swiper ) {
 }
 
 /**
+ * Compute the offset (px) from the swiper element's left edge to the inner
+ * container's left edge. Passed as `slidesOffsetBefore` so the first slide
+ * starts aligned with the constrained content column.
+ *
+ * @param  {HTMLElement} swiperEl  .c-impact-slider__swiper
+ * @param  {HTMLElement} inner     .c-impact-slider__inner (header one)
+ * @returns {number}
+ */
+function getSlideOffset( swiperEl, inner ) {
+	if ( ! inner ) return 0;
+	const swiperLeft = swiperEl.getBoundingClientRect().left;
+	const innerLeft  = inner.getBoundingClientRect().left;
+	return Math.max( 0, Math.round( innerLeft - swiperLeft ) );
+}
+
+/**
  * Initialise all Impact Slider instances on the page.
  * Safe to call on DOMContentLoaded — no-ops if no sliders found.
  */
@@ -46,25 +63,23 @@ export function initImpactSliders() {
 		const swiperEl = wrapper.querySelector( '.c-impact-slider__swiper' );
 		const prevBtn  = wrapper.querySelector( '.c-impact-slider__prev' );
 		const nextBtn  = wrapper.querySelector( '.c-impact-slider__next' );
+		// The first __inner is the header row — use it as the alignment reference.
+		const inner    = wrapper.querySelector( '.c-impact-slider__inner' );
 
 		if ( ! swiperEl ) return;
 
 		const swiper = new Swiper( swiperEl, {
 			modules: [ Navigation ],
 
-			slidesPerView: 1,
-			spaceBetween:  24,
+			// 'auto' → Swiper reads slide width from CSS (.swiper-slide has
+			// width: var(--wrapper-width-base) set in _impact-slider.scss).
+			slidesPerView:      'auto',
+			spaceBetween:       24,
+			slidesOffsetBefore: getSlideOffset( swiperEl, inner ),
 
-			// Show a peek of the next slide at larger viewports
 			breakpoints: {
-				768: {
-					slidesPerView: 1.05,
-					spaceBetween:  32,
-				},
-				1024: {
-					slidesPerView: 1.1,
-					spaceBetween:  40,
-				},
+				768:  { spaceBetween: 32 },
+				1024: { spaceBetween: 40 },
 			},
 
 			navigation: {
@@ -89,5 +104,13 @@ export function initImpactSliders() {
 
 		// Set initial progress
 		updateProgress( wrapper, swiper );
+
+		// Recalculate the left-edge offset whenever the section resizes
+		// (viewport changes shift how much margin the inner container has).
+		const ro = new ResizeObserver( () => {
+			swiper.params.slidesOffsetBefore = getSlideOffset( swiperEl, inner );
+			swiper.update();
+		} );
+		ro.observe( wrapper );
 	} );
 }

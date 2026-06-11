@@ -3,9 +3,7 @@
    ========================================================================== */
 
 .c-page-header {
-  background: var(--wp--preset--color--white);
-  border-bottom: 1px solid var(--border-color);
-  height: var(--page-header-height); // 80px — matches nav 45px + 17.5px padding each side
+  background: var(--color-cream);
   padding-left: var(--content-padding-inline);
   padding-right: var(--content-padding-inline);
   // Uncomment for headroom.js fixed-header behaviour:
@@ -142,4 +140,127 @@
   display: flex;
   top: 0;
   opacity: 1;
+}
+
+// ++ HEADER ACTIONS GROUP (lang + contact — FSE) +++++++++++++++++++++++++++
+// Hidden on mobile; flex on desktop. Uses !important to override
+// the .is-layout-flex class WordPress adds to block groups.
+
+.c-header-actions {
+  display: none !important;
+
+  @media (width >= $bp-large) {
+    display: flex !important;
+    align-items: center;
+  }
+
+  // Remove shortcode block's default margin so items sit flush
+  .wp-block-shortcode {
+    margin: 0;
+  }
+}
+
+// ++ LANGUAGE SELECTOR ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.c-lang-selector {
+  display: none;
+
+  @media (width >= $bp-large) {
+    display: flex;
+    align-items: stretch;
+    // Card outline
+    border: 1.5px solid #F8D2BE;
+
+    overflow: hidden; // clips child backgrounds to the rounded corners
+    gap: 0;
+  }
+
+  // ── Each language option ─────────────────────────────────────────────────
+  &__item {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-family: var(--font-primary);
+    font-size: 0.75rem;
+    font-weight: 400;
+    font-size: 12px;
+    color: var(--color-rose); // muted burgundy for inactive
+    text-decoration: none;
+    line-height: 1;
+    transition: background-color 150ms ease, color 150ms ease;
+    background-color: transparent;
+
+    // Vertical divider between items
+    & + & {
+      border-left: 1.5px solid var(--color-border);
+    }
+
+    // Active: white pill background + full-color text
+    &.is-active {
+      background-color: var(--color-cream);
+      color: var(--color-primary);
+    }
+
+    // Hover on inactive item
+    &:not(.is-active):hover {
+      background-color: var(--color-light);
+      color: var(--color-dark);
+    }
+  }
+
+  // ── Circular flag icon ───────────────────────────────────────────────────
+  // A wrapper span clips the rectangular flag SVG into a circle.
+  &__flag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    svg {
+      // Scale up so the flag fills the circle height; excess width is clipped.
+      display: block;
+      height: 22px;
+      width: auto;
+      min-width: 22px;
+      flex-shrink: 0;
+    }
+  }
+
+  // Inactive item: desaturate the flag so it reads as "off"
+  &__item:not(.is-active) &__flag {
+    filter: grayscale(1) opacity(0.55);
+  }
+}
+
+// ++ CONTACT BUTTON +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Targets both the PHP <a> version and the FSE wp:button version.
+
+// FSE: is-style-outline button inside c-header-actions
+.c-header-actions .wp-block-button.is-style-outline .wp-block-button__link,
+// PHP fallback: direct <a>
+a.c-header-contact-btn {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  border: 1.5px solid var(--wp--preset--color--primary);
+  border-radius: 8px;
+  color: var(--wp--preset--color--primary);
+  background-color: transparent;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  transition: var(--transition-ease);
+
+  &:hover {
+    background-color: var(--wp--preset--color--primary);
+    color: var(--wp--preset--color--white);
+    border-color: var(--wp--preset--color--primary);
+  }
 }
