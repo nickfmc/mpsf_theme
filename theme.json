@@ -17,7 +17,7 @@
                 { "name": "Primary",       "slug": "primary",     "color": "#8c3641" },
                 { "name": "Coral",         "slug": "coral",       "color": "#d56e68" },
                 { "name": "Rose",          "slug": "rose",        "color": "#a05b63" },
-                { "name": "Darkest",       "slug": "darkest",     "color": "#50131b" },
+                { "name": "Wine",       "slug": "darkest",     "color": "#51141B" },
                 { "name": "Cream",         "slug": "cream",       "color": "#fffef6" },
                 { "name": "Cream Alt",     "slug": "cream-alt",   "color": "#f6f5ea" },
                 { "name": "Light",         "slug": "light",       "color": "#f9f6f2" },
@@ -105,6 +105,7 @@
     },
 
     "styles": {
+        "css": ".wp-site-blocks > * + * { margin-block-start: 0; } .is-layout-flow > .alignfull { margin-block-start: 0; }",
         "color": {
             "background": "var(--wp--preset--color--cream)",
             "text": "var(--wp--preset--color--dark)"
