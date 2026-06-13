@@ -10,6 +10,7 @@ import { initMobileMenu }         from './modules/mobile-menu.js';
 import { initSearchPopup }        from './modules/search-popup.js';
 import { initDropdownMenu }       from './modules/dropdown-menu.js';
 import { initImpactSliders }      from './modules/impact-slider.js';
+import { initFlipCards }          from './modules/flip-card.js';
 
 document.addEventListener( 'DOMContentLoaded', () => {
 	// Accessibility widget (floating panel)
@@ -28,4 +29,5 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	initSearchPopup();
 	initDropdownMenu();
 	initImpactSliders();
+	initFlipCards();
 } );

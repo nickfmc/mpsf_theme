@@ -228,6 +228,97 @@ function initDropdownMenu() {
 
 /***/ },
 
+/***/ "./src/js/modules/flip-card.js"
+/*!*************************************!*\
+  !*** ./src/js/modules/flip-card.js ***!
+  \*************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   initFlipCards: () => (/* binding */ initFlipCards)
+/* harmony export */ });
+/**
+ * Flip Card — interaction + height equalization.
+ */
+
+function flip(card, force) {
+  const next = force !== undefined ? force : !card.classList.contains('is-flipped');
+  card.classList.toggle('is-flipped', next);
+  card.querySelectorAll('.c-flip-card__toggle').forEach(btn => {
+    btn.setAttribute('aria-expanded', String(next));
+  });
+}
+function initFlipCards() {
+  document.querySelectorAll('.c-flip-card').forEach(card => {
+    const flipOn = card.dataset.flipOn ?? 'click';
+    if (flipOn === 'hover') {
+      card.addEventListener('mouseenter', () => flip(card, true));
+      card.addEventListener('mouseleave', () => flip(card, false));
+      // Keyboard / focus support for hover mode
+      card.addEventListener('focus', () => flip(card, true), true);
+      card.addEventListener('blur', () => flip(card, false), true);
+    }
+
+    // Toggle buttons always work regardless of mode
+    card.querySelectorAll('.c-flip-card__toggle').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        flip(card);
+      });
+    });
+  });
+  equalizeFlipCardRows();
+
+  // Re-equalize whenever the viewport resizes
+  const parents = getFlipCardParents();
+  parents.forEach(parent => {
+    const ro = new ResizeObserver(() => equalizeFlipCardRows());
+    ro.observe(parent);
+  });
+}
+
+/**
+ * Returns every unique direct parent element that contains at least 2 flip cards.
+ */
+function getFlipCardParents() {
+  const seen = new Set();
+  document.querySelectorAll('.c-flip-card').forEach(card => {
+    const parent = card.closest('.c-flip-card-wrapper, .wp-block-columns, .wp-block-group, .wp-block-column') ?? card.parentElement;
+    if (parent) seen.add(parent);
+  });
+  return [...seen];
+}
+
+/**
+ * Measures the natural back-face height of each flip card sibling and
+ * sets --flip-card-height on every card in the group to the tallest value.
+ */
+function equalizeFlipCardRows() {
+  const parents = getFlipCardParents();
+  parents.forEach(parent => {
+    // .c-flip-card-wrapper: cards can be at any depth inside GB containers.
+    // WP columns: cards may sit one extra .wp-block div deep.
+    const isWrapper = parent.classList.contains('c-flip-card-wrapper');
+    const cards = isWrapper ? [...parent.querySelectorAll('.c-flip-card')] : [...parent.querySelectorAll(':scope > .c-flip-card, :scope > .wp-block > .c-flip-card')];
+    if (cards.length < 2) return;
+
+    // Reset heights so we can measure natural size
+    cards.forEach(c => c.style.removeProperty('--flip-card-height'));
+
+    // Measure tallest back face
+    const maxBack = Math.max(...cards.map(c => {
+      const back = c.querySelector('.c-flip-card__back');
+      return back ? back.scrollHeight : 0;
+    }));
+    const minH = parseInt(getComputedStyle(cards[0]).getPropertyValue('--flip-card-min-height')) || 340;
+    const height = Math.max(maxBack, minH);
+    cards.forEach(c => c.style.setProperty('--flip-card-height', height + 'px'));
+  });
+}
+
+/***/ },
+
 /***/ "./src/js/modules/impact-slider.js"
 /*!*****************************************!*\
   !*** ./src/js/modules/impact-slider.js ***!
@@ -537,10 +628,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_search_popup_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/search-popup.js */ "./src/js/modules/search-popup.js");
 /* harmony import */ var _modules_dropdown_menu_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/dropdown-menu.js */ "./src/js/modules/dropdown-menu.js");
 /* harmony import */ var _modules_impact_slider_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/impact-slider.js */ "./src/js/modules/impact-slider.js");
+/* harmony import */ var _modules_flip_card_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/flip-card.js */ "./src/js/modules/flip-card.js");
 /**
  * LaunchPad theme — main script entry point.
  * Imports and initialises all modules on DOMContentLoaded.
  */
+
 
 
 
@@ -566,6 +659,7 @@ document.addEventListener('DOMContentLoaded', () => {
   (0,_modules_search_popup_js__WEBPACK_IMPORTED_MODULE_4__.initSearchPopup)();
   (0,_modules_dropdown_menu_js__WEBPACK_IMPORTED_MODULE_5__.initDropdownMenu)();
   (0,_modules_impact_slider_js__WEBPACK_IMPORTED_MODULE_6__.initImpactSliders)();
+  (0,_modules_flip_card_js__WEBPACK_IMPORTED_MODULE_7__.initFlipCards)();
 });
 
 /***/ },

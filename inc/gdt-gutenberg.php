@@ -83,5 +83,6 @@ function launchpad_register_blocks() {
 	register_block_type( get_stylesheet_directory() . '/blocks/impact-slider/block.json' );
 	register_block_type( get_stylesheet_directory() . '/blocks/impact-slide/block.json' );
 	register_block_type( get_stylesheet_directory() . '/blocks/stat/block.json' );
+	register_block_type( get_stylesheet_directory() . '/blocks/flip-card/block.json' );
 }
 add_action( 'init', 'launchpad_register_blocks', 5 );

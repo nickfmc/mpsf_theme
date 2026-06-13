@@ -1894,14 +1894,15 @@
   animation-name: slideOutUp;
 }
 :root {
-  --color-darkest: #50131b;
+  --color-darkest: #51141B;
+  --color-wine: #51141B;
   --color-dark: #58262c;
   --color-primary: #8c3641;
   --color-rose: #a05b63;
   --color-coral: #d56e68;
   --color-blush: #f3d5d8;
   --color-peach: #f8d2be;
-  --color-cream: #fffef6;
+  --color-cream: #FFFEF7;
   --color-cream-alt: #f6f5ea;
   --color-light: #f9f6f2;
   --color-border: #dddcda;
@@ -3311,6 +3312,24 @@ main.wp-block-group {
   position: relative;
   top: 3px;
 }
+.c-text-btn-light, .c-text-btn-dark {
+  position: relative;
+  padding-bottom: 4px;
+  display: inline-flex;
+}
+.c-text-btn-light::after, .c-text-btn-dark::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 2rem;
+  height: 2px;
+  background-color: var(--wp--preset--color--coral);
+  transition: width 0.3s ease;
+}
+.c-text-btn-light:hover::after, .c-text-btn-dark:hover::after {
+  width: 100%;
+}
 /* ==========================================================================
    FOOTER WIDGETS
    ========================================================================== */
@@ -3469,12 +3488,14 @@ main.wp-block-group {
 #search-button {
   width: 40px;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 5px;
+  padding: 5px;
 }
 #search-button svg {
   position: relative;
-  right: 10px;
-  top: 0;
   width: 20px;
   height: 20px;
   color: var(--wp--preset--color--primary);
@@ -3591,6 +3612,7 @@ main.wp-block-group {
 @media (width >= 992px) {
   .c-lang-selector {
     display: flex;
+    margin-left: 15px !important;
     align-items: stretch;
     border: 1.5px solid #F8D2BE;
     overflow: hidden;
@@ -3601,8 +3623,8 @@ main.wp-block-group {
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
+  gap: 3px;
+  padding: 5px 7px;
   font-family: var(--font-primary);
   font-size: 0.75rem;
   font-weight: 400;
@@ -3643,6 +3665,9 @@ main.wp-block-group {
 }
 .c-lang-selector__item:not(.is-active) .c-lang-selector__flag {
   filter: grayscale(1) opacity(0.55);
+}
+.c-lang-selector__item:not(.is-active) {
+  box-shadow: inset -2px 0px 6px rgba(88, 38, 44, 0.4), inset 0 -1px 2px rgba(88, 38, 44, 0.06);
 }
 .c-header-actions .wp-block-button.is-style-outline .wp-block-button__link,
 a.c-header-contact-btn {
@@ -4384,10 +4409,11 @@ a.c-header-contact-btn:hover {
   align-items: flex-start;
   gap: 0.75rem 2rem;
 }
+.c-impact-slider__header > div {
+  width: 450px;
+  max-width: 100%;
+}
 .c-impact-slider__heading {
-  font-family: var(--font-secondary);
-  font-size: clamp(2rem, 4vw, 3.75rem);
-  font-weight: 400;
   line-height: 1.1;
   color: var(--color-dark);
   margin: 0;
@@ -4614,6 +4640,139 @@ a.c-header-contact-btn:hover {
   line-height: 1.4;
   color: var(--color-dark);
   margin: 0;
+}
+/* ==========================================================================
+   FLIP CARD COMPONENT
+   ========================================================================== */
+.c-flip-card {
+  --flip-card-min-height: 340px;
+  --flip-card-height: var(--flip-card-min-height);
+  perspective: 1000px;
+  height: var(--flip-card-height);
+  min-height: var(--flip-card-min-height);
+  cursor: pointer;
+}
+.c-flip-card__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+.c-flip-card.is-flipped .c-flip-card__inner {
+  transform: rotateY(-180deg);
+}
+.c-flip-card__front,
+.c-flip-card__back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+.c-flip-card__front {
+  background-color: var(--wp--preset--color--dark);
+}
+.c-flip-card__front img.c-flip-card__image {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  display: block;
+}
+.c-flip-card__label {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  left: 3rem;
+  color: var(--wp--preset--color--cream);
+  font-family: var(--font-secondary);
+  font-size: clamp(1.125rem, 1.5vw + 0.5rem, 1.625rem);
+  line-height: var(--line-height-tight);
+  pointer-events: none;
+}
+.c-flip-card__back {
+  transform: rotateY(-180deg);
+  background-color: var(--wp--preset--color--primary);
+  color: var(--wp--preset--color--cream);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.c-flip-card__back-title {
+  font-family: var(--font-secondary);
+  font-size: clamp(1.125rem, 1.5vw + 0.5rem, 1.625rem);
+  line-height: var(--line-height-tight);
+  color: var(--wp--preset--color--cream);
+  margin: 0 0 1rem;
+}
+.c-flip-card__back-content {
+  font-size: 0.9375rem;
+  line-height: var(--line-height-normal);
+  flex: 1;
+}
+.c-flip-card__back-content p {
+  margin: 0 0 0.75em;
+}
+.c-flip-card__back-content p:last-child {
+  margin-bottom: 0;
+}
+.c-flip-card__back-content a {
+  color: var(--wp--preset--color--blush);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.c-flip-card__back-content a:hover, .c-flip-card__back-content a:focus {
+  color: var(--wp--preset--color--cream);
+}
+.c-flip-card__toggle {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 2rem;
+  height: 2rem;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.25rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 200ms ease;
+  padding: 0;
+}
+.c-flip-card__toggle:hover, .c-flip-card__toggle:focus-visible {
+  background: rgba(0, 0, 0, 0.5);
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
+}
+.c-flip-card__toggle--back {
+  background: rgba(255, 255, 255, 0.15);
+}
+@media (prefers-reduced-motion: reduce) {
+  .c-flip-card__inner {
+    transition: none;
+  }
+  .c-flip-card:not(.is-flipped) .c-flip-card__front {
+    opacity: 1;
+  }
+  .c-flip-card:not(.is-flipped) .c-flip-card__back {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .c-flip-card.is-flipped .c-flip-card__front {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .c-flip-card.is-flipped .c-flip-card__back {
+    opacity: 1;
+  }
 }
 html.has-modal-nav-open {
   overflow-y: hidden;

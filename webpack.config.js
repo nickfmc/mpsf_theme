@@ -21,5 +21,6 @@ module.exports = {
 		'impact-slider':   path.resolve( __dirname, 'blocks/impact-slider/index.js' ),
 		'impact-slide':    path.resolve( __dirname, 'blocks/impact-slide/index.js' ),
 		'stat':            path.resolve( __dirname, 'blocks/stat/index.js' ),
+		'flip-card':       path.resolve( __dirname, 'blocks/flip-card/index.js' ),
 	},
 };

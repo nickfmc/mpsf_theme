@@ -18,7 +18,7 @@
                 { "name": "Coral",         "slug": "coral",       "color": "#d56e68" },
                 { "name": "Rose",          "slug": "rose",        "color": "#a05b63" },
                 { "name": "Wine",       "slug": "darkest",     "color": "#51141B" },
-                { "name": "Cream",         "slug": "cream",       "color": "#fffef6" },
+                { "name": "Cream",         "slug": "cream",       "color": "#FFFEF7" },
                 { "name": "Cream Alt",     "slug": "cream-alt",   "color": "#f6f5ea" },
                 { "name": "Light",         "slug": "light",       "color": "#f9f6f2" },
                 { "name": "Blush",         "slug": "blush",       "color": "#f3d5d8" },

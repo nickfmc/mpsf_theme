@@ -31,7 +31,7 @@ $wrapper_attrs = get_block_wrapper_attributes( [ 'class' => 'c-impact-slider' ] 
 	<?php /* ── Header (constrained to inner width) ── */ ?>
 	<div class="c-impact-slider__inner">
 		<header class="c-impact-slider__header">
-			<h2 class="c-impact-slider__heading"><?php echo $section_heading; ?></h2>
+			<h2 class="c-impact-slider__heading h3-style"><?php echo $section_heading; ?></h2>
 			<div>
 				<?php if ( $section_description ) : ?>
 					<p class="c-impact-slider__desc"><?php echo $section_description; ?></p>

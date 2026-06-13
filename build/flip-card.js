@@ -42,13 +42,13 @@ module.exports = window["wp"]["components"];
 
 /***/ },
 
-/***/ "./blocks/impact-slider/block.json"
-/*!*****************************************!*\
-  !*** ./blocks/impact-slider/block.json ***!
-  \*****************************************/
+/***/ "./blocks/flip-card/block.json"
+/*!*************************************!*\
+  !*** ./blocks/flip-card/block.json ***!
+  \*************************************/
 (module) {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"mpsf/impact-slider","title":"Impact Slider","category":"myblocks","description":"Your Giving In Action — a full-width section with a heading, description, CTA link, and a horizontal Swiper carousel of impact/resource slides.","keywords":["slider","carousel","impact","resources","giving"],"supports":{"html":false,"align":["full"],"spacing":{"margin":true,"padding":false}},"attributes":{"sectionHeading":{"type":"string","default":"Your Giving In Action"},"sectionDescription":{"type":"string","default":""},"ctaLabel":{"type":"string","default":"Learn More"},"ctaUrl":{"type":"string","default":"#"}},"textdomain":"mpsf","editorScript":"file:../../build/impact-slider.js","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"mpsf/flip-card","title":"Flip Card","category":"myblocks","description":"Two-sided card — front shows a full-bleed image, back reveals heading and rich content on click or hover.","keywords":["card","flip","image","reveal"],"supports":{"html":false,"align":false,"spacing":{"margin":true}},"attributes":{"imageUrl":{"type":"string","default":""},"imageAlt":{"type":"string","default":""},"imageId":{"type":"number"},"frontLabel":{"type":"string","default":""},"backTitle":{"type":"string","default":""},"flipOn":{"type":"string","default":"click","enum":["click","hover"]}},"editorScript":"file:../../build/flip-card.js","render":"file:./render.php"}');
 
 /***/ }
 
@@ -129,9 +129,9 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 var __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
-/*!***************************************!*\
-  !*** ./blocks/impact-slider/index.js ***!
-  \***************************************/
+/*!***********************************!*\
+  !*** ./blocks/flip-card/index.js ***!
+  \***********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
@@ -139,113 +139,131 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./blocks/impact-slider/block.json");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./blocks/flip-card/block.json");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
-/**
- * Impact Slider — parent block.
- *
- * Holds any number of mpsf/impact-slide children inside a Swiper carousel.
- * Section-level controls (heading, description, CTA) live in InspectorControls.
- * All front-end output is handled by render.php; save() stores InnerBlocks HTML.
- */
 
 
 
 
 
-
-const ALLOWED_BLOCKS = ['mpsf/impact-slide'];
-const TEMPLATE = [['mpsf/impact-slide', {
-  title: 'Impact Report 2024',
-  ctaLabel: 'Read Report'
-}], ['mpsf/impact-slide', {
-  title: 'Impact Report 2023',
-  ctaLabel: 'Read Report'
-}]];
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_3__.name, {
   edit({
     attributes,
     setAttributes
   }) {
     const {
-      sectionHeading,
-      sectionDescription,
-      ctaLabel,
-      ctaUrl
+      imageUrl,
+      imageAlt,
+      imageId,
+      frontLabel,
+      backTitle,
+      flipOn
     } = attributes;
     const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
-      className: 'c-impact-slider'
+      className: 'c-flip-card c-flip-card--editor'
     });
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-          title: "Section Settings",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+          title: "Flip Behaviour",
           initialOpen: true,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
-            label: "Section Heading",
-            value: sectionHeading,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RadioControl, {
+            label: "Reveal on",
+            selected: flipOn,
+            options: [{
+              label: 'Click',
+              value: 'click'
+            }, {
+              label: 'Hover',
+              value: 'hover'
+            }],
             onChange: value => setAttributes({
-              sectionHeading: value
+              flipOn: value
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextareaControl, {
-            label: "Section Description",
-            value: sectionDescription,
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        ...blockProps,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "c-flip-card__face c-flip-card__face--front",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+            className: "c-flip-card__face-label",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("strong", {
+              children: "Front"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUploadCheck, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUpload, {
+              onSelect: media => setAttributes({
+                imageId: media.id,
+                imageUrl: media.url,
+                imageAlt: media.alt ?? ''
+              }),
+              allowedTypes: ['image'],
+              value: imageId,
+              render: ({
+                open
+              }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "c-flip-card__image-wrap",
+                children: imageUrl ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+                    src: imageUrl,
+                    alt: imageAlt,
+                    className: "c-flip-card__image"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+                    className: "c-flip-card__replace-btn",
+                    onClick: open,
+                    variant: "secondary",
+                    size: "small",
+                    children: "Replace image"
+                  })]
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+                  onClick: open,
+                  variant: "primary",
+                  children: "Select image"
+                })
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+            tagName: "span",
+            className: "c-flip-card__label",
+            value: frontLabel,
             onChange: value => setAttributes({
-              sectionDescription: value
+              frontLabel: value
             }),
-            help: "Optional \u2014 brief paragraph below the heading."
+            placeholder: "Front label\u2026",
+            allowedFormats: []
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-          title: "Call to Action",
-          initialOpen: false,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
-            label: "Button Label",
-            value: ctaLabel,
-            onChange: value => setAttributes({
-              ctaLabel: value
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "c-flip-card__face c-flip-card__face--back",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+            className: "c-flip-card__face-label",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("strong", {
+              children: "Back"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
-            label: "Button URL",
-            value: ctaUrl,
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+            tagName: "h3",
+            className: "c-flip-card__back-title",
+            value: backTitle,
             onChange: value => setAttributes({
-              ctaUrl: value
+              backTitle: value
             }),
-            type: "url"
+            placeholder: "Back heading\u2026",
+            allowedFormats: ['core/bold', 'core/italic']
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "c-flip-card__back-content",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks, {
+              template: [['core/paragraph', {
+                placeholder: 'Back content…'
+              }]]
+            })
           })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("section", {
-        ...blockProps,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "c-impact-slider__inner",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("header", {
-            className: "c-impact-slider__header",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
-              className: "c-impact-slider__heading",
-              children: sectionHeading
-            }), sectionDescription && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-              className: "c-impact-slider__desc",
-              children: sectionDescription
-            }), ctaLabel && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
-              className: "c-impact-slider__cta",
-              href: ctaUrl,
-              children: ctaLabel
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-            className: "c-impact-slider__slides-editor",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks, {
-              allowedBlocks: ALLOWED_BLOCKS,
-              template: TEMPLATE,
-              orientation: "horizontal"
-            })
-          })]
-        })
       })]
     });
   },
   save() {
-    // render.php owns the full front-end shell (section, swiper wrapper, nav).
-    // We only need to persist the inner blocks so render.php receives them as $content.
+    // render.php owns all front-end markup; only inner blocks need saving.
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks.Content, {});
   }
 });
@@ -253,4 +271,4 @@ const TEMPLATE = [['mpsf/impact-slide', {
 
 /******/ })()
 ;
-//# sourceMappingURL=impact-slider.js.map
+//# sourceMappingURL=flip-card.js.map

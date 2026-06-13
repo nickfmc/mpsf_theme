@@ -32,3 +32,24 @@
     top: 3px;
   }
 }
+
+
+.c-text-btn-light, .c-text-btn-dark {
+   position: relative;
+   padding-bottom: 4px;
+   display: inline-flex;
+    &::after {
+      content: '';
+      position: absolute; 
+      bottom: 0;
+      left: 0;
+      width: 2rem;
+      height: 2px;
+      background-color: var(--wp--preset--color--coral);
+      transition: width 0.3s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+  }
