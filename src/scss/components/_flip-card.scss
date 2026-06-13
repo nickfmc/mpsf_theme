@@ -10,6 +10,8 @@
 	height: var(--flip-card-height);
 	min-height: var(--flip-card-min-height);
 	cursor: pointer;
+	border-radius: 8px;
+	min-height: 490px;
 }
 
 .c-flip-card__inner {
@@ -18,6 +20,7 @@
 	height: 100%;
 	transform-style: preserve-3d;
 	transition: transform 0.6s ease;
+		border-radius: 8px;
 }
 
 .c-flip-card.is-flipped .c-flip-card__inner {
@@ -36,13 +39,25 @@
 // Front face
 .c-flip-card__front {
 	background-color: var(--wp--preset--color--dark);
-
+	border-radius: 8px;
 	img.c-flip-card__image {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		object-position: center;
 		display: block;
+	border-radius: 8px;
+	}
+	&::before {
+		content: '';
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		position: absolute;
+		inset: 0;
+		border-radius: 8px;
+		background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 61.14%, rgba(0, 0, 0, 0.63) 97.81%);
 	}
 }
 
@@ -60,9 +75,10 @@
 
 // Back face — pre-rotated so it starts hidden
 .c-flip-card__back {
+		border-radius: 8px;
 	transform: rotateY( 180deg );
-	background-color: var(--wp--preset--color--primary);
-	color: var(--wp--preset--color--cream);
+	background-color: #A05C64;
+	color: #fff;
 	padding: clamp( 1.5rem, 4vw, 2.5rem );
 	display: flex;
 	flex-direction: column;
@@ -81,6 +97,8 @@
 	font-size: 0.9375rem;
 	line-height: var(--line-height-normal);
 	flex: 1;
+	display: flex;
+	align-items: flex-end;
 
 	p {
 		margin: 0 0 0.75em;
@@ -105,8 +123,8 @@
 // Toggle buttons (+/−)
 .c-flip-card__toggle {
 	position: absolute;
-	top: 1rem;
-	right: 1rem;
+	top: 2rem;
+	right: 2rem;
 	width: 2rem;
 	height: 2rem;
 	background: rgba( 0, 0, 0, 0.25 );
@@ -127,6 +145,7 @@
 		background: rgba( 0, 0, 0, 0.5 );
 		outline: 2px solid var(--focus-color);
 		outline-offset: 2px;
+		color: #fff;
 	}
 
 	&--back {
