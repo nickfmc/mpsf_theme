@@ -17,18 +17,24 @@ export function initFlipCards() {
 		if ( flipOn === 'hover' ) {
 			card.addEventListener( 'mouseenter', () => flip( card, true ) );
 			card.addEventListener( 'mouseleave', () => flip( card, false ) );
-			// Keyboard / focus support for hover mode
 			card.addEventListener( 'focus', () => flip( card, true ), true );
 			card.addEventListener( 'blur', () => flip( card, false ), true );
 		}
 
-		// Toggle buttons always work regardless of mode
-		card.querySelectorAll( '.c-flip-card__toggle' ).forEach( ( btn ) => {
-			btn.addEventListener( 'click', ( e ) => {
+		// Clicking anywhere on the front flips to the back
+		const front = card.querySelector( '.c-flip-card__front' );
+		if ( front ) {
+			front.addEventListener( 'click', () => flip( card, true ) );
+		}
+
+		// Only the back close button flips back
+		const backToggle = card.querySelector( '.c-flip-card__toggle--back' );
+		if ( backToggle ) {
+			backToggle.addEventListener( 'click', ( e ) => {
 				e.stopPropagation();
-				flip( card );
+				flip( card, false );
 			} );
-		} );
+		}
 	} );
 
 	equalizeFlipCardRows();

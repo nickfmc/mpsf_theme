@@ -9,7 +9,6 @@
 	perspective: 1000px;
 	height: var(--flip-card-height);
 	min-height: var(--flip-card-min-height);
-	cursor: pointer;
 	border-radius: 8px;
 	min-height: 490px;
 }
@@ -38,6 +37,7 @@
 
 // Front face
 .c-flip-card__front {
+	cursor: pointer;
 	background-color: var(--wp--preset--color--dark);
 	border-radius: 8px;
 	img.c-flip-card__image {
