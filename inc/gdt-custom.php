@@ -18,6 +18,77 @@ add_action( 'after_setup_theme', 'launchpad_content_width', 0 );
 
 // ---- Project-specific functions below ----------------------------------------
 
+
+/**
+ * Render the classic PHP header (template-part/header/site-header.php) in place
+ * of the FSE "header" template part (parts/header.html), while leaving every
+ * other block-theme template/part untouched.
+ *
+ * parts/header.html still exists and is editable in the Site Editor, but its
+ * output is swapped out here on render — this slot is no longer block-editable.
+ */
+function launchpad_override_header_template_part( string $block_content, array $block ): string {
+	if ( ( $block['attrs']['slug'] ?? '' ) !== 'header' ) {
+		return $block_content;
+	}
+
+	ob_start();
+	get_template_part( 'template-part/header/site-header' );
+	return ob_get_clean();
+}
+add_filter( 'render_block_core/template-part', 'launchpad_override_header_template_part', 10, 2 );
+
+/**
+ * ACF field group for Team Members.
+ * Registers the "position" field programmatically — no DB entry needed.
+ */
+if ( function_exists( 'acf_add_local_field_group' ) ) {
+	acf_add_local_field_group( array(
+		'key'      => 'group_mpsf_team',
+		'title'    => 'Team Member Details',
+		'fields'   => array(
+			array(
+				'key'           => 'field_6a35fa7d3b3ea',
+				'label'         => 'Position / Title',
+				'name'          => 'position',
+				'type'          => 'text',
+				'instructions'  => 'e.g. Executive Director',
+				'required'      => 0,
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param'    => 'post_type',
+					'operator' => '==',
+					'value'    => 'team',
+				),
+			),
+		),
+		'menu_order'            => 0,
+		'position'              => 'normal',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+	) );
+}
+
+/**
+ * Outputs the team member position field.
+ * Used via [team_position] shortcode in the single-team FSE template.
+ */
+function mpsf_team_position_shortcode(): string {
+	if ( ! function_exists( 'get_field' ) ) {
+		return '';
+	}
+	$position = get_field( 'position' );
+	if ( ! $position ) {
+		return '';
+	}
+	return '<p class="c-team-member__position">' . esc_html( $position ) . '</p>';
+}
+add_shortcode( 'team_position', 'mpsf_team_position_shortcode' );
+
 // Example: ACF icon picker path override
 // add_filter( 'acf_icon_path_suffix', function( $path_suffix ) {
 // 	return 'img/icons/';
@@ -25,122 +96,22 @@ add_action( 'after_setup_theme', 'launchpad_content_width', 0 );
 
 
 /**
- * Language selector shortcode for the FSE header.
- *
- * Detects the active language via WPML → Polylang → WP locale fallback.
- * Usage: [mpsf_lang_selector]
+ * Force the featured image to render at full size on the team single template.
+ * The post-featured-image block's `size` attribute can be unreliable in some
+ * WordPress environments, so we override it server-side.
  */
-function mpsf_lang_selector_shortcode(): string {
-	if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
-		$current_lang = ICL_LANGUAGE_CODE;
-	} elseif ( function_exists( 'pll_current_language' ) ) {
-		$current_lang = pll_current_language();
-	} else {
-		$current_lang = substr( get_locale(), 0, 2 );
+add_filter( 'render_block_core/post-featured-image', function ( string $block_content, array $block ): string {
+	if ( ! is_singular( 'team' ) || empty( $block_content ) ) {
+		return $block_content;
 	}
 
-	// Inline SVG flags wrapped in a circular clip span — compact (no whitespace)
-	// to prevent wpautop adding <br> tags.
-	$flags = [
-		'en' => '<span class="c-lang-selector__flag" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
-  <g clip-path="url(#clip0_404_2584)">
-    <path d="M12.2215 5.63979C12.2338 5.79832 12.24 5.95845 12.24 6.12C12.24 6.28155 12.2338 6.44222 12.2213 6.60092C12.1971 6.91423 12.1492 7.22095 12.0792 7.5193C12.0017 7.85096 11.8971 8.17229 11.768 8.48061C11.6337 8.80176 11.4728 9.10902 11.288 9.39953C11.0685 9.74491 10.815 10.0669 10.5327 10.3607C10.1979 10.7089 9.82221 11.0176 9.4136 11.279C8.49629 11.8658 7.41225 12.2147 6.24842 12.2386C6.20567 12.2396 6.16293 12.24 6.12 12.24C6.07707 12.24 6.03432 12.2396 5.99158 12.2386C4.82774 12.2147 3.74371 11.8658 2.8264 11.279C2.41779 11.0176 2.04214 10.7089 1.70727 10.3607C1.42495 10.0669 1.17149 9.74491 0.952047 9.39953C0.76716 9.10902 0.606318 8.80176 0.472016 8.48061C0.34288 8.17229 0.238324 7.85096 0.160842 7.5193C0.0908408 7.22095 0.0429267 6.91423 0.0187025 6.60092C0.0185244 6.60057 0.0185244 6.60039 0.0185244 6.60021C0.00694665 6.45059 0.000712477 6.29937 0.000178119 6.1469C0 6.13799 0 6.12891 0 6.12C0 6.01616 0.00267179 5.91302 0.00783725 5.81043C0.010509 5.75325 0.0142495 5.69643 0.0185244 5.63979C0.0379394 5.39078 0.0721383 5.14604 0.120409 4.9063C0.123437 4.89062 0.126643 4.87495 0.130027 4.85927C0.139646 4.81296 0.149976 4.76683 0.160664 4.72087C0.170104 4.6808 0.179722 4.6409 0.190053 4.60118C0.195575 4.57891 0.201453 4.55665 0.207509 4.53456C0.261123 4.33364 0.32489 4.13664 0.398097 3.94445L0.426596 3.87071C0.44138 3.83348 0.456342 3.79626 0.472016 3.75939C0.60614 3.43841 0.766981 3.13134 0.951869 2.84082C1.09454 2.61604 1.25182 2.40123 1.42193 2.19764L1.47786 2.12122L1.48035 2.1287C1.55356 2.04374 1.62908 1.96074 1.70674 1.87987C1.82804 1.75376 1.95468 1.63264 2.08631 1.51722C2.11178 1.49478 2.13761 1.47269 2.16344 1.4506C2.3729 1.27302 2.59449 1.10915 2.82675 0.960775C2.84367 0.949732 2.86077 0.939045 2.87787 0.928358C2.88304 0.925151 2.88803 0.921945 2.89319 0.918739C3.25584 0.693418 3.64361 0.50479 4.05168 0.358554C4.06165 0.354814 4.07163 0.351251 4.08178 0.347689C4.68097 0.136083 5.32309 0.0151401 5.99158 0.00142495C6.03432 0.000356239 6.07707 0 6.12 0C6.16293 0 6.20567 0.000356239 6.24842 0.00142495C7.41208 0.0252929 8.49611 0.37405 9.41325 0.960775C9.82221 1.22225 10.1982 1.53129 10.5333 1.87987C10.8156 2.17359 11.0687 2.49545 11.2881 2.84082C11.473 3.13134 11.6339 3.43841 11.768 3.75939C11.8971 4.06789 12.0017 4.38921 12.0793 4.72087C12.1492 5.0194 12.1971 5.3263 12.2215 5.63979Z" fill="white"/>
-    <path d="M9.41315 0.960775H2.82666C2.84358 0.949732 2.86068 0.939045 2.87778 0.928358C2.88295 0.925152 2.88793 0.921945 2.8931 0.918739C3.25575 0.693418 3.64352 0.50479 4.05159 0.358554C4.06156 0.354814 4.07154 0.351251 4.08169 0.347689C4.68088 0.136083 5.323 0.0151401 5.99148 0.00142495C6.03423 0.000356239 6.07698 0 6.11991 0C6.16283 0 6.20558 0.000356239 6.24833 0.00142495C7.41198 0.0252929 8.49602 0.37405 9.41315 0.960775Z" fill="#EC1C24"/>
-    <path d="M10.5331 1.87988C10.8154 2.1736 11.0685 2.49546 11.2879 2.84084H0.95166C1.09433 2.61605 1.25161 2.40124 1.42172 2.19765L1.47765 2.12123L1.48014 2.12872C1.55335 2.04375 1.62887 1.96075 1.70653 1.87988H10.5331Z" fill="#EC1C24"/>
-    <path d="M11.768 3.75977C11.8971 4.06827 12.0017 4.3896 12.0793 4.72125H0.160645C0.170085 4.68118 0.179703 4.64128 0.190034 4.60156C0.195556 4.57929 0.201434 4.55703 0.20749 4.53494C0.261104 4.33402 0.32487 4.13702 0.398078 3.94483L0.426577 3.87109C0.441361 3.83386 0.456322 3.79664 0.471997 3.75977H11.768Z" fill="#EC1C24"/>
-    <path d="M12.2215 5.63965C12.2338 5.79817 12.24 5.9583 12.24 6.11986C12.24 6.28141 12.2338 6.44208 12.2213 6.60078H0.0187025C0.0187025 6.60078 0.0185244 6.60025 0.0185244 6.60007C0.00694665 6.45045 0.000712477 6.29922 0.000178119 6.14675C0 6.13785 0 6.12876 0 6.11986C0 6.01601 0.00267179 5.91288 0.00783725 5.81029C0.010509 5.75311 0.0142495 5.69629 0.0185244 5.63965H12.2215Z" fill="#EC1C24"/>
-    <path d="M0.160645 7.51953H12.079C12.0015 7.85119 11.8969 8.17252 11.7678 8.48084H0.471819C0.342682 8.17252 0.238126 7.85119 0.160645 7.51953Z" fill="#EC1C24"/>
-    <path d="M0.952148 9.39941H11.2881C11.0686 9.74479 10.8151 10.0668 10.5328 10.3605H1.70737C1.42506 10.0668 1.17159 9.74479 0.952148 9.39941Z" fill="#EC1C24"/>
-    <path d="M9.41387 11.2793C8.49655 11.866 7.41252 12.215 6.24869 12.2388C6.20594 12.2399 6.16319 12.2403 6.12026 12.2403C6.07734 12.2403 6.03459 12.2399 5.99184 12.2388C4.82801 12.215 3.74397 11.866 2.82666 11.2793H9.41387Z" fill="#EC1C24"/>
-    <path d="M4.05168 0.358554C3.64361 0.50479 3.25584 0.693418 2.89319 0.918739C2.88803 0.921945 2.88304 0.925151 2.87787 0.928358C2.86077 0.939045 2.84367 0.949732 2.82675 0.960775C2.59449 1.10915 2.3729 1.27302 2.16344 1.4506C2.13761 1.47269 2.11178 1.49478 2.08631 1.51722C1.95468 1.63264 1.82804 1.75376 1.70674 1.87987C1.62908 1.96074 1.55356 2.04374 1.48035 2.1287L1.47786 2.12122L1.42193 2.19764C1.25182 2.40123 1.09454 2.61604 0.951869 2.84082C0.766981 3.13134 0.60614 3.43841 0.472016 3.75939C0.456342 3.79626 0.44138 3.83348 0.426596 3.87071L0.398097 3.94445C0.32489 4.13664 0.261123 4.33364 0.207509 4.53456C0.201453 4.55665 0.195575 4.57891 0.190053 4.60118C0.179722 4.6409 0.170104 4.6808 0.160664 4.72087C0.149976 4.76683 0.139646 4.81296 0.130027 4.85927C0.126643 4.87495 0.123437 4.89062 0.120409 4.9063C0.0721383 5.14604 0.0379394 5.39078 0.0185244 5.63979C0.0142495 5.69643 0.010509 5.75325 0.00783725 5.81043C0.00267179 5.91302 0 6.01616 0 6.12C0 6.12891 0 6.13799 0.000178119 6.1469C0.000712477 6.29937 0.00694665 6.45059 0.0185244 6.60021H6.12V0C6.07707 0 6.03432 0.000356239 5.99158 0.00142495C5.32309 0.0151401 4.68097 0.136083 4.08178 0.347689L4.05168 0.358554Z" fill="#21409A"/>
-    <path d="M2.90215 0.946198L2.87793 0.928564C2.8831 0.925358 2.88808 0.922151 2.89325 0.918945L2.90215 0.946198Z" fill="white"/>
-    <path d="M4.08185 0.347656L4.14846 0.55089H4.40531L4.19744 0.702114L4.27671 0.945959L4.06849 0.79527L3.86151 0.945959L3.94078 0.702114L3.73291 0.55089H3.98922L4.05174 0.358522L4.08185 0.347656Z" fill="white"/>
-    <path d="M5.4434 0.795222L5.65144 0.945911L5.572 0.702065L5.77969 0.550842H5.52266L5.4434 0.306641L5.36378 0.550842H5.10693L5.3148 0.702065L5.23589 0.945911L5.4434 0.795222Z" fill="white"/>
-    <path d="M2.21485 1.60997L2.08643 1.51681C2.1119 1.49437 2.13772 1.47228 2.16355 1.4502L2.21485 1.60997Z" fill="white"/>
-    <path d="M3.38219 1.45982L3.58952 1.61033L3.51026 1.36577L3.71776 1.21508H3.46145L3.38219 0.970703L3.30292 1.21508H3.0459L3.25323 1.36577L3.17397 1.61033L3.38219 1.45982Z" fill="white"/>
-    <path d="M4.75688 1.45982L4.96421 1.61033L4.88494 1.36577L5.09281 1.21508H4.83543L4.75688 0.970703L4.67708 1.21508H4.42041L4.62738 1.36577L4.54866 1.61033L4.75688 1.45982Z" fill="white"/>
-    <path d="M1.5275 2.2741L1.42188 2.19751L1.4778 2.12109L1.4803 2.12857L1.5275 2.2741Z" fill="white"/>
-    <path d="M2.69451 2.12335L2.9022 2.27404L2.82329 2.02966L3.03026 1.87879H2.77431L2.69451 1.63477L2.61507 1.87879H2.3584L2.56609 2.02966L2.48629 2.27404L2.69451 2.12335Z" fill="white"/>
-    <path d="M4.06849 2.12335L4.27671 2.27404L4.19744 2.02966L4.40531 1.87879H4.14846L4.06849 1.63477L3.98922 1.87879H3.73291L3.94078 2.02966L3.86151 2.27404L4.06849 2.12335Z" fill="white"/>
-    <path d="M5.4434 2.12335L5.65144 2.27404L5.572 2.02966L5.77969 1.87879H5.52266L5.4434 1.63477L5.36378 1.87879H5.10693L5.3148 2.02966L5.23589 2.27404L5.4434 2.12335Z" fill="white"/>
-    <path d="M2.00701 2.78777L2.21452 2.93863L2.13597 2.69407L2.3433 2.54321H2.08645L2.00701 2.29883L1.92775 2.54321H1.6709L1.87823 2.69407L1.79879 2.93863L2.00701 2.78777Z" fill="white"/>
-    <path d="M3.38219 2.78777L3.58952 2.93863L3.51026 2.69407L3.71776 2.54321H3.46145L3.38219 2.29883L3.30292 2.54321H3.0459L3.25323 2.69407L3.17397 2.93863L3.38219 2.78777Z" fill="white"/>
-    <path d="M4.75688 2.78777L4.96421 2.93863L4.88494 2.69407L5.09281 2.54321H4.83543L4.75688 2.29883L4.67708 2.54321H4.42041L4.62738 2.69407L4.54866 2.93863L4.75688 2.78777Z" fill="white"/>
-    <path d="M1.31982 3.45112L1.52751 3.60216L1.44842 3.35796L1.65611 3.20691H1.39997L1.31982 2.96289L1.24038 3.20691H0.983887L1.19122 3.35796L1.11231 3.60216L1.31982 3.45112Z" fill="white"/>
-    <path d="M2.69451 3.45112L2.9022 3.60216L2.82329 3.35796L3.03026 3.20691H2.77431L2.69451 2.96289L2.61507 3.20691H2.3584L2.56609 3.35796L2.48629 3.60216L2.69451 3.45112Z" fill="white"/>
-    <path d="M4.06849 3.45112L4.27671 3.60216L4.19744 3.35796L4.40531 3.20691H4.14846L4.06849 2.96289L3.98922 3.20691H3.73291L3.94078 3.35796L3.86151 3.60216L4.06849 3.45112Z" fill="white"/>
-    <path d="M5.4434 3.45112L5.65144 3.60216L5.572 3.35796L5.77969 3.20691H5.52266L5.4434 2.96289L5.36378 3.20691H5.10693L5.3148 3.35796L5.23589 3.60216L5.4434 3.45112Z" fill="white"/>
-    <path d="M0.397949 3.94428L0.504465 4.02158L0.425023 4.26596L0.632354 4.11527L0.840219 4.26596L0.761313 4.02158L0.968643 3.87053H0.712508L0.675993 3.75921L0.632354 3.62598L0.589249 3.75921L0.553091 3.87053H0.426448L0.397949 3.94428Z" fill="white"/>
-    <path d="M2.00701 4.11527L2.21452 4.26596L2.13597 4.02158L2.3433 3.87053H2.08645L2.00701 3.62598L1.92775 3.87053H1.6709L1.87823 4.02158L1.79879 4.26596L2.00701 4.11527Z" fill="white"/>
-    <path d="M3.38219 4.11527L3.58952 4.26596L3.51026 4.02158L3.71776 3.87053H3.46145L3.38219 3.62598L3.30292 3.87053H3.0459L3.25323 4.02158L3.17397 4.26596L3.38219 4.11527Z" fill="white"/>
-    <path d="M4.75688 4.11527L4.96421 4.26596L4.88494 4.02158L5.09281 3.87053H4.83543L4.75688 3.62598L4.67708 3.87053H4.42041L4.62738 4.02158L4.54866 4.26596L4.75688 4.11527Z" fill="white"/>
-    <path d="M0.153201 4.93009L0.120605 4.9064C0.123633 4.89072 0.12684 4.87505 0.130224 4.85938L0.153201 4.93009Z" fill="white"/>
-    <path d="M0.281805 4.53418L0.19043 4.6008C0.195951 4.57853 0.201829 4.55627 0.207885 4.53418H0.281805Z" fill="white"/>
-    <path d="M1.31982 4.77915L1.52751 4.92984L1.44842 4.68564L1.65611 4.53442H1.39997L1.31982 4.29004L1.24038 4.53442H0.983887L1.19122 4.68564L1.11231 4.92984L1.31982 4.77915Z" fill="white"/>
-    <path d="M2.69451 4.77915L2.9022 4.92984L2.82329 4.68564L3.03026 4.53442H2.77431L2.69451 4.29004L2.61507 4.53442H2.3584L2.56609 4.68564L2.48629 4.92984L2.69451 4.77915Z" fill="white"/>
-    <path d="M4.06849 4.77915L4.27671 4.92984L4.19744 4.68564L4.40531 4.53442H4.14846L4.06849 4.29004L3.98922 4.53442H3.73291L3.94078 4.68564L3.86151 4.92984L4.06849 4.77915Z" fill="white"/>
-    <path d="M5.4434 4.77915L5.65144 4.92984L5.572 4.68564L5.77969 4.53442H5.52266L5.4434 4.29004L5.36378 4.53442H5.10693L5.3148 4.68564L5.23589 4.92984L5.4434 4.77915Z" fill="white"/>
-    <path d="M0.632498 5.44322L0.840363 5.59426L0.761456 5.35006L0.968787 5.19848H0.712651L0.632498 4.9541L0.553235 5.19848H0.296387L0.504608 5.35006L0.425167 5.59426L0.632498 5.44322Z" fill="white"/>
-    <path d="M2.00701 5.44322L2.21452 5.59426L2.13597 5.35006L2.3433 5.19848H2.08645L2.00701 4.9541L1.92775 5.19848H1.6709L1.87823 5.35006L1.79879 5.59426L2.00701 5.44322Z" fill="white"/>
-    <path d="M3.38219 5.44322L3.58952 5.59426L3.51026 5.35006L3.71776 5.19848H3.46145L3.38219 4.9541L3.30292 5.19848H3.0459L3.25323 5.35006L3.17397 5.59426L3.38219 5.44322Z" fill="white"/>
-    <path d="M4.75688 5.44322L4.96421 5.59426L4.88494 5.35006L5.09281 5.19848H4.83543L4.75688 4.9541L4.67708 5.19848H4.42041L4.62738 5.35006L4.54866 5.59426L4.75688 5.44322Z" fill="white"/>
-    <path d="M0.0739195 6.01342L0.153004 6.25816L0.000178119 6.14701C0 6.13811 0 6.12902 0 6.12012C0 6.01627 0.00267179 5.91314 0.00783725 5.81055L0.0247586 5.86291H0.281428L0.0739195 6.01342Z" fill="white"/>
-    <path d="M1.31982 6.10754L1.52751 6.25841L1.44842 6.01367L1.65611 5.86316H1.39997L1.31982 5.61914L1.24038 5.86316H0.983887L1.19122 6.01367L1.11231 6.25841L1.31982 6.10754Z" fill="white"/>
-    <path d="M2.69451 6.10754L2.9022 6.25841L2.82329 6.01367L3.03026 5.86316H2.77431L2.69451 5.61914L2.61507 5.86316H2.3584L2.56609 6.01367L2.48629 6.25841L2.69451 6.10754Z" fill="white"/>
-    <path d="M4.06849 6.10754L4.27671 6.25841L4.19744 6.01367L4.40531 5.86316H4.14846L4.06849 5.61914L3.98922 5.86316H3.73291L3.94078 6.01367L3.86151 6.25841L4.06849 6.10754Z" fill="white"/>
-    <path d="M5.4434 6.10754L5.65144 6.25841L5.572 6.01367L5.77969 5.86316H5.52266L5.4434 5.61914L5.36378 5.86316H5.10693L5.3148 6.01367L5.23589 6.25841L5.4434 6.10754Z" fill="white"/>
-    <path d="M6.12012 12.24C6.16305 12.24 6.2058 12.2396 6.24855 12.2386H5.9917C6.03445 12.2396 6.0772 12.24 6.12012 12.24ZM5.9917 0.00142495H6.24855C6.2058 0.000356239 6.16305 0 6.12012 0C6.0772 0 6.03445 0.000356239 5.9917 0.00142495Z" fill="#231F20"/>
-  </g>
-  <defs>
-    <clipPath id="clip0_404_2584">
-      <rect width="12.24" height="12.24" fill="white"/>
-    </clipPath>
-  </defs>
-</svg></span>',
-		'es' => '<span class="c-lang-selector__flag" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
-  <g clip-path="url(#clip0_404_2575)">
-    <path d="M12.2398 6.06719V6.17263C12.2325 7.0468 12.0419 7.87716 11.7045 8.62719C10.747 10.757 8.6066 12.24 6.12013 12.24C3.63366 12.24 1.49326 10.757 0.535721 8.62719C0.198373 7.87716 0.00779096 7.0468 0.000488281 6.17263V6.06719C0.00779096 5.19338 0.198373 4.36302 0.535543 3.61317C1.49308 1.48313 3.6333 0 6.12013 0C8.60696 0 10.7472 1.48313 11.7047 3.61317C12.0419 4.36302 12.2325 5.19338 12.2398 6.06719Z" fill="#B49C9D"/>
-    <path d="M12.2398 6.06719V6.17263C12.2325 7.0468 12.0419 7.87716 11.7045 8.62719H0.535721C0.198373 7.87716 0.00779096 7.0468 0.000488281 6.17263V6.06719C0.00779096 5.19337 0.198373 4.36302 0.535543 3.61317C1.49308 1.48313 3.6333 0 6.12013 0C8.60696 0 10.7472 1.48313 11.7047 3.61317C12.0419 4.36302 12.2325 5.19337 12.2398 6.06719Z" fill="#DDDCDA"/>
-    <path d="M11.7043 3.61317H0.535156C1.4927 1.48313 3.63292 0 6.11975 0C8.60657 0 10.7468 1.48313 11.7043 3.61317Z" fill="#B49C9D"/>
-  </g>
-  <defs>
-    <clipPath id="clip0_404_2575">
-      <rect width="12.24" height="12.24" fill="white"/>
-    </clipPath>
-  </defs>
-</svg></span>',
-	];
-
-	$lang_items = [
-		'en' => [ 'label' => 'EN',  'aria' => 'English',  'hreflang' => 'en' ],
-		'es' => [ 'label' => 'ESP', 'aria' => 'Español', 'hreflang' => 'es' ],
-	];
-
-	$html = '<div class="c-lang-selector" role="navigation" aria-label="' . esc_attr__( 'Select language', 'mpsf-theme' ) . '">';
-
-	foreach ( $lang_items as $code => $item ) {
-		$is_active = ( $code === substr( $current_lang, 0, 2 ) );
-
-		if ( function_exists( 'pll_home_url' ) ) {
-			$lang_url = pll_home_url( $code );
-		} elseif ( defined( 'ICL_LANGUAGE_CODE' ) ) {
-			$lang_url = apply_filters( 'wpml_permalink', home_url( '/' ), $code );
-		} else {
-			$lang_url = home_url( '/' );
-		}
-
-		$classes  = 'c-lang-selector__item' . ( $is_active ? ' is-active' : '' );
-		$current  = $is_active ? ' aria-current="true"' : '';
-
-		// Single unbroken line — no newlines inside the <a> so wpautop can't inject <br>.
-		$html .= '<a href="' . esc_url( $lang_url ) . '" class="' . esc_attr( $classes ) . '" lang="' . esc_attr( $code ) . '" hreflang="' . esc_attr( $item['hreflang'] ) . '" aria-label="' . esc_attr( $item['aria'] ) . '"' . $current . '>' . $flags[ $code ] . '<span>' . esc_html( $item['label'] ) . '</span></a>';
+	$post_id = get_the_ID();
+	if ( ! $post_id || ! has_post_thumbnail( $post_id ) ) {
+		return $block_content;
 	}
 
-	$html .= '</div>';
-	return $html;
-}
-add_shortcode( 'mpsf_lang_selector', 'mpsf_lang_selector_shortcode' );
-
+	return get_the_post_thumbnail( $post_id, 'full', array( 'style' => 'border-radius:5px' ) );
+}, 10, 2 );
 
 /**
  * Disable Gravity Forms' own opinionated CSS so our theme styles take over
@@ -208,3 +179,56 @@ function add_missing_alt_tags_to_content($content) {
 
 // Only apply to standard content
 add_filter('the_content', 'add_missing_alt_tags_to_content', 20);
+
+
+/*------------------------------------*\
+    MOBILE MENU BUTTON SHORTCODE
+\*------------------------------------*/
+
+/**
+ * Shortcode to output the mobile menu button and modal.
+ *
+ * Usage: [mobile_menu_button style="accordion"]
+ * or:    [mobile_menu_button style="sliding"]
+ *
+ * @param array $atts Shortcode attributes.
+ * @return string HTML output.
+ */
+function launchpad_mobile_menu_button_shortcode( $atts ) {
+	$atts = shortcode_atts(
+		array(
+			'style' => 'accordion', // 'accordion' or 'sliding'
+		),
+		$atts,
+		'mobile_menu_button'
+	);
+
+	$menu_style = in_array( $atts['style'], array( 'accordion', 'sliding' ), true ) ? $atts['style'] : 'accordion';
+
+	// Store style globally so the footer hook can use it.
+	$GLOBALS['_pp_mobile_menu_style'] = $menu_style;
+
+	ob_start();
+	?>
+	<button id="open-modal-nav" class="c-modal-nav-button" aria-expanded="false" aria-haspopup="menu" aria-label="Open menu">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+			<path d="M3 12H21M3 6H21M3 18H21" stroke="#414651" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+		</svg>
+	</button>
+	<?php
+	return ob_get_clean();
+}
+add_shortcode( 'mobile_menu_button', 'launchpad_mobile_menu_button_shortcode' );
+
+/**
+ * Output the mobile nav panel in wp_footer so it renders at the end of <body>,
+ * outside the header FSE wrapper. Avoids clipping / overlay scoping issues.
+ */
+function launchpad_mobile_nav_to_footer() {
+	$menu_style = isset( $GLOBALS['_pp_mobile_menu_style'] )
+		? $GLOBALS['_pp_mobile_menu_style']
+		: 'accordion';
+
+	get_template_part( 'template-part/navigation/nav-mobile', null, array( 'menu_style' => $menu_style ) );
+}
+add_action( 'wp_footer', 'launchpad_mobile_nav_to_footer', 20 );

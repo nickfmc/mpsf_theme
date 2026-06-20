@@ -1,0 +1,20 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mpsf/accordion-section",
+	"title": "Accordion Section",
+	"category": "myblocks",
+	"description": "Two-column section: sticky image panel on the left swaps as accordion items open on the right.",
+	"keywords": [ "accordion", "process", "faq", "tabs", "image" ],
+	"supports": {
+		"html": false,
+		"align": [ "full", "wide" ],
+		"spacing": { "margin": true }
+	},
+	"attributes": {
+		"sectionHeading":  { "type": "string", "default": "Process" },
+		"imagePosition":   { "type": "string", "default": "left", "enum": [ "left", "right" ] }
+	},
+	"editorScript": "file:../../build/accordion-section.js",
+	"render": "file:./render.php"
+}

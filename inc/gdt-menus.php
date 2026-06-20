@@ -132,7 +132,9 @@ class Accessible_Nav_Walker extends Walker_Nav_Menu {
 		if ( in_array( 'menu-item-has-children', $classes, true ) ) {
 			$item_output .= '<button class="dropdown-toggle" aria-expanded="false">';
 			$item_output .= '<span class="screen-reader-text">Show submenu for ' . esc_html( $item->title ) . '</span>';
-			$item_output .= '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+			$item_output .= '<svg xmlns="http://www.w3.org/2000/svg" width="9" height="5" viewBox="0 0 9 5" fill="none">
+  <path d="M-5.60272e-07 4.5C-4.55935e-07 3.30653 0.474105 2.16193 1.31802 1.31802C2.16193 0.474106 3.30653 4.55935e-07 4.5 5.60272e-07C5.69347 6.64609e-07 6.83807 0.474107 7.68198 1.31802C8.52589 2.16193 9 3.30653 9 4.5L4.5 4.5L-5.60272e-07 4.5Z" fill="#F8D2BE"/>
+</svg>';
 			$item_output .= '</button>';
 		}
 

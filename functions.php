@@ -17,6 +17,7 @@ require_once get_template_directory() . '/inc/gdt-toolbelt.php';
 // require_once get_template_directory() . '/inc/megamenu.php';
 
 // Custom post types / taxonomies (enable as needed).
+require_once get_template_directory() . '/inc/team-cpt.php';
 // require_once get_template_directory() . '/inc/custom-post-type.php';
 // require_once get_template_directory() . '/inc/custom-taxonomy.php';
 

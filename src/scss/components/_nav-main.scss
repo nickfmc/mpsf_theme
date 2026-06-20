@@ -56,10 +56,10 @@
       padding: 0;
       cursor: pointer;
       position: absolute;
-      right: -2px;
-      top: 50%;
-      margin-top: 2px;
-      color: var(--wp--preset--color--secondary);
+      right: 5px;
+      top: calc(50% - 5px);
+      margin-top: 0;
+      color: var(--wp--preset--color--dark);
       transform: translateY(-50%);
       
       &[aria-expanded="true"] {
@@ -93,7 +93,7 @@
     display: block;
     font-size: 14px;
     margin: 0;
-    padding: 30px 12px 30px 12px;
+    padding: 25px 12px 25px 12px;
     position: relative;
     &:first-of-type > a {
       padding-left: 0;
@@ -129,15 +129,19 @@
     //   background-color: var(--wp--preset--color--primary);
     //   transition: var(--transition-ease);
     // }
+   
   }
   .c-main-menu > li:hover a,
   .c-page-header .wp-block-navigation__container > .wp-block-navigation-item:hover .wp-block-navigation-item__content {
    
     &::after {
-      background-color: var(--wp--preset--color--primary);
       transition: var(--transition-ease);
     }
   }
+
+     .c-main-menu > li:hover button.dropdown-toggle {
+      transform: rotate(180deg);
+    }
   .c-main-menu > .current-menu-item > a,
   .c-main-menu > .current-page-ancestor > a,
   .c-main-menu > .current_page_item > a,
@@ -148,10 +152,15 @@
   .c-page-header .wp-block-navigation__container > .current_page_item > .wp-block-navigation-item__content,
   .c-page-header .wp-block-navigation__container > .current_page_parent > .wp-block-navigation-item__content,
   .c-page-header .wp-block-navigation__container > .current_page_ancestor > .wp-block-navigation-item__content {
-    color: #222222
+    color: #222222;
+
+
   }
 
 // HAS CHILDREN DROPDOWN
+  .c-main-menu > .menu-item-has-children {
+    padding-right: 10px;
+  }
   .c-main-menu > .menu-item-has-children > a,
   .c-page-header .wp-block-navigation__container > .wp-block-navigation-item.has-child > .wp-block-navigation-item__content {
     position: relative; 
@@ -182,14 +191,13 @@
   }
   .c-main-menu ul,
   .c-page-header .wp-block-navigation__submenu-container {
-    background-color: #fff;
-    box-shadow: 0px 12px 16px -4px rgba(0, 0, 0, 0.25);
-    border: 1px solid var(--Colors-Border-border-secondary, #E9EAEB);
+    background-color: #F6F5EA !important;
+    border: none !important;
     position: absolute;
-    left: 50%;
+    left: calc(100% + 30px);
     transform: translateX(-50%);
     top: 100%;
-    min-width: 336px;
+    min-width: 259px;
     margin: 0;
     padding: 0;
     opacity: 0;
@@ -200,6 +208,7 @@
     display: flex;
     flex-direction: column;
     padding: 8px;
+    align-items: flex-start;
   }
   .c-main-menu ul li,
   .c-page-header .wp-block-navigation__submenu-container .wp-block-navigation-item {
@@ -225,12 +234,25 @@
   }
   .c-main-menu ul li a,
   .c-page-header .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
-    color: var(--wp--preset--color--primary);
+    color: #59262C;
     font-size: 0.938rem;
-    padding: 15px 15px;
+    padding: 10px 15px !important;
     width: 100%;
     display: block;
     transition: var(--transition-ease);
+     &::after {
+      position: absolute;
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background-color: #D56E68;
+      border-radius: 20px;
+      bottom: 0;
+      left: 15px;
+      transform: translateY(-50%);
+      transition: var(--transition-ease);
+    }
   }
   .c-main-menu ul li a:focus,
   .c-page-header .wp-block-navigation__submenu-container .wp-block-navigation-item__content:focus {
@@ -241,22 +263,63 @@
     outline-offset: -2px;
   }
 
+  // Hover state for dropdown items
   .c-main-menu ul li a:hover,
+  .c-page-header .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover {
+
+    border-radius: var(--radius-md, 8px);
+    &::after {
+      width: calc(100% - 30px);
+      left: 15px;
+      transition: var(--transition-ease);
+    }
+    
+  }
+
+  // Current/active state for dropdown items
   .c-main-menu ul .current-menu-item > a,
   .c-main-menu ul .current-menu-parent > a,
   .c-main-menu ul .current_page_item > a,
   .c-main-menu ul .current_page_parent > a,
   .c-main-menu ul .current_page_ancestor > a,
-  .c-page-header .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover,
   .c-page-header .wp-block-navigation__submenu-container .current-menu-item > .wp-block-navigation-item__content,
   .c-page-header .wp-block-navigation__submenu-container .current-menu-parent > .wp-block-navigation-item__content,
   .c-page-header .wp-block-navigation__submenu-container .current_page_item > .wp-block-navigation-item__content,
   .c-page-header .wp-block-navigation__submenu-container .current_page_parent > .wp-block-navigation-item__content,
   .c-page-header .wp-block-navigation__submenu-container .current_page_ancestor > .wp-block-navigation-item__content {
-    color: #000;
+
     border-radius: var(--radius-md, 8px);
-    background-color: #FAFAFA;
-    // text-decoration: underline;
+    background-color: #F6F5EA;
+     
+      position: relative;
+     &::after {
+      position: absolute;
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background-color: #D56E68;
+      border-radius: 20px;
+      bottom: 0;
+      left: 15px;
+      transform: translateY(-50%);
+      transition: var(--transition-ease);
+    }
+  }
+  // Submenu toggle icon — kill any inherited stroke from WP core styles
+  .wp-block-navigation-submenu .wp-block-navigation__submenu-icon svg,
+  .wp-block-navigation__submenu-icon svg {
+    stroke: none;
+  }
+
+  // Override WP core items-justified-right rule that snaps submenus to right: 0
+  .wp-block-navigation.items-justified-right .wp-block-navigation__submenu-container,
+  .wp-block-navigation.items-justified-right .wp-block-navigation__container .has-child .wp-block-navigation__submenu-container {
+    left: 100%;
+    right: auto;
   }
 }
 // END drop down styling
+.wp-block-navigation .wp-block-navigation__submenu-icon {
+  margin-left: 0 !important;
+}

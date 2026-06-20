@@ -6,24 +6,15 @@
 
         <!-- wp:site-logo {"width":180} /-->
 
-        <!-- wp:navigation {"className":"c-main-navigation","overlayMenu":"mobile","layout":{"type":"flex","justifyContent":"right","flexWrap":"nowrap"}} /-->
-
-        <!-- wp:launchpad/search-trigger /-->
+        
 
         <!-- wp:group {"className":"c-header-actions","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"},"style":{"spacing":{"blockGap":"var:preset|spacing|3"}}} -->
         <div class="wp-block-group c-header-actions is-layout-flex wp-block-group-is-layout-flex">
-
-            <!-- wp:shortcode -->
-            [mpsf_lang_selector]
-            <!-- /wp:shortcode -->
-
-            <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"flex-start"},"style":{"spacing":{"blockGap":"0px"}}} -->
-            <div class="wp-block-buttons is-layout-flex is-content-justification-left">
-                <!-- wp:button {"className":"is-style-outline","textColor":"primary","style":{"border":{"radius":"8px"},"spacing":{"padding":{"top":"10px","bottom":"10px","left":"18px","right":"18px"}}}} -->
-                <div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button has-primary-color has-text-color" href="/contact" style="border-radius:8px;padding-top:10px;padding-right:18px;padding-bottom:10px;padding-left:18px">Contact Us</a></div>
-                <!-- /wp:button -->
-            </div>
-            <!-- /wp:buttons -->
+  
+        
+        <!-- wp:shortcode -->[custom_navigation]<!-- /wp:shortcode -->
+        <!-- wp:launchpad/search-trigger /-->
+        <!-- wp:shortcode -->[mobile_menu_button style="accordion"]<!-- /wp:shortcode -->
 
         </div>
         <!-- /wp:group -->

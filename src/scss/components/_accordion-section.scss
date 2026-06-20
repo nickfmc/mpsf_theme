@@ -1,0 +1,284 @@
+/* ==========================================================================
+   ACCORDION SECTION
+   Two-column layout: sticky image panel (left) + accordion list (right).
+   Figma: background #F6F5EA, border-radius 8px, image 522×588 radius 5px,
+   heading Playfair 40px/1.2, title DM Sans SemiBold 20px/1.3, body 14px/1.7.
+   ========================================================================== */
+
+// ── Editor preview ──────────────────────────────────────────────────────────
+.c-accordion-section--editor {
+  background: var(--color-cream-alt);
+  border-radius: 8px;
+  padding: 24px 24px 24px 32px;
+
+  .c-accordion-section__editor-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 522px) 1fr;
+    gap: 53px;
+    align-items: start;
+  }
+
+  .c-accordion-section__editor-image-panel {
+    background: darken(#f6f5ea, 5%);
+    border-radius: 5px;
+    aspect-ratio: 522 / 588;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-rose);
+    font-size: 13px;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .c-accordion-section__heading {
+    font-family: var(--font-secondary);
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--color-dark);
+    margin: 0 0 2rem;
+  }
+
+  .c-accordion-item--editor {
+    border-bottom: 1px solid var(--color-border);
+    padding: 1.5rem 0;
+
+    &:first-of-type {
+      border-top: 1px solid var(--color-border);
+    }
+  }
+
+  .c-accordion-item__trigger-preview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .c-accordion-item__title {
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.3;
+    color: var(--color-dark);
+  }
+
+  .c-accordion-item__icon {
+    color: var(--color-dark);
+    font-size: 1.25rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .c-accordion-item__body-preview {
+    font-family: var(--font-primary);
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--color-dark);
+    margin-top: 1rem;
+    opacity: 0.75;
+  }
+}
+
+// ── Front-end: desktop ───────────────────────────────────────────────────────
+@media (width >= #{$bp-large}) {
+  .c-accordion-section {
+    background: var(--color-cream-alt);
+    border-radius: 8px;
+    padding: 24px 24px 24px 32px;
+    display: grid;
+    grid-template-columns: minmax(0, 522px) 1fr;
+    gap: 53px;
+    align-items: stretch; // both columns same height so items can push to bottom
+  }
+
+  // Image on the right: swap column order
+  .c-accordion-section--image-right {
+    grid-template-columns: 1fr minmax(0, 522px);
+
+    .c-accordion-section__image-panel { order: 2; }
+    .c-accordion-section__content     { order: 1; }
+  }
+
+  // Sticky image panel — stacking context for absolute image swapping
+  .c-accordion-section__image-panel {
+    position: sticky;
+    top: 2rem;
+    border-radius: 5px;
+    overflow: hidden;
+    aspect-ratio: 522 / 588;
+    background: darken(#f6f5ea, 4%);
+    align-self: start; // sticky needs align-self: start, not stretch
+  }
+
+  // All image wraps absolutely fill the panel; only .is-active is visible
+  .c-accordion-section__image-wrap {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+
+    &.is-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  .c-accordion-section__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .c-accordion-section__image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: darken(#f6f5ea, 4%);
+  }
+
+  // Mobile image hidden on desktop
+  .c-accordion-item__mobile-image {
+    display: none;
+  }
+}
+
+// ── Front-end: shared (both breakpoints) ────────────────────────────────────
+
+// Content column: heading pinned top, items pushed to bottom
+.c-accordion-section__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.c-accordion-section__heading {
+  font-family: var(--font-secondary);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem); // 40px at ~1140px viewport
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-dark);
+  margin: 0;
+}
+
+.c-accordion-section__items {
+  margin-top: auto;      // pushes accordion list to bottom of column
+  padding-top: 1.5rem;   // minimum gap below heading
+}
+
+
+
+.c-accordion-item__trigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.5rem 0; // ~24px top/bottom keeps ~48px total gap between items
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+
+  &:focus-visible {
+    outline: 2px solid var(--wp--preset--color--primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+.c-accordion-item__title {
+  font-family: var(--font-primary);
+  font-weight: 600; // SemiBold per Figma
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--color-dark);
+}
+
+.c-accordion-item__icon {
+  flex-shrink: 0;
+  color: var(--color-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+// Show + when closed, − when open
+.c-accordion-item__icon-plus {
+  opacity: 1;
+  transition: opacity 200ms ease;
+}
+.c-accordion-item__icon-minus {
+  opacity: 0;
+  position: absolute;
+  transition: opacity 200ms ease;
+}
+
+.c-accordion-item__trigger[aria-expanded="true"] {
+  .c-accordion-item__icon-plus  { opacity: 0; }
+  .c-accordion-item__icon-minus { opacity: 1; }
+}
+
+// Body open/close — grid-row animation trick
+.c-accordion-item__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms ease;
+
+  // Browser sets display:none on [hidden] — override to keep animation working
+  &[hidden] {
+    display: grid !important;
+  }
+
+  &:not([hidden]) {
+    grid-template-rows: 1fr;
+  }
+}
+
+.c-accordion-item__body-inner {
+  overflow: hidden;
+}
+
+.c-accordion-item__text {
+  padding-bottom: 1.5rem;
+
+  p {
+    font-family: var(--font-primary);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--color-dark);
+    margin: 0;
+  }
+}
+
+// ── Front-end: mobile ────────────────────────────────────────────────────────
+@media (width < #{$bp-large}) {
+  .c-accordion-section {
+    background: var(--color-cream-alt);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .c-accordion-section__image-panel {
+    display: none;
+  }
+
+  .c-accordion-item__mobile-image {
+    border-radius: 5px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    margin-bottom: 1rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+}

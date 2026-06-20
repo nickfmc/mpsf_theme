@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mpsf/accordion-item",
+	"title": "Accordion Item",
+	"category": "myblocks",
+	"description": "A single accordion row with title, body, and an image shown in the parent's image panel (desktop) or inline (mobile).",
+	"keywords": [ "accordion", "item", "process", "step" ],
+	"parent": [ "mpsf/accordion-section" ],
+	"supports": {
+		"html": false,
+		"inserter": true
+	},
+	"attributes": {
+		"title":    { "type": "string", "default": "" },
+		"body":     { "type": "string", "default": "" },
+		"imageId":  { "type": "number" },
+		"imageUrl": { "type": "string", "default": "" },
+		"imageAlt": { "type": "string", "default": "" }
+	},
+	"editorScript": "file:../../build/accordion-item.js",
+	"render": "file:./render.php"
+}

@@ -1,0 +1,38 @@
+.c-team-member {
+	align-items: flex-start;
+
+	// Featured image column — no top margin so image aligns with the h1
+	.wp-block-column:first-child {
+		.wp-block-post-featured-image {
+			margin-top: 0;
+		}
+	}
+}
+
+.c-team-member__position {
+	font-family: var(--wp--preset--font-family--primary);
+	font-size: var(--wp--preset--font-size--xs);
+	font-weight: 600;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--rose);
+	margin-top: 0;
+	margin-bottom: var(--wp--preset--spacing--8);
+}
+
+.c-team-member__back {
+	margin-top: var(--wp--preset--spacing--10);
+
+	a {
+		font-weight: 500;
+		text-decoration: underline;
+		text-underline-offset: 5px;
+		text-decoration-thickness: 2px;
+		text-decoration-color: var(--wp--preset--color--primary);
+		color: var(--wp--preset--color--dark);
+
+		&:hover {
+			color: var(--wp--preset--color--primary);
+		}
+	}
+}

@@ -1,0 +1,42 @@
+<!-- wp:template-part {"slug":"header","tagName":"header","className":"c-page-header"} /-->
+
+<!-- wp:group {"anchor":"main-content","tagName":"main","lock":{"remove":true},"style":{"spacing":{"padding":{"top":"var:preset|spacing|16","bottom":"var:preset|spacing|16"}}},"layout":{"type":"constrained"}} -->
+<main id="main-content" class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained" style="padding-top:var(--wp--preset--spacing--16);padding-bottom:var(--wp--preset--spacing--16)">
+
+    <!-- wp:columns {"className":"c-team-member","style":{"spacing":{"blockGap":{"top":"0","left":"var:preset|spacing|16"}}}} -->
+    <div class="wp-block-columns c-team-member">
+
+        <!-- wp:column {"width":"40%"} -->
+        <div class="wp-block-column" style="flex-basis:40%">
+            <!-- wp:post-featured-image {"size":"full","style":{"border":{"radius":"0.5rem"}}} /-->
+        </div>
+        <!-- /wp:column -->
+
+        <!-- wp:column {"width":"60%"} -->
+        <div class="wp-block-column" style="flex-basis:60%">
+
+            <!-- wp:post-title {"level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|2"}}}} /-->
+
+            <!-- wp:shortcode -->
+[team_position]
+            <!-- /wp:shortcode -->
+
+            <!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+
+            <!-- wp:paragraph {"className":"c-team-member__back"} -->
+<p class="c-team-member__back"><a href="/team">Return to All Staff</a></p>
+            <!-- /wp:paragraph -->
+
+        </div>
+        <!-- /wp:column -->
+
+    </div>
+    <!-- /wp:columns -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- Replace ref:0 below with your Contact Us synced pattern ID (find it in Appearance > Editor > Patterns) -->
+<!-- wp:block {"ref":216} /-->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer","className":"c-page-footer","lock":{"remove":true}} /-->

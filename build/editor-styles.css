@@ -418,6 +418,9 @@ form input:focus {
     outline: 2px solid SelectedItem;
   }
 }
+.gform_required_legend {
+  display: none !important;
+}
 /* ==========================================================================
    A TAG (links) STYLES
 /* Links and Buttons
@@ -3199,13 +3202,6 @@ p {
 }
 .is-style-narrow-columns .wp-block-column {
   margin-left: 20px;
-}
-.wp-block,
-.wp-block[data-type^=toolset]:not([data-align^=full]),
-div:not([class]) > .block-editor-block-list__layout > .wp-block:not([data-align^=full]),
-.tb-container > .block-editor-inner-blocks > .block-editor-block-list__layout > .wp-block:not([data-align^=full]) {
-  max-width: var(--wrapper-width-base) !important;
-  z-index: 10;
 }
 .wp-block[data-align=full], .is-style-alignfull, .alignfull {
   max-width: none !important;
