@@ -485,12 +485,12 @@ p {
   position: relative;
   top: 3px;
 }
-.c-text-btn-light, .c-text-btn-dark {
+.c-text-btn-light, .c-text-btn-dark, .wpgb-facet.wpgb-facet-5 button {
   position: relative;
   padding-bottom: 4px;
   display: inline-flex;
 }
-.c-text-btn-light::after, .c-text-btn-dark::after {
+.c-text-btn-light::after, .c-text-btn-dark::after, .wpgb-facet.wpgb-facet-5 button::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -500,7 +500,7 @@ p {
   background-color: var(--wp--preset--color--coral);
   transition: width 0.3s ease;
 }
-.c-text-btn-light:hover::after, .c-text-btn-dark:hover::after {
+.c-text-btn-light:hover::after, .c-text-btn-dark:hover::after, .wpgb-facet.wpgb-facet-5 button:hover::after {
   width: 100%;
 }
 /* ==========================================================================

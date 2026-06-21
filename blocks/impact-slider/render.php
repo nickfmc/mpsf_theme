@@ -12,16 +12,71 @@ $section_heading     = esc_html( $attributes['sectionHeading'] ?? 'Your Giving I
 $section_description = isset( $attributes['sectionDescription'] ) ? esc_html( $attributes['sectionDescription'] ) : '';
 $cta_label           = esc_html( $attributes['ctaLabel'] ?? 'Learn More' );
 $cta_url             = esc_url( $attributes['ctaUrl'] ?? '#' );
+$content_mode        = $attributes['contentMode'] ?? 'manual';
+$selected_posts       = array_filter( array_map( 'intval', $attributes['selectedPosts'] ?? array() ) );
 
-// Legacy save() wrapped InnerBlocks in <section class="wp-block-mpsf-impact-slider c-impact-slider">.
-// Strip that wrapper when present so .swiper-slide elements are direct children of .swiper-wrapper.
-// Pages saved with the fixed save() (returns <InnerBlocks.Content /> only) are unaffected.
-$slides_html = preg_replace(
-	'/^\s*<section[^>]*class="[^"]*(?:wp-block-mpsf-impact-slider|c-impact-slider)[^"]*"[^>]*>([\s\S]*)<\/section>\s*$/',
-	'$1',
-	trim( $content )
-);
-$slides_html = ( $slides_html !== null && $slides_html !== trim( $content ) ) ? $slides_html : $content;
+if ( 'posts' === $content_mode ) {
+	// Posts mode: build slides from posts instead of manual InnerBlocks content.
+	// Selected posts show all of them (no limit); none selected falls back to latest 4.
+	if ( ! empty( $selected_posts ) ) {
+		$posts_query_args = array(
+			'post_type'      => 'post',
+			'post_status'    => 'publish',
+			'post__in'       => $selected_posts,
+			'orderby'        => 'post__in',
+			'posts_per_page' => -1,
+		);
+	} else {
+		$posts_query_args = array(
+			'post_type'      => 'post',
+			'post_status'    => 'publish',
+			'posts_per_page' => 4,
+			'orderby'        => 'date',
+			'order'          => 'DESC',
+		);
+	}
+
+	$slides_html  = '';
+	$posts_query  = new WP_Query( $posts_query_args );
+
+	if ( $posts_query->have_posts() ) {
+		while ( $posts_query->have_posts() ) {
+			$posts_query->the_post();
+
+			$post_image_html = has_post_thumbnail()
+				? get_the_post_thumbnail(
+					get_the_ID(),
+					'large',
+					array(
+						'class'   => 'c-impact-slide__img',
+						'loading' => 'lazy',
+					)
+				)
+				: '';
+
+			$slides_html .= mpsf_render_impact_slide_markup(
+				array(
+					'title'      => esc_html( get_the_title() ),
+					'body'       => wp_kses_post( get_the_excerpt() ),
+					'cta_label'  => esc_html__( 'Read Report', 'mpsf' ),
+					'cta_url'    => esc_url( get_permalink() ),
+					'image_html' => $post_image_html,
+				)
+			);
+		}
+		wp_reset_postdata();
+	}
+} else {
+	// Legacy save() wrapped InnerBlocks in <section class="wp-block-mpsf-impact-slider c-impact-slider">.
+	// Strip that wrapper when present so .swiper-slide elements are direct children of .swiper-wrapper.
+	// Pages saved with the fixed save() (returns <InnerBlocks.Content /> only) are unaffected.
+	$slides_html = preg_replace(
+		'/^\s*<section[^>]*class="[^"]*(?:wp-block-mpsf-impact-slider|c-impact-slider)[^"]*"[^>]*>([\s\S]*)<\/section>\s*$/',
+		'$1',
+		trim( $content )
+	);
+	$slides_html = ( $slides_html !== null && $slides_html !== trim( $content ) ) ? $slides_html : $content;
+}
 
 // Build class list — honour align + className from block supports.
 $wrapper_attrs = get_block_wrapper_attributes( [ 'class' => 'c-impact-slider' ] );
@@ -39,9 +94,7 @@ $wrapper_attrs = get_block_wrapper_attributes( [ 'class' => 'c-impact-slider' ] 
 				<?php if ( $cta_label ) : ?>
 					<a class="c-impact-slider__cta" href="<?php echo $cta_url; ?>">
 						<?php echo $cta_label; ?>
-						<svg class="c-impact-slider__cta-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-							<path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
+						
 					</a>
 				<?php endif; ?>
 			</div>

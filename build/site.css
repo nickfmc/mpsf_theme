@@ -3315,12 +3315,12 @@ main.wp-block-group {
   position: relative;
   top: 3px;
 }
-.c-text-btn-light, .c-text-btn-dark {
+.c-text-btn-light, .c-text-btn-dark, .wpgb-facet.wpgb-facet-5 button {
   position: relative;
   padding-bottom: 4px;
   display: inline-flex;
 }
-.c-text-btn-light::after, .c-text-btn-dark::after {
+.c-text-btn-light::after, .c-text-btn-dark::after, .wpgb-facet.wpgb-facet-5 button::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -3330,7 +3330,7 @@ main.wp-block-group {
   background-color: var(--wp--preset--color--coral);
   transition: width 0.3s ease;
 }
-.c-text-btn-light:hover::after, .c-text-btn-dark:hover::after {
+.c-text-btn-light:hover::after, .c-text-btn-dark:hover::after, .wpgb-facet.wpgb-facet-5 button:hover::after {
   width: 100%;
 }
 /* ==========================================================================
@@ -3489,6 +3489,11 @@ main.wp-block-group {
   padding-right: var(--content-padding-inline);
   z-index: 200;
   position: relative;
+  height: 80px;
+}
+.c-page-header .o-wrapper-wide {
+  padding-left: 0;
+  padding-right: 0;
 }
 #search-button {
   width: 40px;
@@ -3819,12 +3824,17 @@ a.c-header-contact-btn:focus-visible {
   top: 18px;
   z-index: 1;
 }
+@media (width >= 768px) {
+  .c-logo-main {
+    top: 18px;
+  }
+}
 .c-logo-main a {
   display: block;
 }
 .c-logo-main img {
   display: block;
-  width: 150px;
+  width: 200px;
   height: auto;
   max-height: var(--page-header-height);
 }
@@ -3981,8 +3991,7 @@ a.c-header-contact-btn:focus-visible {
     background-color: #F6F5EA !important;
     border: none !important;
     position: absolute;
-    left: calc(100% + 30px);
-    transform: translateX(-50%);
+    left: 0;
     top: 100%;
     min-width: 259px;
     margin: 0;
@@ -4467,6 +4476,7 @@ a.c-header-contact-btn:focus-visible {
   flex-direction: column;
   gap: clamp(1.5rem, 3vw, 2rem);
   padding-block: clamp(3rem, 6vw, 5rem);
+  padding-bottom: 0;
 }
 .c-impact-slider__inner {
   max-width: var(--wrapper-width-base);
@@ -4500,9 +4510,10 @@ a.c-header-contact-btn:focus-visible {
 .c-impact-slider__cta {
   font-family: var(--font-primary);
   font-size: 0.9375rem;
+  margin-top: 10px;
   font-weight: 500;
   color: var(--color-dark);
-  text-decoration: underline;
+  position: relative;
   text-underline-offset: 3px;
   white-space: nowrap;
   display: inline-flex;
@@ -4513,8 +4524,18 @@ a.c-header-contact-btn:focus-visible {
 .c-impact-slider__cta-arrow {
   flex-shrink: 0;
 }
-.c-impact-slider__cta:hover {
-  color: var(--color-coral);
+.c-impact-slider__cta::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 2rem;
+  height: 2px;
+  background-color: var(--wp--preset--color--coral);
+  transition: width 0.3s ease;
+}
+.c-impact-slider__cta:hover::after {
+  width: 100%;
 }
 .c-impact-slider__swiper {
   width: 100%;
@@ -5220,7 +5241,7 @@ html.has-modal-nav-open {
   margin: 0;
   position: absolute;
   right: 0px;
-  top: 25px;
+  top: 20px;
   vertical-align: middle;
   border: 1px solid #ddd;
 }
@@ -5728,6 +5749,49 @@ html.has-modal-nav-open {
 /* ==========================================================================
    OVERRIDES - hacks and styles of last resort live here
    ========================================================================== */
+.wpgb-facet-4.wpgb-facet .wpgb-reset {
+  border: 2px solid var(--color-coral);
+  border-radius: 5px;
+  padding: 5px 10px !important;
+  background: transparent;
+  transition: var(--transition-ease);
+  color: var(--Wine, #51141B);
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+}
+.wpgb-facet-4.wpgb-facet .wpgb-reset:hover {
+  background: var(--color-coral);
+  color: #fff !important;
+}
+.wpgb-facet .wpgb-button[aria-pressed=true] {
+  border-radius: 5px;
+  border: 1.5px solid var(--Blush, #F4D5D9) !important;
+  background: transparent !important;
+  color: var(--color-wine) !important;
+}
+.wpgb-facet .wpgb-button[aria-pressed=true] .wpgb-button-control {
+  color: var(--color-coral) !important;
+}
+.wpgb-facet .wpgb-button .wpgb-button-control {
+  color: var(--color-coral) !important;
+}
+.wpgb-facet .wpgb-button .wpgb-button-control::after, .wpgb-facet .wpgb-button .wpgb-button-control::before {
+  background: var(--color-coral) !important;
+}
+.wpgb-facet.wpgb-facet-5 button {
+  background: transparent !important;
+  color: var(--color-wine) !important;
+  font-size: 16px;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  font-weight: 500;
+}
+.wpgb-facet .wpgb-checkbox-facet .wpgb-checkbox[aria-pressed=true] .wpgb-checkbox-control {
+  background: var(--color-coral) !important;
+  border-color: var(--color-coral) !important;
+}
 /* ==========================================================================
    PRINT STYLES
    ========================================================================== */

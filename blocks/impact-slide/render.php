@@ -38,31 +38,12 @@ if ( $image_id ) {
 		$image_alt
 	);
 }
-?>
-<div class="swiper-slide">
-	<article class="c-impact-slide">
-
-		<div class="c-impact-slide__content">
-			<?php if ( $title ) : ?>
-				<h3 class="c-impact-slide__title"><?php echo $title; ?></h3>
-			<?php endif; ?>
-
-			<?php if ( $body ) : ?>
-				<p class="c-impact-slide__body"><?php echo $body; ?></p>
-			<?php endif; ?>
-
-			<?php if ( $cta_label ) : ?>
-				<a class="c-btn c-impact-slide__cta" href="<?php echo $cta_url; ?>">
-					<?php echo $cta_label; ?>
-				</a>
-			<?php endif; ?>
-		</div>
-
-		<?php if ( $image_html ) : ?>
-			<div class="c-impact-slide__media">
-				<?php echo $image_html; ?>
-			</div>
-		<?php endif; ?>
-
-	</article>
-</div>
+echo mpsf_render_impact_slide_markup(
+	array(
+		'title'      => $title,
+		'body'       => $body,
+		'cta_label'  => $cta_label,
+		'cta_url'    => $cta_url,
+		'image_html' => $image_html,
+	)
+);

@@ -27,6 +27,17 @@
         "ctaUrl": {
             "type": "string",
             "default": "#"
+        },
+        "contentMode": {
+            "type": "string",
+            "default": "manual"
+        },
+        "selectedPosts": {
+            "type": "array",
+            "default": [],
+            "items": {
+                "type": "number"
+            }
         }
     },
     "textdomain": "mpsf",

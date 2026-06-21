@@ -8,11 +8,16 @@
   padding-right: var(--content-padding-inline);
   z-index: 200;
   position: relative;
+  height: 80px;
   // Uncomment for headroom.js fixed-header behaviour:
   // position: fixed;
   // top: 0;
   // width: 100%;
   // z-index: z(overlay);
+  .o-wrapper-wide  {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 // ++ SEARCH BUTTON ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

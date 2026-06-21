@@ -86,6 +86,72 @@ function launchpad_content_excerpt( $char_limit ) {
 
 
 /*------------------------------------*\
+    IMPACT SLIDER
+\*------------------------------------*/
+
+/**
+ * Render a single Impact Slider slide (.swiper-slide markup).
+ *
+ * Shared by mpsf/impact-slide (manual mode) and mpsf/impact-slider
+ * (posts mode) so both produce identical markup. All values must
+ * already be sanitized/escaped by the caller.
+ *
+ * @param array $args {
+ *     @type string $title      Sanitized slide title HTML.
+ *     @type string $body       Sanitized slide body HTML.
+ *     @type string $cta_label  Escaped CTA button label.
+ *     @type string $cta_url    Escaped CTA button URL.
+ *     @type string $image_html Pre-built <img>/attachment image HTML.
+ * }
+ * @return string
+ */
+function mpsf_render_impact_slide_markup( $args ) {
+	$args = wp_parse_args(
+		$args,
+		array(
+			'title'      => '',
+			'body'       => '',
+			'cta_label'  => '',
+			'cta_url'    => '#',
+			'image_html' => '',
+		)
+	);
+
+	ob_start();
+	?>
+	<div class="swiper-slide">
+		<article class="c-impact-slide">
+
+			<div class="c-impact-slide__content">
+				<?php if ( $args['title'] ) : ?>
+					<h3 class="c-impact-slide__title"><?php echo $args['title']; ?></h3>
+				<?php endif; ?>
+
+				<?php if ( $args['body'] ) : ?>
+					<p class="c-impact-slide__body"><?php echo $args['body']; ?></p>
+				<?php endif; ?>
+
+				<?php if ( $args['cta_label'] ) : ?>
+					<a class="c-btn c-impact-slide__cta" href="<?php echo $args['cta_url']; ?>">
+						<?php echo $args['cta_label']; ?>
+					</a>
+				<?php endif; ?>
+			</div>
+
+			<?php if ( $args['image_html'] ) : ?>
+				<div class="c-impact-slide__media">
+					<?php echo $args['image_html']; ?>
+				</div>
+			<?php endif; ?>
+
+		</article>
+	</div>
+	<?php
+	return ob_get_clean();
+}
+
+
+/*------------------------------------*\
     TITLE
 \*------------------------------------*/
 
