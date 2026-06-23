@@ -1,1 +1,346 @@
-(()=>{"use strict";const e=window.wp.blocks,i=window.wp.blockEditor,t=window.wp.components,a=JSON.parse('{"UU":"mpsf/accordion-item"}'),o=window.ReactJSXRuntime;(0,e.registerBlockType)(a.UU,{edit({attributes:e,setAttributes:a}){const{title:l,body:n,imageId:c,imageUrl:r,imageAlt:s}=e,d=(0,i.useBlockProps)({className:"c-accordion-item c-accordion-item--editor"});return(0,o.jsxs)(o.Fragment,{children:[(0,o.jsx)(i.InspectorControls,{children:(0,o.jsxs)(t.PanelBody,{title:"Item Image",initialOpen:!0,children:[(0,o.jsx)("p",{style:{fontSize:"12px",color:"#757575",marginBottom:"8px"},children:"Shown in the image panel (desktop) or inside this item (mobile)."}),(0,o.jsx)(i.MediaUploadCheck,{children:(0,o.jsx)(i.MediaUpload,{onSelect:e=>a({imageId:e.id,imageUrl:e.url,imageAlt:e.alt||""}),allowedTypes:["image"],value:c,render:({open:e})=>(0,o.jsx)(o.Fragment,{children:r?(0,o.jsxs)(o.Fragment,{children:[(0,o.jsx)("img",{src:r,alt:s,style:{maxWidth:"100%",marginBottom:"8px",borderRadius:"4px"}}),(0,o.jsx)(t.Button,{variant:"secondary",size:"small",onClick:e,style:{marginRight:"8px"},children:"Replace image"}),(0,o.jsx)(t.Button,{variant:"link",isDestructive:!0,size:"small",onClick:()=>a({imageId:0,imageUrl:"",imageAlt:""}),children:"Remove"})]}):(0,o.jsx)(t.Button,{variant:"secondary",onClick:e,children:"Select image"})})})})]})}),(0,o.jsxs)("div",{...d,children:[(0,o.jsxs)("div",{className:"c-accordion-item__trigger-preview",children:[(0,o.jsx)(i.RichText,{tagName:"span",className:"c-accordion-item__title",value:l,onChange:e=>a({title:e}),placeholder:"Accordion title…",allowedFormats:[]}),(0,o.jsx)("span",{className:"c-accordion-item__icon","aria-hidden":"true",children:"+"})]}),(0,o.jsx)(i.RichText,{tagName:"p",className:"c-accordion-item__body-preview",value:n,onChange:e=>a({body:e}),placeholder:"Item body text…",allowedFormats:["core/bold","core/italic","core/link"]})]})]})},save:()=>null})})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "react/jsx-runtime"
+/*!**********************************!*\
+  !*** external "ReactJSXRuntime" ***!
+  \**********************************/
+(module) {
+
+module.exports = window["ReactJSXRuntime"];
+
+/***/ },
+
+/***/ "@wordpress/block-editor"
+/*!*************************************!*\
+  !*** external ["wp","blockEditor"] ***!
+  \*************************************/
+(module) {
+
+module.exports = window["wp"]["blockEditor"];
+
+/***/ },
+
+/***/ "@wordpress/blocks"
+/*!********************************!*\
+  !*** external ["wp","blocks"] ***!
+  \********************************/
+(module) {
+
+module.exports = window["wp"]["blocks"];
+
+/***/ },
+
+/***/ "@wordpress/components"
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+(module) {
+
+module.exports = window["wp"]["components"];
+
+/***/ },
+
+/***/ "@wordpress/data"
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+(module) {
+
+module.exports = window["wp"]["data"];
+
+/***/ },
+
+/***/ "@wordpress/element"
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+(module) {
+
+module.exports = window["wp"]["element"];
+
+/***/ },
+
+/***/ "./blocks/accordion-item/block.json"
+/*!******************************************!*\
+  !*** ./blocks/accordion-item/block.json ***!
+  \******************************************/
+(module) {
+
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"mpsf/accordion-item","title":"Accordion Item","category":"myblocks","description":"A single accordion row with title, body, and an image shown in the parent\'s image panel (desktop) or inline (mobile).","keywords":["accordion","item","process","step"],"parent":["mpsf/accordion-section"],"supports":{"html":false,"inserter":true},"attributes":{"title":{"type":"string","default":""},"body":{"type":"string","default":""},"imageId":{"type":"number"},"imageUrl":{"type":"string","default":""},"imageAlt":{"type":"string","default":""}},"editorScript":"file:../../build/accordion-item.js","render":"file:./render.php"}');
+
+/***/ }
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
+/*!****************************************!*\
+  !*** ./blocks/accordion-item/index.js ***!
+  \****************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./block.json */ "./blocks/accordion-item/block.json");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
+/**
+ * Accordion Item — child block of mpsf/accordion-section.
+ *
+ * Editable title, body text, and an image (shown in the parent's sticky panel
+ * on desktop, inline inside the item body on mobile).
+ * The editor preview mirrors the front-end trigger/icon/collapse behaviour
+ * (first item open by default) so authors can see roughly what they'll get.
+ * Front-end output is handled by render.php; save() returns null.
+ */
+
+
+
+
+
+
+
+
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_5__.name, {
+  edit({
+    attributes,
+    setAttributes,
+    clientId
+  }) {
+    const {
+      title,
+      body,
+      imageId,
+      imageUrl,
+      imageAlt
+    } = attributes;
+    const isFirstItem = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.useSelect)(select => {
+      const {
+        getBlockRootClientId,
+        getBlockOrder
+      } = select('core/block-editor');
+      const rootClientId = getBlockRootClientId(clientId);
+      return getBlockOrder(rootClientId)[0] === clientId;
+    }, [clientId]);
+    const [isOpen, setIsOpen] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(isFirstItem);
+    const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
+      className: `c-accordion-item c-accordion-item--editor${isOpen ? ' is-active' : ''}`
+    });
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+          title: "Item Image",
+          initialOpen: true,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+            style: {
+              fontSize: '12px',
+              color: '#757575',
+              marginBottom: '8px'
+            },
+            children: "Shown in the image panel (desktop) or inside this item (mobile)."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUploadCheck, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUpload, {
+              onSelect: media => setAttributes({
+                imageId: media.id,
+                imageUrl: media.url,
+                imageAlt: media.alt || ''
+              }),
+              allowedTypes: ['image'],
+              value: imageId,
+              render: ({
+                open
+              }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+                children: imageUrl ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
+                    src: imageUrl,
+                    alt: imageAlt,
+                    style: {
+                      maxWidth: '100%',
+                      marginBottom: '8px',
+                      borderRadius: '4px'
+                    }
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+                    variant: "secondary",
+                    size: "small",
+                    onClick: open,
+                    style: {
+                      marginRight: '8px'
+                    },
+                    children: "Replace image"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+                    variant: "link",
+                    isDestructive: true,
+                    size: "small",
+                    onClick: () => setAttributes({
+                      imageId: 0,
+                      imageUrl: '',
+                      imageAlt: ''
+                    }),
+                    children: "Remove"
+                  })]
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+                  variant: "secondary",
+                  onClick: open,
+                  children: "Select image"
+                })
+              })
+            })
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        ...blockProps,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "c-accordion-item__trigger-preview",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+            tagName: "span",
+            className: "c-accordion-item__title",
+            value: title,
+            onChange: value => setAttributes({
+              title: value
+            }),
+            placeholder: "Accordion title\u2026",
+            allowedFormats: []
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
+            type: "button",
+            className: "c-accordion-item__toggle",
+            "aria-expanded": isOpen ? 'true' : 'false',
+            "aria-label": isOpen ? 'Collapse item' : 'Expand item',
+            onClick: () => setIsOpen(open => !open),
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("svg", {
+              className: "c-accordion-item__icon-plus",
+              xmlns: "http://www.w3.org/2000/svg",
+              width: "20",
+              height: "20",
+              viewBox: "0 0 20 20",
+              fill: "none",
+              "aria-hidden": "true",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("path", {
+                d: "M10 4V16M4 10H16",
+                stroke: "currentColor",
+                strokeWidth: "1.5",
+                strokeLinecap: "round"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("svg", {
+              className: "c-accordion-item__icon-minus",
+              xmlns: "http://www.w3.org/2000/svg",
+              width: "20",
+              height: "20",
+              viewBox: "0 0 20 20",
+              fill: "none",
+              "aria-hidden": "true",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("path", {
+                d: "M4 10H16",
+                stroke: "currentColor",
+                strokeWidth: "1.5",
+                strokeLinecap: "round"
+              })
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: `c-accordion-item__body-preview-wrap${isOpen ? '' : ' is-collapsed'}`,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+            tagName: "p",
+            className: "c-accordion-item__body-preview",
+            value: body,
+            onChange: value => setAttributes({
+              body: value
+            }),
+            placeholder: "Item body text\u2026",
+            allowedFormats: ['core/bold', 'core/italic', 'core/link']
+          })
+        })]
+      })]
+    });
+  },
+  save() {
+    // render.php handles all front-end output.
+    return null;
+  }
+});
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=accordion-item.js.map

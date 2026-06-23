@@ -56,10 +56,10 @@ html.has-modal-nav-open {
 // Menu Wrapper
 .c-cl-mobile-nav {
         & .c-modal-nav-wrap {
-                background: #fff;
-                color: #000;
-                width: 80%;
-                max-width: 500px;
+                background: var(--color-cream);
+                color: var(--color-dark);
+                width: 85%;
+                max-width: 400px;
                 height: 100%;
                 transition: var(--transition-ease);
                 top: 0;
@@ -73,80 +73,134 @@ html.has-modal-nav-open {
 }
 // END Menu Wrapper
 
-// Menu Header
+// Menu Header — logo lockup + close button
 .c-modal-nav-header {
-        background-color: #FAFAFA;
-        // background-image:  linear-gradient(45deg, #A6C0FE 0%, #FFEAF6 100%);
-        color: #000;
-        padding: 20px;
+        background-color: transparent;
+        color: var(--color-dark);
+        padding: 24px 20px;
         margin: 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        font-weight: 600;
 }
 
 .c-modal-nav-logo {
-        width: 200px;
+        width: auto;
+        max-width: 200px;
+
+        img {
+                display: block;
+                height: 38px;
+                width: auto;
+        }
 }
 // END Menu Header
 
-// Open/Close Button
-.c-cl-mobile-nav button.c-close-modal-nav, .c-cl-mobile-nav button.c-modal-nav-button {
+// Open Button — the header hamburger trigger (sits outside the drawer,
+// not part of the redesign — unchanged box/border treatment).
+.c-cl-mobile-nav button.c-modal-nav-button {
         background: #fff;
-        border: none;
+        border: 1px solid #ddd;
         border-radius: 5px;
         cursor: pointer;
         display: flex;
         padding: 7px;
         margin: 0;
-        position: absolute;
-        right: 0px;
-        top: 20px;
-        vertical-align: middle;
-        border: 1px solid #ddd;
         & svg {
             width: 22px;
             height: 22px;
             transition: var(--transition-ease);
         }
-    }
+}
 
-    .c-cl-mobile-nav button.c-close-modal-nav {
-        right: 25px;
-    }
-// END Open/Close Button
+#open-modal-nav {
+        position: absolute;
+        right: 0;
+        top: 20px;
+}
+
+// Close Button — plain icon inside the drawer header, no button chrome
+// (matches the Figma drawer design).
+.c-cl-mobile-nav button.c-close-modal-nav {
+        background: none;
+        border: none;
+        border-radius: 0;
+        cursor: pointer;
+        display: flex;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        color: var(--color-dark);
+        & svg {
+            width: 22px;
+            height: 22px;
+            transition: var(--transition-ease);
+        }
+}
+// END Open/Close Buttons
 
 // Menu Items
 .c-mobile-menu {
-        font-size: 18px;
-        line-height: 1.5;
-        background: #fff;
+        font-family: var(--font-primary);
+        font-size: 1.0625rem;
+        line-height: 1.4;
+        background: transparent;
+        padding-block: 8px; // breathing room above the first item / below the last
+        padding: 0 20px;
 
         a {
-                color: #000;
+                color: var(--color-dark);
                 text-decoration: none;
-                display: block;
-                padding: 15px;
-                border-bottom: 1px solid #E9EAEB;
-                transition: color 0.3s ease-in-out, background 0.3s ease-in-out;
-                font-weight: 600;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                padding: 18px 24px; // matches .c-modal-nav-header's horizontal inset
+                border-bottom: 1px solid var(--color-border);
+                transition: var(--transition-ease);
 
                 &:hover,
-                &:focus {
-                        color: #007BFF; // Change text color on hover/focus
-                        background: #E9F5FF; // Change background color on hover/focus
-                        box-shadow: inset 0 0 0 2px #007BFF; // Add inset-like effect for focus state 
+                &:focus-visible {
+                        background: var(--color-cream-alt);
                 }
         }
 }
 // END Menu Items
 
+// Contact Us CTA — outlined pill, matches the desktop header's contact button
+.c-mobile-nav-contact-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 20px;
+        padding: 14px 20px;
+        border: 1.5px solid var(--color-coral);
+        border-radius: 8px;
+        color: var(--color-dark);
+        background-color: transparent;
+        font-family: var(--font-primary);
+        font-size: 0.9375rem;
+        font-weight: 600;
+        line-height: 1;
+        text-decoration: none;
+        transition: var(--transition-ease);
+
+        &:hover,
+        &:focus-visible {
+                background-color: var(--color-coral);
+                color: #fff;
+        }
+}
+// END Contact Us CTA
+
 // Menu Footer
 .c-cl-mobile-nav-footer {
-padding: 50px 20px 20px 20px;
+padding: 20px 20px 32px;
+font-family: var(--font-primary);
+font-size: 0.8125rem;
+color: var(--color-rose);
 span {
         font-weight: 600;
 }
@@ -155,152 +209,91 @@ span {
 .c-cl-mobile-nav-footer-social {
         display: flex;
         align-items: center;
-        margin: 0;
+        margin: 12px 0 0;
         padding: 0;
         a {
-         margin-right: 7px;
-         width: 20px;
-         height: 20px;
+         margin-right: 14px;
+         width: 18px;
+         height: 18px;
+         color: var(--color-rose);
          svg {
                 width: 100%;
          }
         }
-       
+
 }
 // END Menu Footer
 
 
-
-// SLIDING PANEL VERSION //
-// .c-mobile-menu .sub-menu {
-//         position: absolute;
-//         top: 0;
-//         left: 0;
-//         width: 100%;
-//         height: 100%;
-//         background: #fff;
-//         overflow-y: auto;
-//         transform: translateX(100%);
-//         transition: transform 0.3s ease-in-out;
-//         z-index: 1000;
-// }
-
-// .c-mobile-menu .sub-menu.open {
-//         transform: translateX(0);
-// }
-
-// .c-mobile-menu .sub-menu a {
-//         display: block;
-//         padding: 15px; 
-//         // color: #333;
-//         text-decoration: none;
-//         border-bottom: 1px solid #E9EAEB;
-// }
-
-
-// .c-mobile-menu .menu-item-has-children > a { 
-//                 position: relative;
-//                 padding-right: 35px;
-
-//                 &:after {
-//                         content: '';
-//                         position: absolute;
-//                         right: 10px;
-//                         top: 50%;
-//                         transform: translateY(-50%);
-//                         transform-origin: center;
-//                         display: inline-block;
-//                         width: 40px;
-//                         height: 40px;    
-//                         --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m6.59 6.84l5.66 5.66l-5.66 5.66l-.7-.71l4.95-4.95l-4.95-4.95zm4 0l5.66 5.66l-5.66 5.66l-.7-.71l4.95-4.95l-4.95-4.95z'/%3E%3C/svg%3E");
-//                         background-color: #333;
-//                         -webkit-mask-image: var(--svg);
-//                         mask-image: var(--svg);
-//                         -webkit-mask-repeat: no-repeat;
-//                         mask-repeat: no-repeat;
-//                         -webkit-mask-size: 100% 100%;
-//                         mask-size: 100% 100%;        
-//                 }
-// }
-
-
-// /* Style for the back button */
-// .c-mobile-menu .sub-menu button {
-//         display: flex;
-//         align-items: center;
-//         padding: 15px;
-//         color: #333;
-//         background: #FAFAFA;
-//         border: none;
-//         text-align: left;
-//         width: 100%;
-//         cursor: pointer;
-//         svg {
-//                 width: 40px;
-//                 height: 40px;
-//         }
-// }
-// SLIDING PANEL VERSION //
-
-
-// ACCORDION VERSION //
+// ACCORDION — top-level item expand/collapse + sub-menu styling
 .c-cl-mobile-nav {
+
 .menu-item-has-children > a {
         position: relative;
-        padding-right: 35px;
+        padding-right: 48px;
 
         &:after {
                 content: '';
                 position: absolute;
-                right: 10px; 
+                right: 24px;
                 top: 50%;
                 transform: translateY(-50%);
                 transform-origin: center;
 
                 display: inline-block;
-                width: 1em;
-                height: 1em;
-                --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23000' d='M9.414 12.586L16 19.17l6.586-6.585L24 14l-8 8l-8-8z'/%3E%3Cpath fill='%23000' d='M30 16c0 7.72-6.28 14-14 14S2 23.72 2 16S8.28 2 16 2s14 6.28 14 14M4 16c0 6.617 5.383 12 12 12s12-5.383 12-12S22.617 4 16 4S4 9.383 4 16'/%3E%3C/svg%3E");
-                background-color: currentColor;
+                width: 9px;
+                height: 5px;
+                // Same rounded "petal" mark used for the desktop dropdown-toggle
+                // (see Accessible_Nav_Walker in inc/gdt-menus.php) for visual parity.
+                --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 5'%3E%3Cpath d='M-5.60272e-07 4.5C-4.55935e-07 3.30653 0.474105 2.16193 1.31802 1.31802C2.16193 0.474106 3.30653 4.55935e-07 4.5 5.60272e-07C5.69347 6.64609e-07 6.83807 0.474107 7.68198 1.31802C8.52589 2.16193 9 3.30653 9 4.5L4.5 4.5L-5.60272e-07 4.5Z'/%3E%3C/svg%3E");
+                background-color: var(--color-coral);
                 -webkit-mask-image: var(--svg);
                 mask-image: var(--svg);
                 -webkit-mask-repeat: no-repeat;
                 mask-repeat: no-repeat;
                 -webkit-mask-size: 100% 100%;
                 mask-size: 100% 100%;
+                transition: var(--transition-ease);
         }
 }
 
+// Open state: the trigger row shares the same tint as its sub-menu so the
+// shaded block reads as one continuous panel (border seam removed to match).
 .menu-item-has-children.is-open > a {
+        background: var(--color-cream-alt);
+        border-bottom-color: var(--color-cream-alt);
+
         &:after {
                 transform: translateY(-50%) rotate(180deg);
         }
 }
 
-
 .c-mobile-menu .sub-menu {
-// display: none;
-background: #FAFAFA;
+background: var(--color-cream-alt);
 transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 max-height: 0;
 overflow: hidden;
-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); // Add inset border
+
 .sub-menu {
-        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); // Add inset border
         a {
-                padding-left: 40px;
-                border-bottom: 1px solid #E9EAEB;
+                padding-left: 48px;
         }
 }
 }
 
 .c-mobile-menu .sub-menu a {
 display: block;
-padding: 15px 20px;
+padding: 14px 24px 14px 40px;
 text-decoration: none;
-font-size: 15px;
+font-family: var(--font-primary);
+font-size: 0.9375rem;
+color: var(--color-dark);
+border-bottom: none;
 
-border-bottom: 1px solid #eee;
+&:hover,
+&:focus-visible {
+        background: rgba(0, 0, 0, 0.03);
+}
 }
 
 .c-mobile-menu .sub-menu li:last-of-type a {
@@ -310,7 +303,7 @@ border-bottom: none;
 .c-mobile-menu .sub-menu h4 {
 padding: 15px;
 margin: 0;
-color: #fff;
+color: var(--color-dark);
 }
 
 
@@ -319,7 +312,7 @@ color: #fff;
         transition: all 0.8s ease-in-out;
 }
 }
-// END ACCORDION VERSION //
+// END ACCORDION
 
 
 

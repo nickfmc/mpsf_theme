@@ -37,25 +37,26 @@
 			<div id="modal-nav-wrap" class="c-modal-nav-wrap" tabindex="-1">
 				<button id="close-modal-nav" class="c-close-modal-nav" aria-label="Close menu">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-						<path d="M18 6L6 18M6 6L18 18" stroke="#414651" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
 				</button>
 				<nav class="c-modal-nav" role="navigation" itemscope itemtype="https://schema.org/SiteNavigationElement">
 					<div class="c-modal-nav-header">
 						<div class="c-modal-nav-logo">
 							<a href="/" rel="nofollow">
-								<img src="<?php bloginfo( 'template_url' ); ?>/img/wplogo.png" alt="<?php bloginfo( 'name' ); ?>" />
+								<img src="<?php bloginfo( 'template_url' ); ?>/img/logo.svg" alt="<?php bloginfo( 'name' ); ?>" />
 							</a>
 						</div>
 					</div>
 
 					<?php launchpad_nav_menu( 'mobile-menu', 'c-mobile-menu' ); // Adjust using Menus in WordPress Admin ?>
+
+					<a href="<?php echo esc_url( home_url( '/contact' ) ); ?>" class="c-mobile-nav-contact-btn">
+						<?php esc_html_e( 'Contact Us', 'mpsf-theme' ); ?>
+					</a>
+
 					<div class="c-cl-mobile-nav-footer">
-						<p>
-							<span aria-label="Address">Address:</span> 1234 Main Street, Anytown, USA 12345<br />
-							<span aria-label="Phone">Phone:</span> 123-456-7890<br />
-							<span aria-label="Email">Email:</span> <a href="mailto:">info@companyname.com</a>
-						</p>
+				
 
 						<div class="c-cl-mobile-nav-footer-social">
 							<a target="_blank" href="https://x.com" aria-label="Visit our X profile">

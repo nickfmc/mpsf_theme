@@ -118,8 +118,12 @@ registerBlockType( metadata.name, {
 			contentMode,
 			selectedPosts,
 		} = attributes;
-		const blockProps = useBlockProps( { className: 'c-impact-slider' } );
 		const isPostsMode = contentMode === 'posts';
+		// Posts mode renders ServerSideRender, whose output already includes
+		// render.php's own ".c-impact-slider" section — don't double-wrap it.
+		const blockProps = useBlockProps(
+			isPostsMode ? {} : { className: 'c-impact-slider c-impact-slider--editor' }
+		);
 
 		return (
 			<>
@@ -170,7 +174,11 @@ registerBlockType( metadata.name, {
 				</InspectorControls>
 
 				{ isPostsMode ? (
-					<div { ...blockProps }>
+					// ServerSideRender outputs real <a> links (CTA + per-post "Read
+					// Report"). Inside the editor canvas iframe a real click would
+					// navigate the iframe to that URL, so clicks are disabled here —
+					// see ".c-impact-slider--ssr-preview a" in editor-styles.scss.
+					<div { ...blockProps } className={ `${ blockProps.className || '' } c-impact-slider--ssr-preview`.trim() }>
 						<ServerSideRender
 							block={ metadata.name }
 							attributes={ attributes }

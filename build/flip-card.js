@@ -1,1 +1,274 @@
-(()=>{"use strict";const e=window.wp.blocks,a=window.wp.blockEditor,l=window.wp.components,c=JSON.parse('{"UU":"mpsf/flip-card"}'),i=window.ReactJSXRuntime;(0,e.registerBlockType)(c.UU,{edit({attributes:e,setAttributes:c}){const{imageUrl:r,imageAlt:s,imageId:n,frontLabel:t,backTitle:o,flipOn:d}=e,p=(0,a.useBlockProps)({className:"c-flip-card c-flip-card--editor"});return(0,i.jsxs)(i.Fragment,{children:[(0,i.jsx)(a.InspectorControls,{children:(0,i.jsx)(l.PanelBody,{title:"Flip Behaviour",initialOpen:!0,children:(0,i.jsx)(l.RadioControl,{label:"Reveal on",selected:d,options:[{label:"Click",value:"click"},{label:"Hover",value:"hover"}],onChange:e=>c({flipOn:e})})})}),(0,i.jsxs)("div",{...p,children:[(0,i.jsxs)("div",{className:"c-flip-card__face c-flip-card__face--front",children:[(0,i.jsx)("p",{className:"c-flip-card__face-label",children:(0,i.jsx)("strong",{children:"Front"})}),(0,i.jsx)(a.MediaUploadCheck,{children:(0,i.jsx)(a.MediaUpload,{onSelect:e=>c({imageId:e.id,imageUrl:e.url,imageAlt:e.alt??""}),allowedTypes:["image"],value:n,render:({open:e})=>(0,i.jsx)("div",{className:"c-flip-card__image-wrap",children:r?(0,i.jsxs)(i.Fragment,{children:[(0,i.jsx)("img",{src:r,alt:s,className:"c-flip-card__image"}),(0,i.jsx)(l.Button,{className:"c-flip-card__replace-btn",onClick:e,variant:"secondary",size:"small",children:"Replace image"})]}):(0,i.jsx)(l.Button,{onClick:e,variant:"primary",children:"Select image"})})})}),(0,i.jsx)(a.RichText,{tagName:"span",className:"c-flip-card__label",value:t,onChange:e=>c({frontLabel:e}),placeholder:"Front label…",allowedFormats:[]})]}),(0,i.jsxs)("div",{className:"c-flip-card__face c-flip-card__face--back",children:[(0,i.jsx)("p",{className:"c-flip-card__face-label",children:(0,i.jsx)("strong",{children:"Back"})}),(0,i.jsx)(a.RichText,{tagName:"h3",className:"c-flip-card__back-title",value:o,onChange:e=>c({backTitle:e}),placeholder:"Back heading…",allowedFormats:["core/bold","core/italic"]}),(0,i.jsx)("div",{className:"c-flip-card__back-content",children:(0,i.jsx)(a.InnerBlocks,{template:[["core/paragraph",{placeholder:"Back content…"}]]})})]})]})]})},save:()=>(0,i.jsx)(a.InnerBlocks.Content,{})})})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "react/jsx-runtime"
+/*!**********************************!*\
+  !*** external "ReactJSXRuntime" ***!
+  \**********************************/
+(module) {
+
+module.exports = window["ReactJSXRuntime"];
+
+/***/ },
+
+/***/ "@wordpress/block-editor"
+/*!*************************************!*\
+  !*** external ["wp","blockEditor"] ***!
+  \*************************************/
+(module) {
+
+module.exports = window["wp"]["blockEditor"];
+
+/***/ },
+
+/***/ "@wordpress/blocks"
+/*!********************************!*\
+  !*** external ["wp","blocks"] ***!
+  \********************************/
+(module) {
+
+module.exports = window["wp"]["blocks"];
+
+/***/ },
+
+/***/ "@wordpress/components"
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+(module) {
+
+module.exports = window["wp"]["components"];
+
+/***/ },
+
+/***/ "./blocks/flip-card/block.json"
+/*!*************************************!*\
+  !*** ./blocks/flip-card/block.json ***!
+  \*************************************/
+(module) {
+
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"mpsf/flip-card","title":"Flip Card","category":"myblocks","description":"Two-sided card — front shows a full-bleed image, back reveals heading and rich content on click or hover.","keywords":["card","flip","image","reveal"],"supports":{"html":false,"align":false,"spacing":{"margin":true}},"attributes":{"imageUrl":{"type":"string","default":""},"imageAlt":{"type":"string","default":""},"imageId":{"type":"number"},"frontLabel":{"type":"string","default":""},"backTitle":{"type":"string","default":""},"flipOn":{"type":"string","default":"click","enum":["click","hover"]}},"editorScript":"file:../../build/flip-card.js","render":"file:./render.php"}');
+
+/***/ }
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
+/*!***********************************!*\
+  !*** ./blocks/flip-card/index.js ***!
+  \***********************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./blocks/flip-card/block.json");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_3__.name, {
+  edit({
+    attributes,
+    setAttributes
+  }) {
+    const {
+      imageUrl,
+      imageAlt,
+      imageId,
+      frontLabel,
+      backTitle,
+      flipOn
+    } = attributes;
+    const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
+      className: 'c-flip-card c-flip-card--editor'
+    });
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+          title: "Flip Behaviour",
+          initialOpen: true,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RadioControl, {
+            label: "Reveal on",
+            selected: flipOn,
+            options: [{
+              label: 'Click',
+              value: 'click'
+            }, {
+              label: 'Hover',
+              value: 'hover'
+            }],
+            onChange: value => setAttributes({
+              flipOn: value
+            })
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        ...blockProps,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "c-flip-card__face c-flip-card__face--front",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+            className: "c-flip-card__face-label",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("strong", {
+              children: "Front"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUploadCheck, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUpload, {
+              onSelect: media => setAttributes({
+                imageId: media.id,
+                imageUrl: media.url,
+                imageAlt: media.alt ?? ''
+              }),
+              allowedTypes: ['image'],
+              value: imageId,
+              render: ({
+                open
+              }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "c-flip-card__image-wrap",
+                children: imageUrl ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+                    src: imageUrl,
+                    alt: imageAlt,
+                    className: "c-flip-card__image"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+                    className: "c-flip-card__replace-btn",
+                    onClick: open,
+                    variant: "secondary",
+                    size: "small",
+                    children: "Replace image"
+                  })]
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+                  onClick: open,
+                  variant: "primary",
+                  children: "Select image"
+                })
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+            tagName: "span",
+            className: "c-flip-card__label",
+            value: frontLabel,
+            onChange: value => setAttributes({
+              frontLabel: value
+            }),
+            placeholder: "Front label\u2026",
+            allowedFormats: []
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "c-flip-card__face c-flip-card__face--back",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+            className: "c-flip-card__face-label",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("strong", {
+              children: "Back"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+            tagName: "h3",
+            className: "c-flip-card__back-title",
+            value: backTitle,
+            onChange: value => setAttributes({
+              backTitle: value
+            }),
+            placeholder: "Back heading\u2026",
+            allowedFormats: ['core/bold', 'core/italic']
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "c-flip-card__back-content",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks, {
+              template: [['core/paragraph', {
+                placeholder: 'Back content…'
+              }]]
+            })
+          })]
+        })]
+      })]
+    });
+  },
+  save() {
+    // render.php owns all front-end markup; only inner blocks need saving.
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks.Content, {});
+  }
+});
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=flip-card.js.map

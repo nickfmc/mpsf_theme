@@ -5,81 +5,12 @@
    heading Playfair 40px/1.2, title DM Sans SemiBold 20px/1.3, body 14px/1.7.
    ========================================================================== */
 
-// ── Editor preview ──────────────────────────────────────────────────────────
-.c-accordion-section--editor {
-  background: var(--color-cream-alt);
-  border-radius: 8px;
-  padding: 24px 24px 24px 32px;
-
-  .c-accordion-section__editor-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 522px) 1fr;
-    gap: 53px;
-    align-items: start;
-  }
-
-  .c-accordion-section__editor-image-panel {
-    background: darken(#f6f5ea, 5%);
-    border-radius: 5px;
-    aspect-ratio: 522 / 588;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-rose);
-    font-size: 13px;
-    padding: 1rem;
-    text-align: center;
-  }
-
-  .c-accordion-section__heading {
-    font-family: var(--font-secondary);
-    font-size: 40px;
-    font-weight: 400;
-    line-height: 1.2;
-    color: var(--color-dark);
-    margin: 0 0 2rem;
-  }
-
-  .c-accordion-item--editor {
-    border-bottom: 1px solid var(--color-border);
-    padding: 1.5rem 0;
-
-    &:first-of-type {
-      border-top: 1px solid var(--color-border);
-    }
-  }
-
-  .c-accordion-item__trigger-preview {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .c-accordion-item__title {
-    font-family: var(--font-primary);
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 1.3;
-    color: var(--color-dark);
-  }
-
-  .c-accordion-item__icon {
-    color: var(--color-dark);
-    font-size: 1.25rem;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-
-  .c-accordion-item__body-preview {
-    font-family: var(--font-primary);
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--color-dark);
-    margin-top: 1rem;
-    opacity: 0.75;
-  }
-}
+// Note: editor-only ".c-accordion-section--editor" / ".c-accordion-item--editor"
+// styles live in src/editor-styles.scss (editor bundle), not here — this
+// partial is front-end only (see build/site.css). Keeping the convention
+// used by the other blocks (flip-card, etc.) avoids dead CSS shipping to
+// the front end and dead CSS *not* shipping to wp-admin (which is what was
+// happening here before: this file was never imported into editor-styles.scss).
 
 // ── Front-end: desktop ───────────────────────────────────────────────────────
 @media (width >= #{$bp-large}) {
