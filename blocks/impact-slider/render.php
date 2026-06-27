@@ -54,10 +54,15 @@ if ( 'posts' === $content_mode ) {
 				)
 				: '';
 
+			// Use the "Post Intro" ACF field for the slide body, falling back
+			// to the post excerpt when a post hasn't filled the field in.
+			$post_intro = function_exists( 'get_field' ) ? get_field( 'post_intro', get_the_ID() ) : '';
+			$slide_body = ! empty( $post_intro ) ? $post_intro : get_the_excerpt();
+
 			$slides_html .= mpsf_render_impact_slide_markup(
 				array(
 					'title'      => esc_html( get_the_title() ),
-					'body'       => wp_kses_post( get_the_excerpt() ),
+					'body'       => wp_kses_post( $slide_body ),
 					'cta_label'  => esc_html__( 'Read Report', 'mpsf' ),
 					'cta_url'    => esc_url( get_permalink() ),
 					'image_html' => $post_image_html,

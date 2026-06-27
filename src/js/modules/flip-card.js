@@ -2,12 +2,24 @@
  * Flip Card — interaction + height equalization.
  */
 
+function setCardState( card, open ) {
+	card.classList.toggle( 'is-flipped', open );
+	card.querySelectorAll( '.c-flip-card__toggle' ).forEach( ( btn ) => {
+		btn.setAttribute( 'aria-expanded', String( open ) );
+	} );
+}
+
 function flip( card, force ) {
 	const next = force !== undefined ? force : ! card.classList.contains( 'is-flipped' );
-	card.classList.toggle( 'is-flipped', next );
-	card.querySelectorAll( '.c-flip-card__toggle' ).forEach( ( btn ) => {
-		btn.setAttribute( 'aria-expanded', String( next ) );
-	} );
+
+	// Only one card may be open at a time — close every other open card.
+	if ( next ) {
+		document.querySelectorAll( '.c-flip-card.is-flipped' ).forEach( ( other ) => {
+			if ( other !== card ) setCardState( other, false );
+		} );
+	}
+
+	setCardState( card, next );
 }
 
 export function initFlipCards() {

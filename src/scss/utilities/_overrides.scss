@@ -51,3 +51,7 @@ font-weight: 500;
   background:  var(--color-coral) !important;
   border-color: var(--color-coral) !important;
 }
+
+.c-accordion-lightbg .gb-accordion__toggle .gb-accordion__toggle-icon svg path {
+stroke: var(--color-darkest);
+}

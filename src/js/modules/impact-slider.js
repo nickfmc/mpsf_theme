@@ -44,8 +44,13 @@ function updateProgress( wrapper, swiper ) {
  * @param  {HTMLElement} inner     .c-impact-slider__inner (header one)
  * @returns {number}
  */
+// Below this viewport width the slide is centered (no left-aligned peek).
+const MOBILE_BREAKPOINT = 768;
+
 function getSlideOffset( swiperEl, inner ) {
 	if ( ! inner ) return 0;
+	// On mobile the slide is centered via `centeredSlides`, so no left offset.
+	if ( window.innerWidth < MOBILE_BREAKPOINT ) return 0;
 	const swiperLeft = swiperEl.getBoundingClientRect().left;
 	const innerLeft  = inner.getBoundingClientRect().left;
 	return Math.max( 0, Math.round( innerLeft - swiperLeft ) );
@@ -77,9 +82,12 @@ export function initImpactSliders() {
 			spaceBetween:       24,
 			slidesOffsetBefore: getSlideOffset( swiperEl, inner ),
 
+			// Center the active slide on mobile; left-align (peek) from 768 up.
+			centeredSlides: true,
+
 			breakpoints: {
-				768:  { spaceBetween: 32 },
-				1024: { spaceBetween: 40 },
+				768:  { centeredSlides: false, spaceBetween: 32 },
+				1024: { centeredSlides: false, spaceBetween: 40 },
 			},
 
 			navigation: {

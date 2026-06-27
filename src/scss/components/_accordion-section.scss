@@ -78,6 +78,9 @@
 
 // ── Front-end: shared (both breakpoints) ────────────────────────────────────
 
+.c-accordion-item {
+  border-bottom: 1px solid var(--color-primary);
+}
 // Content column: heading pinned top, items pushed to bottom
 .c-accordion-section__content {
   display: flex;
@@ -202,7 +205,6 @@
   .c-accordion-item__mobile-image {
     border-radius: 5px;
     overflow: hidden;
-    aspect-ratio: 16 / 9;
     margin-bottom: 1rem;
 
     img {

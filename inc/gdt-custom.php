@@ -89,6 +89,28 @@ function mpsf_team_position_shortcode(): string {
 }
 add_shortcode( 'team_position', 'mpsf_team_position_shortcode' );
 
+/**
+ * Outputs the "Report" URL field (key field_6a3c1185c31e3) as a button that
+ * opens in a new tab. Renders nothing when the field is empty.
+ * Used via [report_button] under the intro in the single FSE template.
+ */
+function mpsf_report_button_shortcode(): string {
+	if ( ! function_exists( 'get_field' ) ) {
+		return '';
+	}
+	// Look up by field key so it resolves regardless of the saved value.
+	$url = get_field( 'field_6a3c1185c31e3' );
+	if ( empty( $url ) ) {
+		return '';
+	}
+	return sprintf(
+		'<p class="c-single__report"><a class="c-single__report-btn" href="%s" target="_blank" rel="noopener noreferrer">%s</a></p>',
+		esc_url( $url ),
+		esc_html__( 'Read Report', 'mpsf' )
+	);
+}
+add_shortcode( 'report_button', 'mpsf_report_button_shortcode' );
+
 // Example: ACF icon picker path override
 // add_filter( 'acf_icon_path_suffix', function( $path_suffix ) {
 // 	return 'img/icons/';

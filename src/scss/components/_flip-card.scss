@@ -6,32 +6,24 @@
 	--flip-card-min-height: 340px;
 	--flip-card-height: var(--flip-card-min-height);
 
-	perspective: 1000px;
+	position: relative;
 	height: var(--flip-card-height);
-	min-height: var(--flip-card-min-height);
-	border-radius: 8px;
 	min-height: 490px;
+	border-radius: 8px;
+	overflow: hidden; // clips the back panel while it rests below the card
 }
 
 .c-flip-card__inner {
 	position: relative;
 	width: 100%;
 	height: 100%;
-	transform-style: preserve-3d;
-	transition: transform 0.6s ease;
-		border-radius: 8px;
-}
-
-.c-flip-card.is-flipped .c-flip-card__inner {
-	transform: rotateY( 180deg );
+	border-radius: 8px;
 }
 
 .c-flip-card__front,
 .c-flip-card__back {
 	position: absolute;
 	inset: 0;
-	backface-visibility: hidden;
-	-webkit-backface-visibility: hidden;
 	overflow: hidden;
 }
 
@@ -73,16 +65,22 @@
 	pointer-events: none;
 }
 
-// Back face — pre-rotated so it starts hidden
+// Back face — rests below the card and slides up like a shade when opened
 .c-flip-card__back {
-		border-radius: 8px;
-	transform: rotateY( 180deg );
+	border-radius: 8px;
+	transform: translateY( 100% );
+	transition: transform 0.5s ease;
 	background-color: #A05C64;
 	color: #fff;
 	padding: clamp( 1.5rem, 4vw, 2.5rem );
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
+	z-index: 2; // sits above the front while open
+}
+
+.c-flip-card.is-flipped .c-flip-card__back {
+	transform: translateY( 0 );
 }
 
 .c-flip-card__back-title {
@@ -153,14 +151,9 @@
 	}
 }
 
-// Respect reduced-motion preference — instant swap, no perspective flip
+// Respect reduced-motion preference — instant shade, no slide animation
 @media ( prefers-reduced-motion: reduce ) {
-	.c-flip-card__inner {
+	.c-flip-card__back {
 		transition: none;
 	}
-
-	.c-flip-card:not(.is-flipped) .c-flip-card__front { opacity: 1; }
-	.c-flip-card:not(.is-flipped) .c-flip-card__back  { opacity: 0; pointer-events: none; }
-	.c-flip-card.is-flipped       .c-flip-card__front { opacity: 0; pointer-events: none; }
-	.c-flip-card.is-flipped       .c-flip-card__back  { opacity: 1; }
 }
