@@ -23,7 +23,7 @@ html.has-modal-nav-open {
 // END Utility CSS - DON'T EDIT
 
 // SET BREAKPOINTS
-@media (width >= $bp-large) {
+@media (width >= 1300px) {
         .main-menu.wp-block-navigation {
             display: flex;
         }
@@ -315,7 +315,10 @@ color: var(--color-dark);
 // END ACCORDION
 
 
-
+.c-mobile-lang {
+        display: flex;
+        margin-bottom: 30px;
+}
 
 
 

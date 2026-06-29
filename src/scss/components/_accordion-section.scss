@@ -17,7 +17,7 @@
   .c-accordion-section {
     background: var(--color-cream-alt);
     border-radius: 8px;
-    padding: 24px 24px 24px 32px;
+    padding: 48px 24px 48px 32px;
     display: grid;
     grid-template-columns: minmax(0, 522px) 1fr;
     gap: 53px;
@@ -79,7 +79,7 @@
 // ── Front-end: shared (both breakpoints) ────────────────────────────────────
 
 .c-accordion-item {
-  border-bottom: 1px solid var(--color-primary);
+  border-bottom: 2px solid var(--color-primary);
 }
 // Content column: heading pinned top, items pushed to bottom
 .c-accordion-section__content {

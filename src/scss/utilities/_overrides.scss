@@ -50,8 +50,24 @@ font-weight: 500;
 .wpgb-facet .wpgb-checkbox-facet .wpgb-checkbox[aria-pressed="true"] .wpgb-checkbox-control {
   background:  var(--color-coral) !important;
   border-color: var(--color-coral) !important;
+
 }
 
-.c-accordion-lightbg .gb-accordion__toggle .gb-accordion__toggle-icon svg path {
-stroke: var(--color-darkest);
+.c-accordion-lightbg .gb-accordion__toggle .gb-accordion__toggle-icon svg path, .c-accordion-dark .gb-accordion__toggle .gb-accordion__toggle-icon svg path {
+stroke: var(--color-coral);
+stroke-width: 2px !important;
+}
+
+.c-accordion-lightbg .gb-accordion__item, .c-accordion-dark .gb-accordion__item {
+   border-bottom-color: var(--color-coral) !important;
+     border-bottom-width: 2px !important;
+}
+
+.gb-accordion__toggle {
+   align-items: flex-start !important;
+}
+
+.gb-accordion__toggle-icon {
+   top: 4px;
+  position: relative;
 }

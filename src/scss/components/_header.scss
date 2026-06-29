@@ -159,7 +159,7 @@
 .c-header-actions {
   display: none !important;
 
-  @media (width >= $bp-large) {
+  @media (width >= 1300px) {
     display: flex !important;
     align-items: center;
     gap: var(--wp--preset--spacing--3, 12px); // matches former FSE group blockGap

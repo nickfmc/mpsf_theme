@@ -441,6 +441,12 @@ button:hover,
 button:focus {
   color: var(--link-hover);
 }
+.entry-content a:not(.c-btn-coral, .c-btn-rose, .c-text-btn-light, .c-text-btn-dark), .entry-content a:not(.c-btn-coral, .c-btn-rose, .c-text-btn-light, .c-text-btn-dark):hover, .entry-content a:not(.c-btn-coral, .c-btn-rose, .c-text-btn-light, .c-text-btn-dark):focus {
+  text-decoration: underline;
+}
+.entry-content .o-wine a:not(.c-btn-coral, .c-btn-rose):hover {
+  color: #fff !important;
+}
 button {
   background: none;
   border: none;

@@ -13,9 +13,9 @@ export function initMobileMenu() {
 		if ( ! link || ! submenu ) return;
 
 		// Add an "Overview" link so the parent page is still reachable
-		const overviewLink = link.cloneNode( true );
-		overviewLink.textContent = link.textContent.trim() + ' Overview';
-		submenu.insertBefore( overviewLink, submenu.firstChild );
+		// const overviewLink = link.cloneNode( true );
+		// overviewLink.textContent = link.textContent.trim() + ' Overview';
+		// submenu.insertBefore( overviewLink, submenu.firstChild );
 
 		link.addEventListener( 'click', ( e ) => {
 			e.preventDefault();

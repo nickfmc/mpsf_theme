@@ -9,6 +9,9 @@
 // Inline SVG chevron used for <select> — small burgundy downward caret
 $gf-select-chevron: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%2358262c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E";
 
+// Inline SVG checkmark used for checked checkboxes — white tick on coral fill
+$gf-checkbox-check: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='11' viewBox='0 0 14 11' fill='none'%3E%3Cpath d='M1 5.5L5 9.5L13 1.5' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E";
+
 // --------------------------------------------------------------------------
 // Shared input token — applied to every text-like field and textarea
 // --------------------------------------------------------------------------
@@ -145,6 +148,12 @@ $gf-select-chevron: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
   // ---- Select ----
   select {
     @extend %gf-input-base;
+    // GF's theme-framework CSS forces height:38px on selects regardless of
+    // the gform_disable_print_form_css filter above. That's shorter than
+    // line-height(24px) + padding(20px) + border(2px) = 46px, so Chrome/
+    // WebKit clip the bottom of the text (descenders on "g", "p", etc.)
+    // instead of growing the box. !important to beat that framework rule.
+    height: auto !important;
     padding-right: 2.5rem; // room for chevron
     background-image: url("#{$gf-select-chevron}");
     background-repeat: no-repeat;
@@ -180,38 +189,102 @@ $gf-select-chevron: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
   // ---- Checkbox & Radio ----
   .gfield--type-checkbox,
   .gfield--type-radio {
+    // <fieldset> ships with browser-default padding (see normalize.scss) —
+    // reset it so this field sits flush with the other fields in the column.
+    border: 0;
+    padding: 0;
+    margin: 0;
+
+    // Legend uses the same field-label size as every other field — no
+    // special-casing needed here.
+    .gfield_label {
+      margin-bottom: 0.5rem;
+    }
+
     .gfield_checkbox,
     .gfield_radio {
       list-style: none;
       margin: 0;
       padding: 0;
       display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      // GF's framework sets flex-direction:column on this element with no
+      // competing declaration from us, so it wins uncontested even without
+      // !important — must be declared explicitly to lay choices out in a row.
+      flex-direction: row !important;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .gchoice {
+      display: flex !important;
+      align-items: center;
+      gap: 0.75rem;
+      width: auto !important; // GF's framework forces each choice to 100% width
+      flex: 0 1 auto !important;
     }
 
     label {
       font-family: var(--font-primary);
-      font-size: 0.9375rem;
+      font-size: 1rem; // matches the rest of the form's input/body text
       font-weight: 400;
       color: var(--color-dark);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
+      margin: 0;
       cursor: pointer;
     }
 
+    // Custom box drawn directly on the input via appearance:none — the
+    // <label for="..."> sibling already toggles it natively on click, so no
+    // extra wrapper markup is needed.
+    // !important throughout: GF's theme-framework CSS ships its own
+    // higher-priority checkbox/radio styling (16px box, gray border) that
+    // otherwise wins this cascade outright (same root cause as the <select>
+    // height override above).
     input[type="checkbox"],
     input[type="radio"] {
-      width: 1rem;
-      height: 1rem;
+      appearance: none !important;
+      width: 1.25rem !important;
+      height: 1.25rem !important;
       flex-shrink: 0;
-      accent-color: var(--color-primary);
+      margin: 0 !important;
+      position: relative;
+      border: 1.5px solid var(--color-blush) !important;
+      border-radius: 6px !important;
+      background-color: var(--color-cream) !important;
       cursor: pointer;
+      transition: var(--transition-ease);
 
-      &:focus {
+      &:checked {
+        background-color: var(--color-coral) !important;
+        border-color: var(--color-coral) !important;
+
+        &::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-color: #fff;
+          mask-image: url("#{$gf-checkbox-check}");
+          mask-repeat: no-repeat;
+          mask-position: center;
+          -webkit-mask-image: url("#{$gf-checkbox-check}");
+          -webkit-mask-repeat: no-repeat;
+          -webkit-mask-position: center;
+        }
+      }
+
+      &:focus-visible {
         outline: 2px solid var(--color-primary);
         outline-offset: 2px;
+      }
+    }
+
+    input[type="radio"] {
+      border-radius: 50% !important; // beats the !important 6px set above
+
+      &:checked::after {
+        mask-image: none;
+        -webkit-mask-image: none;
+        inset: 4px;
+        border-radius: 50%;
       }
     }
   }

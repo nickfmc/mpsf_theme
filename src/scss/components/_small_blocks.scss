@@ -1,5 +1,6 @@
 .c-crosses-right {
     position: relative;
+    @media(width >= $bp-large) {
     &::before {
         content: "";
         position: absolute;
@@ -13,11 +14,15 @@
         background-size: auto;
         pointer-events: none;
     }
+    } 
+    
 }
 
 .c-crosses-left {
+
     position: relative;
-    &::before {
+    @media(width >= $bp-large) {
+ &::before {
         content: "";
         position: absolute;
         top: 0;
@@ -30,10 +35,13 @@
         background-size: auto;
         pointer-events: none;
     }
+    }
+   
 }
 
 .c-crosses-right--light {
     position: relative;
+    @media(width >= $bp-large) {
     &::before {
         content: "";
         position: absolute;
@@ -48,9 +56,11 @@
         pointer-events: none;
     }
 }
+}
 
 .c-crosses-left--light {
     position: relative;
+    @media(width >= $bp-large) {
     &::before {
         content: "";
         position: absolute;
@@ -64,4 +74,5 @@
         background-size: auto;
         pointer-events: none;
     }
+}
 }

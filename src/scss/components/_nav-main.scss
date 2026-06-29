@@ -14,7 +14,7 @@
   min-width: 0;          // allow shrinking inside flex parent
 }
 
-@media (width >= $bp-large) {
+@media (width >= 1300px) {
   .c-main-navigation {
     height: var(--page-header-height);
     display: flex;
@@ -41,7 +41,7 @@
 
 
 // ++ menu styles (top level) +++++++++++++++++++++++++++++++++
-@media (width >= $bp-large) {
+@media (width >= 1300px) {
   .c-main-menu,
   .c-page-header .wp-block-navigation__container {
     display: inline-flex;
@@ -178,7 +178,7 @@
 
 
 // ++ menu style (drop down!) +++++++++++++++++++++++++++++++++
-@media (width >= $bp-large) {
+@media (width >= 1300px) {
   .c-main-menu li:hover ul, 
   .c-main-menu li:focus ul,
   .c-main-menu .sub-menu.is-active,

@@ -26,7 +26,13 @@ button:focus { // Added button states
 //   outline-offset: 2px;
 //   border-radius: 2px;
 // }
+.entry-content  a:not(.c-btn-coral, .c-btn-rose, .c-text-btn-light, .c-text-btn-dark), .entry-content  a:not(.c-btn-coral, .c-btn-rose, .c-text-btn-light, .c-text-btn-dark):hover, .entry-content  a:not(.c-btn-coral, .c-btn-rose, .c-text-btn-light, .c-text-btn-dark):focus {
+  text-decoration: underline;
+}
 
+.entry-content .o-wine a:not(.c-btn-coral, .c-btn-rose):hover {
+  color: #fff !important;
+}
 
 
 
